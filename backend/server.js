@@ -12,6 +12,6 @@ app.use((req,res,next)=>{
     next()
 })
 
-app.use('/summary',summary);
+app.use('/SummaryCall',summary);
 app.listen(4000,()=>{
     console.log('listening on port 4000');})
