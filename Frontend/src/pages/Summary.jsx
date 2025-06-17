@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./summary.css";
-import "./index.css"
+// import "./index.css"
 import bookImage from "../assets/book.jpg";
 
 const Summary = () => {
