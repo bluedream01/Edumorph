@@ -16,7 +16,7 @@ export default function Home() {
     const toggleMenu = () => setMenuOpen(!menuOpen);
     return (
         <>
-            <header className="header">
+            {/* <header className="header">
                 <div className="logo">EduMorph</div>
 
                 <button className="burger" onClick={toggleMenu}>
@@ -34,7 +34,7 @@ export default function Home() {
                         Get Started
                     </button>
                 </nav>
-            </header>
+            </header> */}
 
             <section className="hero">
                 <div className="hero-content">
@@ -77,7 +77,7 @@ export default function Home() {
                             </p>
                         </div>
                     </Link>
-                    <Link to="/summaries" className="feature-link">
+                    <Link to="/summary" className="feature-link">
                         <div className="feature-card">
                             <div className="feature-icon">📝</div>
                             <h3 className="feature-title">Summaries</h3>

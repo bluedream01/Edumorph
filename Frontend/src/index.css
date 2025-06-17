@@ -1,3 +1,4 @@
+@import "tailwindcss";
 
 /* HOME PAGE */
 
@@ -74,7 +75,7 @@ body {
   background-position: center;
   position: relative;
   overflow: hidden;
-  padding: 4rem 2rem;;
+  padding: 4rem 2rem;
   text-align: center;
   /* min-height: 450px; */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
