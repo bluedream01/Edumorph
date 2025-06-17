@@ -32,6 +32,7 @@ const Summary = () => {
       const json = await response.json();
       setSummary(json.summary); // correct
       setplainText(json.summary.replace(/[*_#`]/g, "")); // use json.summary directly
+      
 
       console.log(json.summary);
     } catch (err) {
@@ -64,9 +65,11 @@ const Summary = () => {
 
       const json = await response.json();
       setTranslatedText(json.summary);
+      setTranslatedText(json.summary.replace(/[*_#`]/g, ""));
     } catch (error) {
       console.error("Translation failed:", error.message);
       setTranslatedText("Translation failed.");
+      
     } finally {
       setIsLoading(false);
     }
@@ -159,7 +162,7 @@ const Summary = () => {
               <option value="Tamil">Tamil</option>
               <option value="Bengali">Bengali</option>
               <option value="Marathi">Marathi</option>
-              <option value="Kanada">Kanada</option>
+             
               <option value="Japanese">Japanese</option>
               <option value="Mandarin">Mandarin</option>
             </select>
