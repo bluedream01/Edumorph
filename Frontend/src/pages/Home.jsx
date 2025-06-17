@@ -91,7 +91,7 @@ export default function Home() {
                     </Link>
                     <Link to="/quizzes" className="feature-link">
                         <div className="feature-card">
-                            <div className="feature-icon">❔</div>
+                            <div className="feature-icon">💡</div>
                             <h3 className="feature-title">Quizzes</h3>
                             <p className="feature-text">
                                 Create custom quizzes based on your uploaded notes to test your knowledge and identify areas for improvement.
