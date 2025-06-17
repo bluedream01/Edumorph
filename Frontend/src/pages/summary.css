@@ -146,6 +146,17 @@ button {
   margin-bottom: 32px; /* ✅ Added space below Summarize button */
 }
 
+.primary-button:hover {
+  background-color: #0056b3;
+}
+
+/* Style when button is disabled */
+.primary-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
 /* ========== Summary Text ========== */
 .summary {
   padding: 16px;
