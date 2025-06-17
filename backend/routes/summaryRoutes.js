@@ -1,8 +1,9 @@
 const express=require('express')
-const {summary
+const {summary, translation
 }=require('../controllers/summaryController')
 const router =express.Router()
 router.post('/',summary)
+router.post('/translation', translation)
 
 
 
