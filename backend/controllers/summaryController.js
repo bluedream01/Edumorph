@@ -2,7 +2,6 @@ require("dotenv").config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { Supadata } = require("@supadata/js");
 
-
 const summary = async (req, res) => {
   const { url } = req.body;
   if (!url || typeof url !== "string") {
@@ -10,9 +9,9 @@ const summary = async (req, res) => {
       .status(400)
       .json({ error: "YouTube URL is required in request body." });
   }
-  
+
   const supadata = new Supadata({
-    apiKey: process.env.SUPA_KEY ,
+    apiKey: process.env.SUPA_KEY,
   });
   try {
     const transcript = await supadata.youtube.transcript({
@@ -54,6 +53,28 @@ const summary = async (req, res) => {
   }
 };
 
+// translating text using ai
+
+const translation = async (req, res) => {
+  const { summary, language } = req.body;
+  try {
+    const ai = new GoogleGenerativeAI(process.env.API_KEY);
+    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const result = await model.generateContent(
+      `translate the\n${summary} in \n\n${language}`
+    );
+
+    const response = await result.response;
+    const text = await response.text();
+
+    console.log(text);
+    res.status(200).json({ summary: text });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to translate" });
+  }
+};
+
 module.exports = {
-  summary,
+  summary,translation
 };
