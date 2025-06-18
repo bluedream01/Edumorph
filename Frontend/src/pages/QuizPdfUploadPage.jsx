@@ -1,7 +1,19 @@
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./quizlanding.css";
 
 const QuizPdfUploadPage = () => {
+  const [difficulty, setDifficulty] = useState("");
+  const [numQuestions, setNumQuestions] = useState("");
+  const navigate = useNavigate();
+
+  const handleGenerateQuiz = () => {
+    if (difficulty && numQuestions) {
+      navigate("/quizgenerating", { state: { difficulty, numQuestions } });
+    }
+  };
+
   return (
     <div className="quiz-layout-container">
       {/* <header>
@@ -60,8 +72,8 @@ const QuizPdfUploadPage = () => {
           <div className="quiz-forms">
             <div className="quiz-settings-form">
               <p>Difficulty Level</p>
-              <select>
-                <option value="one" disabled>Select Difficulty</option>
+              <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
+                <option value="" disabled>Select Difficulty</option>
                 <option value="Easy">Easy</option>
                 <option value="Medium">Medium</option>
                 <option value="Hard">Hard</option>
@@ -70,20 +82,20 @@ const QuizPdfUploadPage = () => {
 
             <div className="quiz-settings-form">
               <p>Number of Questions</p>
-              <select>
-                <option value="one" disabled>Number of Questions</option>
-                <option value="five">5</option>
-                <option value="ten">10</option>
-                <option value="fifteen">15</option>
-                <option value="twenty">20</option>
-                <option value="twenty-five">25</option>
-                <option value="thirty">30</option>
+              <select value={numQuestions} onChange={(e) => setNumQuestions(e.target.value)}>
+                <option value="" disabled>Number of Questions</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
               </select>
             </div>
           </div>
 
           <div className="quiz-submit">
-            <button className="quiz-button-primary">
+            <button className="quiz-button-primary" onClick={handleGenerateQuiz}>
               <span>Generate Quiz</span>
             </button>
           </div>
