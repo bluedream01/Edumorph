@@ -1,4 +1,6 @@
 require("dotenv").config();
+const fs = require("fs");
+const pdfParse = require("pdf-parse");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { Supadata } = require("@supadata/js");
 
@@ -75,6 +77,59 @@ const translation = async (req, res) => {
   }
 };
 
+//quiz generation using ai
+const quiz=async(req,res)=>{
+  const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+  try {
+    const { difficulty, noOfQuestions } = req.body;
+    const filePath = req.file.path;
+
+    // Step 1: Extract text from PDF
+    const pdfBuffer = fs.readFileSync(filePath);
+    const pdfData = await pdfParse(pdfBuffer);
+    const fullText = pdfData.text;
+
+    // Step 2: Summarize using Gemini
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const summaryResponse = await model.generateContent(`Summarize the following:\n\n${fullText}`);
+    const summary = (await summaryResponse.response).text();
+
+    // Step 3: Create quiz using summary
+    const quizPrompt = `
+      Create a ${difficulty} level quiz with ${noOfQuestions} multiple choice questions
+      based on this summary:\n\n"${summary}".
+      
+      Format as JSON array like:
+      [
+        {
+          "question": "....",
+          "options": ["A", "B", "C", "D"],
+          "answer": "B"
+        }
+      ]
+    `;
+
+    const quizResponse = await model.generateContent(quizPrompt);
+    const quizText = (await quizResponse.response).text();
+
+    // Step 4: Extract JSON
+    const jsonStart = quizText.indexOf("[");
+    const jsonEnd = quizText.lastIndexOf("]") + 1;
+    const quizJSON = JSON.parse(quizText.substring(jsonStart, jsonEnd));
+    console.log(quizJSON);
+
+    // Cleanup file
+    fs.unlinkSync(filePath);
+
+    res.status(200).json({ quiz: quizJSON });
+  } catch (error) {
+    console.error("Error generating quiz:", error);
+    res.status(500).json({ error: "Failed to generate quiz" });
+  }
+
+};
+
 module.exports = {
-  summary,translation
+  summary,translation,quiz
 };
