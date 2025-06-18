@@ -1,63 +1,53 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './quizgenerating.css';
 
 const QuizGenerating = () => {
   const location = useLocation();
-  const { difficulty, numQuestions } = location.state || {};
+  const navigate = useNavigate();
+  const { difficulty, numQuestions, questions: passedQuestions } = location.state || {};
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questions, setQuestions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState({});
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
 
   useEffect(() => {
-    const fetchQuizData = async () => {
-      const sampleData = [
-        {
-          question: "What is the capital of France?",
-          options: ["Paris", "London", "Berlin", "Rome"],
-          correctAnswer: "Paris"
-        },
-        {
-          question: "Which planet is known as the Red Planet?",
-          options: ["Earth", "Mars", "Jupiter", "Venus"],
-          correctAnswer: "Mars"
-        },
-        {
-          question: "What is the boiling point of water?",
-          options: ["90°C", "100°C", "110°C", "120°C"],
-          correctAnswer: "100°C"
-        },
-        {
-          question: "Who painted the Mona Lisa?",
-          options: ["Van Gogh", "Da Vinci", "Picasso", "Rembrandt"],
-          correctAnswer: "Da Vinci"
-        }
-      ];
+    if (!passedQuestions || passedQuestions.length === 0) {
+      navigate('/');
+      return;
+    }
 
-      const count = parseInt(numQuestions);
-      const quiz = !isNaN(count) ? sampleData.slice(0, count) : sampleData;
-      setQuestions(quiz);
-    };
+    const transformed = passedQuestions.map((q) => ({
+  question: q.question,
+  options: q.options,
+  correctAnswer: q.correctAnswer,
+}));
 
-    fetchQuizData();
-  }, [difficulty, numQuestions]);
+
+    const count = parseInt(numQuestions);
+    const limited = !isNaN(count) ? transformed.slice(0, count) : transformed;
+    setQuestions(limited);
+  }, [passedQuestions, numQuestions, navigate]);
 
   const handleOptionSelect = (option) => {
-    setSelectedOption(option);
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [currentQuestion]: option,
+    }));
   };
 
   const handleNext = () => {
+    const selected = selectedOptions[currentQuestion];
     const correct = questions[currentQuestion].correctAnswer;
-    if (selectedOption === correct) {
-      setScore(prev => prev + 1);
+
+    if (selected === correct) {
+      setScore((prev) => prev + 1);
     }
 
     if (currentQuestion + 1 < questions.length) {
-      setCurrentQuestion(prev => prev + 1);
-      setSelectedOption(null);
+      setCurrentQuestion((prev) => prev + 1);
     } else {
       setShowResult(true);
     }
@@ -65,10 +55,11 @@ const QuizGenerating = () => {
 
   const handlePrevious = () => {
     if (currentQuestion > 0) {
-      setCurrentQuestion(prev => prev - 1);
-      setSelectedOption(null); // Clear selection when going back
+      setCurrentQuestion((prev) => prev - 1);
     }
   };
+
+  const selectedOption = selectedOptions[currentQuestion] || null;
 
   return (
     <div className="quiz-container">
@@ -78,7 +69,7 @@ const QuizGenerating = () => {
           <p>Your Score: {score} / {questions.length}</p>
         </div>
       ) : (
-        questions.length > 0 && (
+        questions.length > 0 && questions[currentQuestion] && (
           <div className="quiz-card">
             <div className="quiz-progress">
               <div className="quiz-progress-text">
@@ -90,20 +81,26 @@ const QuizGenerating = () => {
             <h2 className="quiz-question">{questions[currentQuestion].question}</h2>
 
             <div className="quiz-options">
-              {questions[currentQuestion].options.map((option, index) => (
-                <label
-                  key={index}
-                  className={`quiz-option ${selectedOption === option ? 'selected' : ''}`}
-                >
-                  <input
-                    type="radio"
-                    name="option"
-                    checked={selectedOption === option}
-                    onChange={() => handleOptionSelect(option)}
-                  />
-                  {option}
-                </label>
-              ))}
+              {questions[currentQuestion].options.map((option, index) => {
+                const id = `option-${currentQuestion}-${index}`;
+                return (
+                  <label
+                    key={id}
+                    htmlFor={id}
+                    className={`quiz-option ${selectedOption === option ? 'selected' : ''}`}
+                  >
+                    <input
+                      type="radio"
+                      id={id}
+                      name={`question-${currentQuestion}`}
+                      value={option}
+                      checked={selectedOption === option}
+                      onChange={() => handleOptionSelect(option)}
+                    />
+                    {option}
+                  </label>
+                );
+              })}
             </div>
 
             <div className="button-container">

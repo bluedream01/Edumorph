@@ -102,10 +102,10 @@ const quiz=async(req,res)=>{
       
       Format as JSON array like:
       [
-        {
-          "question": "....",
-          "options": ["A", "B", "C", "D"],
-          "answer": "B"
+         {
+          question: "What is the capital of France?",
+          options: ["Paris", "London", "Berlin", "Rome"],
+          correctAnswer: "Paris"
         }
       ]
     `;
