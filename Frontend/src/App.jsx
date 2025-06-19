@@ -5,6 +5,7 @@ import Quizlanding from './pages/QuizPdfUploadPage';
 import Quizgenerate from './pages/Quizgenerating';
 import './index.css';
 import Navbar from './navbar';
+import Mindmap from './pages/FlowchartGenius';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/summary" element={<Summary />} />
         <Route path="/quizzes" element={<Quizlanding />} />
         <Route path="/quizgenerating" element={<Quizgenerate />} />
+        <Route path="/Mindmap" element={<Mindmap />} />
       </Routes>
     </Router>
   );

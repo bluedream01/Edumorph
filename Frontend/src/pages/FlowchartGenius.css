@@ -1,0 +1,83 @@
+/* ========== Layout Container ========== */
+.flowchart-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: #111518;
+  color: white;
+  font-family: "Lexend", "Noto Sans", sans-serif;
+}
+
+/* ========== Main Content ========== */
+.flowchart-main {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.flowchart-main h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+/* ========== Upload Section ========== */
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 25rem;
+  border: 2px dashed #3b4854;
+  border-radius: 12px;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+}
+
+.upload-section p {
+  font-size: 1rem;
+  color: #cfd8e3;
+  text-align: center;
+}
+
+.upload-button {
+  background-color: #283139;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  height: 2.5rem;
+  padding: 0 1.5rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.upload-button:hover {
+  background-color: #36424f;
+}
+
+/* ========== Flowchart Preview ========== */
+.flowchart-preview {
+  text-align: center;
+  padding: 1rem;
+}
+
+.flowchart-preview p {
+  font-size: 0.9rem;
+  color: #d0d7df;
+}
+
+.flowchart-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 0.75rem;
+  aspect-ratio: 16 / 9;
+  max-width: 360px;
+  margin: 0 auto 1rem;
+}
