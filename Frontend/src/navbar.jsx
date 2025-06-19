@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import Edulogo from './assets/edumorph.svg'
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -15,8 +15,11 @@ const Navbar = () => {
   };
 
   return (
-    <header className="header">
-      <Link to="/" className="logo">EduMorph</Link>
+     <header className="header">
+      <Link to="/" className="logo">
+        <img src={Edulogo} alt="Logo" className="logo-icon" />
+        <span className="logo-text">EduMorph</span>
+      </Link>
 
 
       <button className="burger" onClick={toggleMenu}>
