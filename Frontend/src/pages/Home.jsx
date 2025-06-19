@@ -25,7 +25,7 @@ export default function Home() {
                     <span></span>
                 </button>
 
-                <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
+                <nav className={nav ${menuOpen ? 'nav-open' : ''}}>
                     <Link to="/" className="nav-link">Home</Link>
                     <Link to="/features" className="nav-link">Features</Link>
                     <Link to="/pricing" className="nav-link">Pricing</Link>
@@ -39,8 +39,8 @@ export default function Home() {
             <section className="hero">
                 <div className="hero-content">
                     {/* <img src={WorkImage} className="hero-image" alt="Students studying with EduMorph" /> */}
-                    <h1 className="hero-title">Unlock Your Academic Potential with AI</h1>
-                    <p className="hero-text">StudyGenius leverages cutting-edge AI to transform your study experience. Upload your notes, ask questions, and get summaries and quizzes to master any subject.</p>
+                    <h1 className="hero-title">Maximize Your Academic Performance with AI</h1>
+                    <p className="hero-text">EduMorph harnesses advanced AI to elevate your learning experience. Upload notes, ask questions, and receive summaries and quizzes to master any subject.</p>
                     <button className="hero-btn" onClick={handleSignUpRedirect}>
                         Get Started
                     </button>
@@ -50,12 +50,12 @@ export default function Home() {
             <section className="features">
                 <h2 className="section-title">Key Features</h2>
                 <p className="section-subtitle">
-                    Explore the powerful tools that StudyGenius offers to enhance your learning journey.
+                    Discover the advanced features EduMorph provides to elevate your educational journey.
                 </p>
                 <div className="features-grid">
                     <Link to="/upload-notes" className="feature-link">
                         <div className="feature-card">
-                            <div className="feature-icon">⬆️</div>
+                            <div className="feature-icon">⬆</div>
                             <h3 className="feature-title">Upload Notes</h3>
                             <p className="feature-text">
                                 Easily upload your lecture notes, study guides, and other materials in various formats.
@@ -65,15 +65,15 @@ export default function Home() {
                             </p>
                         </div>
                     </Link>
-                    <Link to="/ask-questions" className="feature-link">
+                    <Link to="/mindmap" className="feature-link">
                         <div className="feature-card">
-                            <div className="feature-icon">❓</div>
-                            <h3 className="feature-title">Ask Questions</h3>
+                            <div className="feature-icon">🌍</div>
+                            <h3 className="feature-title">Mindmap</h3>
                             <p className="feature-text">
-                                Get instant answers to your questions with our clarity-powered AI Q&A feature.
+                                Create visual mind maps from your notes to better understand, organize, and grasp key concepts.
                             </p>
                             <p className="feature-action">
-                                <strong>Do:</strong> Type your question to receive quick, accurate answers.
+                                <strong>Do:</strong> Convert your uploaded content into structured mind maps.
                             </p>
                         </div>
                     </Link>
@@ -82,10 +82,11 @@ export default function Home() {
                             <div className="feature-icon">📝</div>
                             <h3 className="feature-title">Summaries</h3>
                             <p className="feature-text">
-                                Generate concise summaries of your key notes to review concepts and save time.
+                                Create clear summaries of YouTube videos to reinforce understanding and optimize study time.
+
                             </p>
                             <p className="feature-action">
-                                <strong>Do:</strong> Select your notes to create summaries for efficient review.
+                                <strong>Do:</strong> Input your video link to generate summaries for effective review.
                             </p>
                         </div>
                     </Link>
@@ -94,10 +95,11 @@ export default function Home() {
                             <div className="feature-icon">💡</div>
                             <h3 className="feature-title">Quizzes</h3>
                             <p className="feature-text">
-                                Create custom quizzes based on your uploaded notes to test your knowledge and identify areas for improvement.
+                                 Design personalized quizzes from your uploaded notes to assess knowledge and pinpoint areas for growth.
+
                             </p>
                             <p className="feature-action">
-                                <strong>Do:</strong> Generate quizzes to practice and track your progress.
+                                <strong>Do:</strong> Upload PDF of your notes to generate quizzes
                             </p>
                         </div>
                     </Link>
