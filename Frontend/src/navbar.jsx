@@ -16,7 +16,8 @@ const Navbar = () => {
 
   return (
     <header className="header">
-      <div className="logo">EduMorph</div>
+      <Link to="/" className="logo">EduMorph</Link>
+
 
       <button className="burger" onClick={toggleMenu}>
         <span></span>
