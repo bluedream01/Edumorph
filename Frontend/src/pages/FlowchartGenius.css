@@ -4,7 +4,7 @@
   flex-direction: column;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: #111518;
+  /* background-color: #111518; */
   color: white;
   font-family: "Lexend", "Noto Sans", sans-serif;
 }
@@ -80,4 +80,12 @@
   aspect-ratio: 16 / 9;
   max-width: 360px;
   margin: 0 auto 1rem;
+}
+
+.markmap-svg {
+  width: 1000px;
+  height: 500px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
