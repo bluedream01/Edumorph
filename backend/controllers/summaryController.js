@@ -130,6 +130,69 @@ const quiz=async(req,res)=>{
 
 };
 
+//mindmap
+
+const mindMap = async (req, res) => {
+  const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+  try {
+    const file = req.file;
+    if (!file) return res.status(400).json({ error: "PDF file required" });
+    if (file.mimetype !== "application/pdf") {
+      return res.status(400).json({ error: "Only PDF files are allowed" });
+    }
+
+    // Step 1: Extract text
+    const buffer = fs.readFileSync(file.path);
+    const pdfData = await pdfParse(buffer);
+    const extractedText = pdfData.text.slice(0, 5000); // Safe limit for prompt
+
+    // Step 2: Prompt for Markmap
+    const prompt = `
+Convert the following lab experiment into a mind map using markdown format.
+Use clear, nested headings in this structure:
+
+# Title
+## Section
+### Subsection
+- Bullet points where helpful
+
+Respond with only markdown enclosed in:
+
+\`\`\`markdown
+# ...
+## ...
+\`\`\`
+
+Text:
+${extractedText}
+    `.trim();
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const raw = await response.text();
+
+    // Step 3: Extract markdown
+    const match = raw.match(/```markdown\s*([\s\S]*?)```/i);
+    if (!match || !match[1].trim()) {
+      return res.status(500).json({ error: "Failed to extract markdown from AI response." });
+    }
+
+    const markdown = match[1].trim();
+    res.json({ markdown });
+    console.log("✅ Markmap Markdown Generated:\n", markdown);
+
+    // Step 4: Delete temp file
+    await fs.promises.unlink(file.path).catch((err) =>
+      console.error("Failed to delete file:", err)
+    );
+  } catch (error) {
+    console.error("❌ Error generating mindmap:", error);
+    res.status(500).json({ error: "Failed to generate mind map" });
+  }
+};
+
 module.exports = {
-  summary,translation,quiz
+  summary,translation,quiz,mindMap
 };

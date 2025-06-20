@@ -1,6 +1,6 @@
 const express=require('express');
 const multer = require("multer");
-const {summary, translation,quiz
+const {summary, translation,quiz,mindMap
 }=require('../controllers/summaryController')
 const router =express.Router()
 const upload = multer({ dest: "uploads/" });
@@ -9,7 +9,7 @@ const upload = multer({ dest: "uploads/" });
 router.post('/',summary)
 router.post('/translation', translation)
 router.post('/quiz', upload.single("file"), quiz)
-
+router.post("/mindmap", upload.single("file"), mindMap);
 
 
 
