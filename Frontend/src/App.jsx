@@ -3,7 +3,8 @@ import Home from './pages/Home';
 import Summary from './pages/Summary';
 import Quizlanding from './pages/QuizPdfUploadPage';
 import Quizgenerate from './pages/Quizgenerating';
-import Notes from './pages/Notes'
+import Notes from './pages/Notes';
+import Profile from './pages/Profile';
 import './index.css';
 import Navbar from './navbar';
 import Mindmap from './pages/FlowchartGenius';
@@ -19,6 +20,7 @@ function App() {
         <Route path="/quizgenerating" element={<Quizgenerate />} />
         <Route path="/Mindmap" element={<Mindmap />} />
         <Route path="/notes" element={<Notes />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

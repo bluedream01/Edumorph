@@ -29,7 +29,7 @@ const Navbar = () => {
       </button>
 
       <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
-        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/" classname="nav-link">Home</Link>
         <Link to="/features" className="nav-link">Features</Link>
         <Link to="/pricing" className="nav-link">Pricing</Link>
         <Link to="/contact" className="nav-link">Contact</Link>
