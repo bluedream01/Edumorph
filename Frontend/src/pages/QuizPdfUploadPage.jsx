@@ -23,7 +23,7 @@ const QuizPdfUploadPage = () => {
     }
 
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("pdf", file);
     formData.append("difficulty", difficulty);
     formData.append("noOfQuestions", numQuestions); // 👈 Match backend key exactly
 
