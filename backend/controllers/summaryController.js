@@ -77,35 +77,46 @@ const translation = async (req, res) => {
   }
 };
 
-//quiz generation using ai
-const quiz=async(req,res)=>{
+//QUIZ
+const quiz = async (req, res) => {
   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
   try {
+    // ✅ Check if PDF is provided
+    if (!req.file || !req.file.path) {
+      return res.status(400).json({ error: "PDF file is missing" });
+    }
+
     const { difficulty, noOfQuestions } = req.body;
     const filePath = req.file.path;
 
-    // Step 1: Extract text from PDF
+    // ✅ Read and parse the PDF
     const pdfBuffer = fs.readFileSync(filePath);
     const pdfData = await pdfParse(pdfBuffer);
-    const fullText = pdfData.text;
+    const fullText = pdfData.text?.trim();
 
-    // Step 2: Summarize using Gemini
+    if (!fullText || fullText.length < 50) {
+      fs.unlinkSync(filePath);
+      return res.status(400).json({ error: "PDF content is too short or empty" });
+    }
+
+    // ✅ Use Gemini to summarize
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const summaryResponse = await model.generateContent(`Summarize the following:\n\n${fullText}`);
     const summary = (await summaryResponse.response).text();
 
-    // Step 3: Create quiz using summary
+    // ✅ Generate quiz using the summary
     const quizPrompt = `
       Create a ${difficulty} level quiz with ${noOfQuestions} multiple choice questions
       based on this summary:\n\n"${summary}".
       
-      Format as JSON array like:
+      Format as a JSON array like:
       [
-         {
-          question: "What is the capital of France?",
-          options: ["Paris", "London", "Berlin", "Rome"],
-          correctAnswer: "Paris"
+        {
+          "question": "What is the capital of France?",
+          "options": ["Paris", "London", "Berlin", "Rome"],
+          "correctAnswer": "Paris"
         }
       ]
     `;
@@ -113,22 +124,31 @@ const quiz=async(req,res)=>{
     const quizResponse = await model.generateContent(quizPrompt);
     const quizText = (await quizResponse.response).text();
 
-    // Step 4: Extract JSON
-    const jsonStart = quizText.indexOf("[");
-    const jsonEnd = quizText.lastIndexOf("]") + 1;
-    const quizJSON = JSON.parse(quizText.substring(jsonStart, jsonEnd));
-    console.log(quizJSON);
+    // ✅ Safely parse AI output
+    let quizJSON;
+    try {
+      const jsonStart = quizText.indexOf("[");
+      const jsonEnd = quizText.lastIndexOf("]") + 1;
+      const jsonString = quizText.substring(jsonStart, jsonEnd);
+      quizJSON = JSON.parse(jsonString);
+    } catch (parseError) {
+      console.error("❌ JSON parsing failed:", parseError.message);
+      console.log("⚠️ AI Output:\n", quizText);
+      fs.unlinkSync(filePath);
+      return res.status(500).json({ error: "AI response was not valid JSON" });
+    }
 
-    // Cleanup file
+    // ✅ Clean up the uploaded file
     fs.unlinkSync(filePath);
 
+    // ✅ Send back the quiz
     res.status(200).json({ quiz: quizJSON });
   } catch (error) {
-    console.error("Error generating quiz:", error);
+    console.error("🔥 Error generating quiz:", error.message);
     res.status(500).json({ error: "Failed to generate quiz" });
   }
-
 };
+
 
 //mindmap
 
