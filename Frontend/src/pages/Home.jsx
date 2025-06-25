@@ -53,7 +53,7 @@ export default function Home() {
                     Discover the advanced features EduMorph provides to elevate your educational journey.
                 </p>
                 <div className="features-grid">
-                    <Link to="/upload-notes" className="feature-link">
+                    <Link to="/notes" className="feature-link">
                         <div className="feature-card">
                             <div className="feature-icon">⬆</div>
                             <h3 className="feature-title">Upload Notes</h3>
