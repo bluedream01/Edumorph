@@ -4,10 +4,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* Card */
-.signup-card {
+.signup-page .signup-card {
   background-color: #1e293b;
   padding: 40px;
   border-radius: 12px;
@@ -18,23 +18,21 @@
   text-align: center;
 }
 
-/* Header */
-.signup-card h2 {
+.signup-page .signup-card h2 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.signup-card p {
+.signup-page .signup-card p {
   font-size: 14px;
   color: #cbd5e1;
   margin-bottom: 25px;
 }
 
-/* Form inputs */
-.signup-card input[type="text"],
-.signup-card input[type="email"],
-.signup-card input[type="password"] {
+.signup-page input[type="text"],
+.signup-page input[type="email"],
+.signup-page input[type="password"] {
   width: 100%;
   padding: 12px;
   margin-bottom: 16px;
@@ -44,12 +42,11 @@
   color: #f1f5f9;
 }
 
-.signup-card input::placeholder {
+.signup-page input::placeholder {
   color: #94a3b8;
 }
 
-/* Checkbox */
-.signup-options {
+.signup-page .signup-options {
   display: flex;
   justify-content: flex-start;
   font-size: 13px;
@@ -57,7 +54,7 @@
   margin-bottom: 20px;
 }
 
-.signup-btn {
+.signup-page .signup-btn {
   width: 50%;
   background-color: #38bdf8;
   color: #0f172a;
@@ -69,33 +66,38 @@
   transition: background-color 0.3s ease;
 }
 
-.signup-btn:hover {
+.signup-page .signup-btn:hover {
   background-color: #0ea5e9;
 }
 
-.checkbox-inline {
+.signup-page .checkbox-inline {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.checkbox-inline input[type="checkbox"] {
+.signup-page .checkbox-inline input[type="checkbox"] {
   width: 16px;
   height: 16px;
   accent-color: #38bdf8;
 }
 
-.checkbox-inline a {
-  color: #38bd
+.signup-page .checkbox-inline a {
+  color: #38bdf8;
+  text-decoration: none;
 }
- 
-.login-redirect {
+
+.signup-page .checkbox-inline a:hover {
+  text-decoration: underline;
+}
+
+.signup-page .login-redirect {
   font-size: 13px;
   margin-top: 20px;
   color: #94a3b8;
 }
 
-.login-redirect a {
+.signup-page .login-redirect a {
   color: #38bdf8;
   text-decoration: none;
 }
