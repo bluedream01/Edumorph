@@ -8,6 +8,10 @@ import Profile from './pages/Profile';
 import './index.css';
 import Navbar from './navbar';
 import Mindmap from './pages/FlowchartGenius';
+import Loginpage from './pages/Components/Login';
+import Signuppage from './pages/Components/Signup';
+
+
 
 function App() {
   return (
@@ -21,6 +25,8 @@ function App() {
         <Route path="/Mindmap" element={<Mindmap />} />
         <Route path="/notes" element={<Notes />} />
         <Route path="/profile" element={<Profile />} />
+         <Route path="/login" element={<Loginpage/>} />
+         <Route path="/signup" element={<Signuppage/>}/>
       </Routes>
     </Router>
   );
