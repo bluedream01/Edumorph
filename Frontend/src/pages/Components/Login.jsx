@@ -10,27 +10,18 @@ export default function Login() {
         <form>
           <input type="email" placeholder="Email address" required />
           <input type="password" placeholder="Password" required />
-          
-          {/* <div className="options-inline">
-  <label className="checkbox-inline">
-    <input type="checkbox" />
-    I agree to the <a href="#">Privacy Policy</a> & <a href="#">Terms</a>
-  </label>
-  <a href="#" className="forgot-link">Forgot Password?</a>
-</div> */}
-        <div class="form-options">
-  <label class="checkbox-container">
-    <input type="checkbox" required />
-    <span class="checkmark"></span>
-    I agree to the 
-    <a href="#" class="link">Privacy Policy</a> &amp; 
-    <a href="#" class="link">Terms</a>
-  
-  <a href="#" class="forgot-password">Forgot Password?</a></label>
-</div>
 
+          <div className="form-options">
+            <label className="checkbox-container">
+              <input type="checkbox" required />
+              <span className="checkmark"></span>
+              I agree to the 
+              <a href="#" className="link"> Privacy Policy</a> &nbsp;
+              <a href="#" className="link">Terms</a>
+              <a href="#" className="forgot-password">Forgot Password?</a>
+            </label>
+          </div>
 
-          
           <button type="submit" className="login-btn">Login</button>
         </form>
 
@@ -40,10 +31,6 @@ export default function Login() {
           <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="Google" />
           Sign in with Google
         </button>
-        {/* <button className="social-btn facebook">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" />
-          Continue with Facebook
-        </button> */}
 
         <p className="signup-text">Don’t have an account? <a href="/signup">Sign Up</a></p>
       </div>
