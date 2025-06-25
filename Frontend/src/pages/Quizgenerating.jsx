@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Confetti from 'react-confetti';
 import './quizgenerating.css';
 
 const QuizGenerating = () => {
@@ -12,7 +13,10 @@ const QuizGenerating = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
-  const [answered, setAnswered] = useState({}); // to track if a question has been answered
+  const [answered, setAnswered] = useState({});
+
+  const resultCardRef = useRef(null);
+  const [cardSize, setCardSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     if (!passedQuestions || passedQuestions.length === 0) {
@@ -31,8 +35,15 @@ const QuizGenerating = () => {
     setQuestions(limited);
   }, [passedQuestions, numQuestions, navigate]);
 
+  useLayoutEffect(() => {
+    if (showResult && resultCardRef.current) {
+      const rect = resultCardRef.current.getBoundingClientRect();
+      setCardSize({ width: rect.width, height: rect.height });
+    }
+  }, [showResult]);
+
   const handleOptionSelect = (option) => {
-    if (answered[currentQuestion]) return; // prevent changing answer once selected
+    if (answered[currentQuestion]) return;
 
     setSelectedOptions((prev) => ({
       ...prev,
@@ -77,29 +88,53 @@ const QuizGenerating = () => {
   const correctAnswer = questions[currentQuestion]?.correctAnswer;
 
   const percentage = (score / questions.length) * 100;
-  const isPerfectScore = percentage >= 90 && showResult;
-  const isGreatScore = percentage >= 70 && percentage < 90 && showResult;
-  const isAverageScore = percentage >= 50 && percentage < 70 && showResult;
-  const isPoorResult = percentage < 50 && showResult;
+  const showConfetti = showResult && percentage >= 60;
+
+  const isPerfectScore = percentage >= 90;
+  const isGreatScore = percentage >= 70 && percentage < 90;
+  const isAverageScore = percentage >= 50 && percentage < 70;
+  const isPoorResult = percentage < 50;
 
   return (
     <div className="quiz-container">
       {showResult ? (
-        <div className="quiz-finished">
+        <div className="quiz-finished" ref={resultCardRef} style={{ position: 'relative', overflow: 'hidden' }}>
+          {showConfetti && (
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'none',
+                zIndex: 2,
+              }}
+            >
+              <Confetti
+                width={cardSize.width}
+                height={cardSize.height}
+                numberOfPieces={200}
+                gravity={0.3}
+                recycle={false}
+              />
+            </div>
+          )}
+
           <h2>Quiz Completed!</h2>
           {isPerfectScore && <h3 className="perfect-score">Perfect Score! 🏆</h3>}
           {isPoorResult && <h3 className="poor-result">Poor Result 😔 Try Again!</h3>}
           {isAverageScore && (
             <h3 className="average-score">Good Job! ✨ You can do even better!</h3>
           )}
+          {isGreatScore && (
+            <h3 className="great-score">Great Work! 🎯</h3>
+          )}
           <p>Your Score: <span className="score-value">{score}</span> / {questions.length}</p>
           <button className="quiz-restart-btn" onClick={handleRestart}>
             Re-attempt Quiz
           </button>
-          <button
-            className="quiz-home-btn"
-            onClick={() => navigate('/quizzes')}
-          >
+          <button className="quiz-home-btn" onClick={() => navigate('/quizzes')}>
             Go to Quiz Home
           </button>
         </div>
