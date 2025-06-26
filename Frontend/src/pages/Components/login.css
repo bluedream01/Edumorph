@@ -29,14 +29,24 @@
   color: #cbd5e1;
 }
 
-.login-page input {
+.login-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.login-page input[type="email"],
+.login-page input[type="password"] {
   width: 100%;
-  padding: 12px;
+  box-sizing: border-box;
+  padding: 12px 14px;
   margin-bottom: 16px;
+  margin-top: 10px;
   border: none;
   border-radius: 6px;
   background-color: #334155;
   color: #f1f5f9;
+  font-size: 14px;
 }
 
 .login-page input::placeholder {
@@ -48,35 +58,37 @@
   flex-direction: column;
   margin-top: 30px;
   gap: 10px;
-  font-size: 10px;
+  font-size: 11px;
   color: #ffffff;
 }
 
+/* Checkbox Styling */
 .login-page .checkbox-container {
   display: flex;
   align-items: center;
-  gap: 5px;
   position: relative;
-  padding-left: 25px;
-  cursor: pointer;
-  user-select: none;
+  padding-left: 28px;
+  font-size: 11px;
+  line-height: 1.5;
   color: #ccc;
+  user-select: none;
+  cursor: pointer;
 }
 
 .login-page .checkbox-container input {
   position: absolute;
   opacity: 0;
-  cursor: pointer;
   height: 0;
   width: 0;
+  cursor: pointer;
 }
 
 .login-page .checkmark {
   position: absolute;
   left: 0;
-  top: 1px;
+  top: 3px;
   height: 15px;
-  width: 16px;
+  width: 15px;
   background-color: #ccc;
   border: 1px solid black;
   border-radius: 2px;
@@ -107,9 +119,11 @@
   transform: rotate(45deg);
 }
 
+/* Link Styles */
 .login-page .link {
   color: #1e90ff;
   text-decoration: none;
+  margin-left: px;
 }
 
 .login-page .link:hover {
@@ -117,7 +131,9 @@
 }
 
 .login-page .forgot-password {
-  margin-left: 25px;
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 11px;
   color: #1e90ff;
   text-decoration: none;
 }
@@ -126,6 +142,7 @@
   text-decoration: underline;
 }
 
+/* Login Button */
 .login-page .login-btn {
   width: 100%;
   padding: 12px;
@@ -136,12 +153,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
+  margin-top: 20px;
 }
 
 .login-page .login-btn:hover {
   background-color: #0ea5e9;
 }
 
+/* Divider */
 .login-page .divider {
   display: flex;
   align-items: center;
@@ -165,6 +184,7 @@
   color: #cbd5e1;
 }
 
+/* Social Button */
 .login-page .social-btn {
   width: 100%;
   padding: 10px;
@@ -189,6 +209,7 @@
   height: 20px;
 }
 
+/* Sign-up text */
 .login-page .signup-text {
   font-size: 13px;
   text-align: center;
@@ -199,4 +220,8 @@
 .login-page .signup-text a {
   color: #38bdf8;
   text-decoration: none;
+}
+
+.login-page .signup-text a:hover {
+  text-decoration: underline;
 }
