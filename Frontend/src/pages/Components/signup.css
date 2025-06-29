@@ -1,0 +1,113 @@
+.signup-page {
+  background-color: #0f172a;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.signup-page .signup-card {
+  background-color: #1e293b;
+  padding: 40px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  color: #f1f5f9;
+  text-align: center;
+}
+
+.signup-page .signup-card h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.signup-page .signup-card p {
+  font-size: 14px;
+  color: #cbd5e1;
+  margin-bottom: 25px;
+}
+
+/* Input fields */
+.signup-page input[type="text"],
+.signup-page input[type="email"],
+.signup-page input[type="password"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  margin-top:10px ;
+  border: none;
+  border-radius: 6px;
+  background-color: #334155;
+  color: #f1f5f9;
+  font-size: 14px;
+}
+
+.signup-page input::placeholder {
+  color: #94a3b8;
+}
+
+/* Checkbox and label */
+.signup-page .checkbox-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  color: #cbd5e1;
+  text-align: left;
+}
+
+.signup-page .checkbox-inline input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #38bdf8;
+  margin: 0;
+}
+
+.signup-page .checkbox-inline a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.signup-page .checkbox-inline a:hover {
+  text-decoration: underline;
+}
+
+/* Button */
+.signup-page .signup-btn {
+  width: 100%;
+  background-color: #38bdf8;
+  color: #0f172a;
+  padding: 12px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.signup-page .signup-btn:hover {
+  background-color: #0ea5e9;
+}
+
+/* Redirect text */
+.signup-page .login-redirect {
+  font-size: 13px;
+  margin-top: 20px;
+  color: #94a3b8;
+}
+
+.signup-page .login-redirect a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.signup-page .login-redirect a:hover {
+  text-decoration: underline;
+}
