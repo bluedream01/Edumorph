@@ -1,27 +1,99 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './profile.css';
-import Naoko from '../assets/girl1.jpg';
+import DefaultProfile from '../assets/girl1.jpg';
 
 export default function Profile() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [profileData, setProfileData] = useState({
-    name: 'Naoko Watanabe',
-    location: 'San Francisco, CA',
-    email: 'naoko@example.com',
-  });
-  const [profileImg, setProfileImg] = useState(Naoko);
   const fileInputRef = useRef(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [profileImg, setProfileImg] = useState(DefaultProfile);
+  const [originalData, setOriginalData] = useState({ name: '', email: '' });
+
+  const [profileData, setProfileData] = useState({
+    name: '',
+    location: 'Not Provided',
+    email: '',
+  });
+
+useEffect(() => {
+  const fetchProfile = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const res = await fetch('http://localhost:4000/api/auth/profile', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (!res.ok) throw new Error('Failed to fetch profile');
+      const data = await res.json();
+
+      const profile = {
+        name: data.username || 'Guest',
+        email: data.email || 'Not Available',
+        location: 'Not Provided'
+      };
+
+      setProfileData(profile);
+      setOriginalData({ name: profile.name, email: profile.email });
+    } catch (err) {
+      console.error('❌ Error fetching user data:', err.message);
+    }
+  };
+
+  fetchProfile();
+}, []);
+
+
 
   const handleChange = (e) => {
-    setProfileData({ ...profileData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setProfileData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
+  const handleEditToggle = () => setIsEditing(prev => !prev);
+
+  const handleSave = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const res = await fetch("http://localhost:4000/api/auth/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          username: profileData.name,
+          email: profileData.email
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("email", data.email);
+        setOriginalData({ name: data.username, email: data.email });
+        setIsEditing(false);
+      } else {
+        console.error("Update failed:", data.message);
+      }
+    } catch (err) {
+      console.error("Error updating profile:", err.message);
+    }
   };
 
-  const handleSave = () => {
-    // Save logic here (e.g., send to backend)
+  const handleCancel = () => {
+    setProfileData(prev => ({
+      ...prev,
+      name: originalData.name,
+      email: originalData.email
+    }));
     setIsEditing(false);
   };
 
@@ -29,17 +101,32 @@ export default function Profile() {
     window.location.href = route;
   };
 
-  const handleImageClick = () => {
-    fileInputRef.current.click();
-  };
+  const handleImageClick = () => fileInputRef.current.click();
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setProfileImg(imageUrl);
+      setProfileImg(imageUrl); // for instant preview
+
+      // Upload to backend
+      try {
+        const response = await fetch("http://localhost:4000/api/auth/profile-image", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ imageUrl }), // In real app, use cloud upload
+        });
+        const data = await response.json();
+        localStorage.setItem("profileImage", data.profileImage);
+      } catch (error) {
+        console.error("Error updating profile image:", error);
+      }
     }
   };
+
 
   return (
     <div className="container">
@@ -58,30 +145,9 @@ export default function Profile() {
 
         {isEditing ? (
           <div className="edit-fields">
-            <input
-              type="text"
-              name="name"
-              value={profileData.name}
-              onChange={handleChange}
-              className="edit-input"
-              placeholder="Name"
-            />
-            <input
-              type="text"
-              name="location"
-              value={profileData.location}
-              onChange={handleChange}
-              className="edit-input"
-              placeholder="Location"
-            />
-            <input
-              type="email"
-              name="email"
-              value={profileData.email}
-              onChange={handleChange}
-              className="edit-input"
-              placeholder="Email"
-            />
+            <input type="text" name="name" value={profileData.name} onChange={handleChange} className="edit-input" />
+            <input type="text" name="location" value={profileData.location} onChange={handleChange} className="edit-input" />
+            <input type="email" name="email" value={profileData.email} onChange={handleChange} className="edit-input" />
           </div>
         ) : (
           <>
@@ -102,16 +168,16 @@ export default function Profile() {
         </button>
       ) : (
         <div className="button-group">
-          <button className="save-btn" onClick={handleSave}>Save</button>
-          <button className="cancel-btn" onClick={handleEditToggle}>Cancel</button>
+          <button type="button" className="save-btn" onClick={handleSave}>Save</button>
+          <button type="button" className="cancel-btn" onClick={handleCancel}>Cancel</button>
         </div>
       )}
 
       <div className="tabs">
-        <div className="tab active" onClick={() => handleTabClick('/overview')}>Overview</div>
-        <div className="tab" onClick={() => handleTabClick('/mindmaps')}>Mindmaps</div>
-        <div className="tab" onClick={() => handleTabClick('/quizzes')}>Quizzes</div>
-        <div className="tab" onClick={() => handleTabClick('/notes')}>Notes</div>
+        <Link to="/overview" className="tab active">Overview</Link>
+        <Link to="/mindmaps" className="tab">Mindmaps</Link>
+        <Link to="/quizzes" className="tab">Quizzes</Link>
+        <Link to="/notes" className="tab">Notes</Link>
       </div>
 
       <h3 className="attempt">Attempted Quizzes</h3>
