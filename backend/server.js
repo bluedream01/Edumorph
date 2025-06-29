@@ -1,12 +1,27 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const summaryRoutes = require('./routes/summaryRoutes');
 const authRoutes = require('./routes/auth.routes');
 
 const app = express();
 app.use(express.json());
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
+
+app.use(express.json());
+
+// Logger middleware
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 
 // Logger middleware
 app.use((req, res, next) => {

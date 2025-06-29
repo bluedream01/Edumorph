@@ -11,22 +11,24 @@ import Mindmap from './pages/FlowchartGenius';
 import Loginpage from './pages/Components/Login';
 import Signuppage from './pages/Components/Signup';
 
-
+import PrivateRoute from './utils/PrivateRoute';
+import RedirectIfLoggedIn from './utils/RedirectIfLoggedIn';
 
 function App() {
   return (
     <Router>
-      <Navbar /> {/* ✅ Moved outside Routes */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/summary" element={<Summary />} />
-        <Route path="/quizzes" element={<Quizlanding />} />
-        <Route path="/quizgenerating" element={<Quizgenerate />} />
-        <Route path="/Mindmap" element={<Mindmap />} />
-        <Route path="/notes" element={<Notes />} />
-        <Route path="/profile" element={<Profile />} />
-         <Route path="/login" element={<Loginpage/>} />
-         <Route path="/signup" element={<Signuppage/>}/>
+        <Route path="/summary" element={<PrivateRoute><Summary /></PrivateRoute>} />
+        <Route path="/quizzes" element={<PrivateRoute><Quizlanding /></PrivateRoute>} />
+        <Route path="/quizgenerating" element={<PrivateRoute><Quizgenerate /></PrivateRoute>} />
+        <Route path="/Mindmap" element={<PrivateRoute><Mindmap /></PrivateRoute>} />
+        <Route path="/notes" element={<PrivateRoute><Notes /></PrivateRoute>} />
+        <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+
+        <Route path="/login" element={<RedirectIfLoggedIn><Loginpage /></RedirectIfLoggedIn>} />
+        <Route path="/signup" element={<RedirectIfLoggedIn><Signuppage /></RedirectIfLoggedIn>} />
       </Routes>
     </Router>
   );
