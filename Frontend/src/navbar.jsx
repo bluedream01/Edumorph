@@ -1,26 +1,54 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Edulogo from './assets/edumorph.svg'
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Edulogo from './assets/edumorph.svg';
+import defaultProfilePic from './assets/girl1.jpg';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profileImage, setProfileImage] = useState(defaultProfilePic);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const storedImage = localStorage.getItem('profileImage');
+    setIsLoggedIn(!!token);
+
+    if (storedImage) {
+      setProfileImage(storedImage);
+    } else {
+      setProfileImage(defaultProfilePic);
+    }
+  }, [location.pathname]);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const handleProfileClick = () => {
+    navigate("/profile");
   };
 
-  const handleSignUpRedirect = () => {
-    // You can use useNavigate from react-router-dom if needed
-    window.location.href = "/signup"; // or navigate("/signup")
+  const handleSignUp = () => {
+    navigate("/signup");
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("profileImage");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
+
+  const isProfilePage = location.pathname === '/profile';
 
   return (
-     <header className="header">
+    <header className="header">
       <Link to="/" className="logo">
         <img src={Edulogo} alt="Logo" className="logo-icon" />
         <span className="logo-text">EduMorph</span>
       </Link>
-
 
       <button className="burger" onClick={toggleMenu}>
         <span></span>
@@ -29,13 +57,32 @@ const Navbar = () => {
       </button>
 
       <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
-        <Link to="/" classname="nav-link">Home</Link>
+        <Link to="/" className="nav-link">Home</Link>
         <Link to="/features" className="nav-link">Features</Link>
         <Link to="/pricing" className="nav-link">Pricing</Link>
         <Link to="/contact" className="nav-link">Contact</Link>
-        <button className="btn" onClick={handleSignUpRedirect}>
-          Get Started
-        </button>
+
+        {isLoggedIn ? (
+          isProfilePage ? (
+            <button className="btn" onClick={handleLogout}>Logout</button>
+          ) : (
+            <img
+              src={profileImage}
+              alt="Profile"
+              onClick={handleProfileClick}
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                cursor: 'pointer'
+              }}
+            />
+          )
+        ) : (
+          <button className="btn" onClick={handleSignUp}>
+            Get Started
+          </button>
+        )}
       </nav>
     </header>
   );
