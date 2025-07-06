@@ -11,12 +11,13 @@ router.post("/login", controller.login);
 // ✅ GET profile details
 router.get("/profile", verifyToken, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("username email");
+    const user = await User.findById(req.user._id).select("username email profileImage");
     if (!user) return res.status(404).json({ message: "User not found" });
 
     res.status(200).json({
       username: user.username,
       email: user.email,
+      profileImage: user.profileImage || null,
     });
   } catch (err) {
     res.status(500).json({ message: "Error fetching user", error: err.message });
@@ -29,7 +30,7 @@ router.put("/profile", verifyToken, async (req, res) => {
     const { username, email } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
-      req.user.id,
+      req.user._id,
       { username, email },
       { new: true }
     );
@@ -54,7 +55,7 @@ router.put("/profile-image", verifyToken, async (req, res) => {
     const { imageUrl } = req.body;
 
     const user = await User.findByIdAndUpdate(
-      req.user.id,
+      req.user._id,
       { profileImage: imageUrl },
       { new: true }
     );
@@ -63,10 +64,14 @@ router.put("/profile-image", verifyToken, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({ profileImage: user.profileImage });
+    res.status(200).json({
+      message: "Profile image updated",
+      profileImage: user.profileImage,
+    });
   } catch (err) {
     res.status(500).json({ message: "Error updating image", error: err.message });
   }
 });
 
 module.exports = router;
+
