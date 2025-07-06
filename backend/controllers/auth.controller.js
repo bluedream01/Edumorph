@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { _id: user._id, email: user.email },
       JWT_SECRET,
       { expiresIn: '1d' }
     );

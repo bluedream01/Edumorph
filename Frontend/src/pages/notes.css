@@ -209,3 +209,17 @@
 .delete-note-button:hover {
   color: #f87171;
 }
+
+.note-action-button {
+  background: transparent;
+  border: none;
+  font-size: 0.5rem;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.2rem;
+  transition: color 0.2s;
+}
+
+.note-action-button:hover {
+  color: #60a5fa; /* optional hover color */
+}
