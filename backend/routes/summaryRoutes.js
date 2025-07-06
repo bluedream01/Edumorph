@@ -11,19 +11,22 @@ const {getNotes,
 }= require('../controllers/notesController')
 const router =express.Router()
 const upload = multer({ dest: "uploads/" });
+const verifyToken = require('../middleware/auth.middleware');
+const notesModel = require("../models/notes.model");
 
 
 router.post('/',summary)
 router.post('/translation', translation)
 router.post('/quiz', upload.single("pdf"), quiz)
 router.post("/mindmap", upload.single("file"), mindMap);
-
+router.use('/note', verifyToken);
 router.get('/note',getNotes)
 router.get('/note/:id',getNote)
 router.post('/note',createNote)
 router.delete('/note/:id',deleteNote)
 router.patch('/note/:id',updateNote)
 router.patch('/note/:id/favorite', toggleFavorite); // ✅
+
 
 
 

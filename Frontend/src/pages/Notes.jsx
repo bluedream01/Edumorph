@@ -7,20 +7,37 @@ const Notes = () => {
     const [draftNote, setDraftNote] = useState({ subject: '', title: '', description: '' });
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState('all');
+    const [editingNoteId, setEditingNoteId] = useState(null);
+    const [editDraft, setEditDraft] = useState({ subject: '', title: '', description: '' });
 
-    useEffect(() => {
-        fetch('/SummaryCall/note')
-            .then(res => res.json())
-            .then(data => {
+    const token = localStorage.getItem('token');
+
+    const fetchNotes = async () => {
+        if (!token) return;
+
+        try {
+            const res = await fetch('/SummaryCall/note', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const data = await res.json();
+
+            if (res.ok) {
                 const enriched = data.map(note => ({
                     ...note,
-                    image: `https://picsum.photos/seed/${note._id}/100/100`,
-                   
+                    image: `https://picsum.photos/seed/${note._id}/100/100`
                 }));
                 setNotes(enriched);
-            })
-            .catch(err => console.error('Error fetching notes:', err));
-    }, []);
+            } else {
+                console.error('Error fetching notes:', data.error || data.message);
+            }
+        } catch (err) {
+            console.error('Fetch error:', err);
+        }
+    };
+
+    useEffect(() => {
+        fetchNotes();
+    }, [token]);
 
     const handleDraftChange = (e) => {
         const { name, value } = e.target;
@@ -33,22 +50,25 @@ const Notes = () => {
             try {
                 const res = await fetch('/SummaryCall/note', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(draftNote),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify(draftNote)
                 });
 
                 const newNote = await res.json();
 
                 if (res.ok) {
-                    setNotes([{
+                    setNotes(prev => [{
                         ...newNote,
                         image: `https://picsum.photos/seed/${newNote._id}/100/100`,
                         favorite: false
-                    }, ...notes]);
+                    }, ...prev]);
                     setDraftNote({ subject: '', title: '', description: '' });
                     setIsCreating(false);
                 } else {
-                    console.error(newNote.error);
+                    console.error('Create error:', newNote.error || newNote.message);
                 }
             } catch (err) {
                 console.error('Error saving note:', err);
@@ -60,13 +80,14 @@ const Notes = () => {
         try {
             const res = await fetch(`/SummaryCall/note/${id}`, {
                 method: 'DELETE',
+                headers: { Authorization: `Bearer ${token}` }
             });
 
             if (res.ok) {
                 setNotes(notes.filter(note => note._id !== id));
             } else {
                 const err = await res.json();
-                console.error('Error deleting note:', err.error);
+                console.error('Delete error:', err.error);
             }
         } catch (err) {
             console.error('Error deleting note:', err);
@@ -74,25 +95,58 @@ const Notes = () => {
     };
 
     const toggleFavorite = async (id) => {
-    try {
-        const res = await fetch(`/SummaryCall/note/${id}/favorite`, {
-            method: 'PATCH'
-        });
+        try {
+            const res = await fetch(`/SummaryCall/note/${id}/favorite`, {
+                method: 'PATCH',
+                headers: { Authorization: `Bearer ${token}` }
+            });
 
-        if (res.ok) {
             const updatedNote = await res.json();
-            setNotes(notes.map(note =>
-                note._id === id ? { ...note, favorite: updatedNote.favorite } : note
-            ));
-        } else {
-            const err = await res.json();
-            console.error('Toggle failed:', err.error);
-        }
-    } catch (err) {
-        console.error('Error toggling favorite:', err);
-    }
-};
 
+            if (res.ok) {
+                setNotes(notes.map(note =>
+                    note._id === id ? { ...note, favorite: updatedNote.favorite } : note
+                ));
+            } else {
+                console.error('Toggle favorite error:', updatedNote.error);
+            }
+        } catch (err) {
+            console.error('Toggle favorite failed:', err);
+        }
+    };
+
+    const startEditing = (note) => {
+        setEditingNoteId(note._id);
+        setEditDraft({ subject: note.subject, title: note.title, description: note.description });
+    };
+
+    const saveEdit = async (id) => {
+        try {
+            const res = await fetch(`/SummaryCall/note/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(editDraft)
+            });
+
+            const updated = await res.json();
+
+            if (res.ok) {
+                setNotes(notes.map(note =>
+                    note._id === id
+                        ? { ...updated, image: `https://picsum.photos/seed/${updated._id}/100/100` }
+                        : note
+                ));
+                setEditingNoteId(null);
+            } else {
+                console.error('Edit error:', updated.error || updated.message);
+            }
+        } catch (err) {
+            console.error('Save edit failed:', err);
+        }
+    };
 
     const filteredNotes = notes.filter(note => {
         const match = [note.title, note.subject, note.description].some(field =>
@@ -112,18 +166,8 @@ const Notes = () => {
             </div>
 
             <div className="notes-tabs">
-                <button
-                    className={activeTab === 'all' ? 'active-tab' : ''}
-                    onClick={() => setActiveTab('all')}
-                >
-                    All Notes
-                </button>
-                <button
-                    className={activeTab === 'favorites' ? 'active-tab' : ''}
-                    onClick={() => setActiveTab('favorites')}
-                >
-                    Favorites
-                </button>
+                <button className={activeTab === 'all' ? 'active-tab' : ''} onClick={() => setActiveTab('all')}>All Notes</button>
+                <button className={activeTab === 'favorites' ? 'active-tab' : ''} onClick={() => setActiveTab('favorites')}>Favorites</button>
                 <button disabled>Shared</button>
             </div>
 
@@ -142,26 +186,9 @@ const Notes = () => {
                     {isCreating && (
                         <div className="note-item">
                             <div className="note-info">
-                                <input
-                                    type="text"
-                                    name="subject"
-                                    placeholder="Subject"
-                                    value={draftNote.subject}
-                                    onChange={handleDraftChange}
-                                />
-                                <input
-                                    type="text"
-                                    name="title"
-                                    placeholder="Title"
-                                    value={draftNote.title}
-                                    onChange={handleDraftChange}
-                                />
-                                <textarea
-                                    name="description"
-                                    placeholder="Description"
-                                    value={draftNote.description}
-                                    onChange={handleDraftChange}
-                                />
+                                <input type="text" name="subject" placeholder="Subject" value={draftNote.subject} onChange={handleDraftChange} />
+                                <input type="text" name="title" placeholder="Title" value={draftNote.title} onChange={handleDraftChange} />
+                                <textarea name="description" placeholder="Description" value={draftNote.description} onChange={handleDraftChange} />
                                 <button onClick={handleSaveNote}>Save</button>
                             </div>
                         </div>
@@ -169,11 +196,22 @@ const Notes = () => {
 
                     {recentNotes.map(note => (
                         <div key={note._id} className="note-item">
-                            <div className="note-info">
-                                <span className="note-subject">{note.subject}</span>
-                                <h3>{note.title}</h3>
-                                <p>{note.description}</p>
-                            </div>
+                            {editingNoteId === note._id ? (
+                                <div className="note-info">
+                                    <input type="text" value={editDraft.subject} onChange={(e) => setEditDraft({ ...editDraft, subject: e.target.value })} />
+                                    <input type="text" value={editDraft.title} onChange={(e) => setEditDraft({ ...editDraft, title: e.target.value })} />
+                                    <textarea value={editDraft.description} onChange={(e) => setEditDraft({ ...editDraft, description: e.target.value })} />
+                                    <button onClick={() => saveEdit(note._id)}>Save</button>
+                                    <button onClick={() => setEditingNoteId(null)}>Cancel</button>
+                                </div>
+                            ) : (
+                                <div className="note-info">
+                                    <span className="note-subject">{note.subject}</span>
+                                    <h3>{note.title}</h3>
+                                    <p>{note.description}</p>
+                                </div>
+                            )}
+
                             <img src={note.image} alt={note.title} className="note-img" />
                             <div className="note-actions">
                                 <span
@@ -183,13 +221,10 @@ const Notes = () => {
                                 >
                                     ★
                                 </span>
-                                <button
-                                    className="delete-note-button"
-                                    onClick={() => deleteNote(note._id)}
-                                    title="Delete Note"
-                                >
-                                    🗑️
-                                </button>
+                                <button className="note-action-button"  onClick={() => deleteNote(note._id)} title="Delete Note">🗑️</button>
+                                {editingNoteId !== note._id && (
+                                    <button className="note-action-button"  onClick={() => startEditing(note)} title="Edit Note">✏️</button>
+                                )}
                             </div>
                         </div>
                     ))}
