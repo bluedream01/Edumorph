@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const summaryRoutes = require('./routes/summaryRoutes');
 const authRoutes = require('./routes/auth.routes');
+const chatbotRoute = require('./routes/chatbot.route');
 
 const app = express();
 app.use(express.json());
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/SummaryCall', summaryRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/chatbot', chatbotRoute);
 
 // 🔗 MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
