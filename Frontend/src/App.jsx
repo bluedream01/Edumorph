@@ -10,6 +10,7 @@ import Navbar from './navbar';
 import Mindmap from './pages/FlowchartGenius';
 import Loginpage from './pages/Components/Login';
 import Signuppage from './pages/Components/Signup';
+import Chatbot from './pages/Components/Chatbot';
 
 import PrivateRoute from './utils/PrivateRoute';
 import RedirectIfLoggedIn from './utils/RedirectIfLoggedIn';
@@ -18,6 +19,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+      <Chatbot />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/summary" element={<PrivateRoute><Summary /></PrivateRoute>} />
