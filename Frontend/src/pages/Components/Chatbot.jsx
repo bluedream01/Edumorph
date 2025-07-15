@@ -13,11 +13,13 @@ const Chatbot = () => {
 
     const userMessage = { sender: "user", text: input };
     setMessages((prev) => [...prev, userMessage]);
+    setInput("");
 
     try {
       const res = await axios.post("http://localhost:4000/api/chatbot/ask", {
         message: input,
       });
+      
 
       const botMessage = { sender: "bot", text: res.data.reply };
       setMessages((prev) => [...prev, botMessage]);
@@ -26,9 +28,10 @@ const Chatbot = () => {
         ...prev,
         { sender: "bot", text: "Sorry, I couldn't answer that." },
       ]);
+       
     }
-
-    setInput("");
+    
+    
   };
 
   return (

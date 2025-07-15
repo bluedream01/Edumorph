@@ -181,20 +181,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.01rem;
   z-index: 2;
 }
 
-.favorite-icon {
-  font-size: 1.5rem;
+.note-actions > .favorite-icon {
+  font-size: 1.7rem;
   color: #64748b;
   cursor: pointer;
   transition: color 0.3s ease;
+  margin-bottom: 0.2rem;
 }
 
 .favorite-icon:hover,
 .favorited {
   color: #facc15;
+}
+
+.note-actions > .note-action-button {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.2rem;
+  transition: color 0.2s;
+  margin-bottom: 0.2rem;
+}
+
+.note-action-button:hover {
+  color: #60a5fa;
 }
 
 .delete-note-button {
@@ -210,16 +225,59 @@
   color: #f87171;
 }
 
-.note-action-button {
-  background: transparent;
-  border: none;
-  font-size: 0.5rem;
-  color: #64748b;
-  cursor: pointer;
-  padding: 0.2rem;
-  transition: color 0.2s;
+/* ========= Stylish Oval Buttons (Summary / Quiz / Mindmap) ========= */
+
+.note-options {
+  display: flex;
+  justify-content: flex-start; /* align left */
+  align-items: center;
+  gap: 0.6rem; /* tighten spacing */
+  margin-top: 0.8rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0; /* remove any extra left space */
 }
 
-.note-action-button:hover {
-  color: #60a5fa; /* optional hover color */
+
+.note-tag-button {
+  padding: 0.75rem 2rem;
+  border: 3px solid transparent;
+  border-radius: 99999px;
+  /* background-image: linear-gradient(#1e293b, #1e293b),
+                    linear-gradient(135deg, #3b82f6, #60a5fa); */
+                    
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-color: #3b82f6; /* Blue background */
+  color: #f8fafc;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  min-width: 180px;
+  text-align: center;
+}
+
+.note-tag-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.15), transparent);
+  transition: all 0.6s ease-in-out;
+}
+
+.note-tag-button:hover::before {
+  left: 100%;
+}
+
+.note-tag-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
 }
