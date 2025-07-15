@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './profile.css';
-import DefaultProfile from '../assets/girl1.jpg';
+import DefaultProfile from '../assets/user.jpg';
 
 export default function Profile() {
   const fileInputRef = useRef(null);

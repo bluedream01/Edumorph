@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Edulogo from './assets/edumorph.svg';
-import defaultProfilePic from './assets/girl1.jpg';
+import defaultProfilePic from './assets/user.jpg';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);

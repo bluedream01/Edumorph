@@ -12,30 +12,27 @@ const Notes = () => {
 
     const token = localStorage.getItem('token');
 
-    const fetchNotes = async () => {
-        if (!token) return;
-
-        try {
-            const res = await fetch('/SummaryCall/note', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            const data = await res.json();
-
-            if (res.ok) {
-                const enriched = data.map(note => ({
-                    ...note,
-                    image: `https://picsum.photos/seed/${note._id}/100/100`
-                }));
-                setNotes(enriched);
-            } else {
-                console.error('Error fetching notes:', data.error || data.message);
-            }
-        } catch (err) {
-            console.error('Fetch error:', err);
-        }
-    };
-
     useEffect(() => {
+        const fetchNotes = async () => {
+            if (!token) return;
+            try {
+                const res = await fetch('/SummaryCall/note', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    const enriched = data.map(note => ({
+                        ...note,
+                        image: `https://picsum.photos/seed/${note._id}/100/100`,
+                    }));
+                    setNotes(enriched);
+                }
+            } catch (err) {
+                console.error('Fetch error:', err);
+            }
+        };
         fetchNotes();
     }, [token]);
 
@@ -52,23 +49,22 @@ const Notes = () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${token}`,
                     },
-                    body: JSON.stringify(draftNote)
+                    body: JSON.stringify(draftNote),
                 });
-
                 const newNote = await res.json();
-
                 if (res.ok) {
-                    setNotes(prev => [{
-                        ...newNote,
-                        image: `https://picsum.photos/seed/${newNote._id}/100/100`,
-                        favorite: false
-                    }, ...prev]);
+                    setNotes(prev => [
+                        {
+                            ...newNote,
+                            image: `https://picsum.photos/seed/${newNote._id}/100/100`,
+                            favorite: false,
+                        },
+                        ...prev,
+                    ]);
                     setDraftNote({ subject: '', title: '', description: '' });
                     setIsCreating(false);
-                } else {
-                    console.error('Create error:', newNote.error || newNote.message);
                 }
             } catch (err) {
                 console.error('Error saving note:', err);
@@ -80,14 +76,12 @@ const Notes = () => {
         try {
             const res = await fetch(`/SummaryCall/note/${id}`, {
                 method: 'DELETE',
-                headers: { Authorization: `Bearer ${token}` }
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
-
             if (res.ok) {
                 setNotes(notes.filter(note => note._id !== id));
-            } else {
-                const err = await res.json();
-                console.error('Delete error:', err.error);
             }
         } catch (err) {
             console.error('Error deleting note:', err);
@@ -98,17 +92,15 @@ const Notes = () => {
         try {
             const res = await fetch(`/SummaryCall/note/${id}/favorite`, {
                 method: 'PATCH',
-                headers: { Authorization: `Bearer ${token}` }
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
-
             const updatedNote = await res.json();
-
             if (res.ok) {
                 setNotes(notes.map(note =>
                     note._id === id ? { ...note, favorite: updatedNote.favorite } : note
                 ));
-            } else {
-                console.error('Toggle favorite error:', updatedNote.error);
             }
         } catch (err) {
             console.error('Toggle favorite failed:', err);
@@ -126,13 +118,11 @@ const Notes = () => {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(editDraft)
+                body: JSON.stringify(editDraft),
             });
-
             const updated = await res.json();
-
             if (res.ok) {
                 setNotes(notes.map(note =>
                     note._id === id
@@ -140,8 +130,6 @@ const Notes = () => {
                         : note
                 ));
                 setEditingNoteId(null);
-            } else {
-                console.error('Edit error:', updated.error || updated.message);
             }
         } catch (err) {
             console.error('Save edit failed:', err);
@@ -189,6 +177,11 @@ const Notes = () => {
                                 <input type="text" name="subject" placeholder="Subject" value={draftNote.subject} onChange={handleDraftChange} />
                                 <input type="text" name="title" placeholder="Title" value={draftNote.title} onChange={handleDraftChange} />
                                 <textarea name="description" placeholder="Description" value={draftNote.description} onChange={handleDraftChange} />
+                                <div className="note-options horizontal">
+                                    <button className="note-tag-button">Summary</button>
+                                    <button className="note-tag-button">Quiz</button>
+                                    <button className="note-tag-button">Mindmap</button>
+                                </div>
                                 <button onClick={handleSaveNote}>Save</button>
                             </div>
                         </div>
@@ -201,6 +194,11 @@ const Notes = () => {
                                     <input type="text" value={editDraft.subject} onChange={(e) => setEditDraft({ ...editDraft, subject: e.target.value })} />
                                     <input type="text" value={editDraft.title} onChange={(e) => setEditDraft({ ...editDraft, title: e.target.value })} />
                                     <textarea value={editDraft.description} onChange={(e) => setEditDraft({ ...editDraft, description: e.target.value })} />
+                                    <div className="note-options horizontal">
+                                        <button className="note-tag-button">Summary</button>
+                                        <button className="note-tag-button">Quiz</button>
+                                        <button className="note-tag-button">Mindmap</button>
+                                    </div>
                                     <button onClick={() => saveEdit(note._id)}>Save</button>
                                     <button onClick={() => setEditingNoteId(null)}>Cancel</button>
                                 </div>
@@ -209,21 +207,24 @@ const Notes = () => {
                                     <span className="note-subject">{note.subject}</span>
                                     <h3>{note.title}</h3>
                                     <p>{note.description}</p>
+                                    <div className="note-options horizontal">
+                                        <button className="note-tag-button">Summary</button>
+                                        <button className="note-tag-button">Quiz</button>
+                                        <button className="note-tag-button">Mindmap</button>
+                                    </div>
                                 </div>
                             )}
-
                             <img src={note.image} alt={note.title} className="note-img" />
                             <div className="note-actions">
                                 <span
                                     className={`favorite-icon ${note.favorite ? 'favorited' : ''}`}
                                     onClick={() => toggleFavorite(note._id)}
-                                    title={note.favorite ? 'Unfavorite' : 'Mark as Favorite'}
                                 >
                                     ★
                                 </span>
-                                <button className="note-action-button"  onClick={() => deleteNote(note._id)} title="Delete Note">🗑️</button>
+                                <button className="note-action-button" onClick={() => deleteNote(note._id)}>🗑</button>
                                 {editingNoteId !== note._id && (
-                                    <button className="note-action-button"  onClick={() => startEditing(note)} title="Edit Note">✏️</button>
+                                    <button className="note-action-button" onClick={() => startEditing(note)}>✏</button>
                                 )}
                             </div>
                         </div>
@@ -240,15 +241,21 @@ const Notes = () => {
                                 <span className="note-subject">{note.subject}</span>
                                 <h3>{note.title}</h3>
                                 <p>{note.description}</p>
+                                <div className="note-options horizontal">
+                                    <button className="note-tag-button">Summary</button>
+                                    <button className="note-tag-button">Quiz</button>
+                                    <button className="note-tag-button">Mindmap</button>
+                                </div>
                             </div>
                             <img src={note.image} alt={note.title} className="note-img" />
-                            <span
-                                className={`favorite-icon ${note.favorite ? 'favorited' : ''}`}
-                                onClick={() => toggleFavorite(note._id)}
-                                title={note.favorite ? 'Unfavorite' : 'Mark as Favorite'}
-                            >
-                                ★
-                            </span>
+                            <div className="note-actions">
+                                <span
+                                    className={`favorite-icon ${note.favorite ? 'favorited' : ''}`}
+                                    onClick={() => toggleFavorite(note._id)}
+                                >
+                                    ★
+                                </span>
+                            </div>
                         </div>
                     ))}
                 </div>

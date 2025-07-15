@@ -38,7 +38,7 @@ const summary = async (req, res) => {
 
     const fullText = transcript.content.map((line) => line.text).join(" ");
     const ai = new GoogleGenerativeAI(process.env.API_KEY);
-    const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const result = await model.generateContent(
       `Summarize the following YouTube video transcript in detail:\n\n${fullText}`
@@ -61,7 +61,7 @@ const translation = async (req, res) => {
   const { summary, language } = req.body;
   try {
     const ai = new GoogleGenerativeAI(process.env.API_KEY);
-    const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const result = await model.generateContent(
       `translate the\n${summary} in \n\n${language}`
@@ -101,7 +101,7 @@ const quiz = async (req, res) => {
     }
 
     // ✅ Use Gemini to summarize
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const summaryResponse = await model.generateContent(`Summarize the following:\n\n${fullText}`);
     const summary = (await summaryResponse.response).text();
@@ -188,7 +188,7 @@ Text:
 ${extractedText}
     `.trim();
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const raw = await response.text();
