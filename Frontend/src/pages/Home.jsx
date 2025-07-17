@@ -77,7 +77,10 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 hover:shadow-lg transition">
+            <Link
+              to="/notes"
+              className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 hover:shadow-lg transition cursor-pointer block"
+            >
               <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
                 <Upload className="w-6 h-6 text-white" />
               </div>
@@ -85,9 +88,12 @@ export default function Home() {
               <p className="text-sm text-gray-400">
                 Simply upload your study materials, lecture notes, or textbooks. Our AI processes any format instantly.
               </p>
-            </div>
+            </Link>
 
-            <div className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 hover:shadow-lg transition">
+            <Link
+              to="/mindmap"
+              className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 hover:shadow-lg transition cursor-pointer block"
+            >
               <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
                 <Brain className="w-6 h-6 text-white" />
               </div>
@@ -95,7 +101,7 @@ export default function Home() {
               <p className="text-sm text-gray-400">
                 Generate interactive mindmaps from your content to visualize concepts and connections.
               </p>
-            </div>
+            </Link>
 
             <Link
               to="/summary"
@@ -110,7 +116,10 @@ export default function Home() {
               </p>
             </Link>
 
-            <div className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 hover:shadow-lg transition">
+            <Link
+              to="/quizzes"
+              className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 hover:shadow-lg transition cursor-pointer block"
+            >
               <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
                 <ClipboardCheck className="w-6 h-6 text-white" />
               </div>
@@ -118,7 +127,7 @@ export default function Home() {
               <p className="text-sm text-gray-400">
                 Test your knowledge with AI-generated quizzes tailored to your study materials.
               </p>
-            </div>
+            </Link>
           </div>
 
           <div className="mt-10 text-center">
