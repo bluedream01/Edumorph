@@ -16,6 +16,7 @@
     "d3": "^7.9.0",
     "google-translate-api": "^2.3.0",
     "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.525.0",
     "markmap-lib": "^0.18.12",
     "markmap-view": "^0.18.12",
     "react": "^19.1.0",
