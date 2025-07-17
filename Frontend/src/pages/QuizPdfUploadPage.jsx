@@ -1,11 +1,15 @@
 import React, { useState, useRef } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Upload, FileText, X } from "lucide-react";
 
 export default function CreateQuiz() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [difficulty, setDifficulty] = useState("");
   const [numQuestions, setNumQuestions] = useState("");
+  const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleFileSelect = (e) => {
     const file = e.target.files?.[0];
@@ -23,6 +27,46 @@ export default function CreateQuiz() {
   const handleRemoveFile = () => {
     setSelectedFile(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleGenerateQuiz = async () => {
+    if (!selectedFile || !difficulty || !numQuestions) {
+      alert("Please fill out all fields and upload a PDF.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("pdf", selectedFile);
+    formData.append("difficulty", difficulty);
+    formData.append("noOfQuestions", numQuestions);
+
+    setLoading(true);
+    try {
+      const response = await axios.post("/SummaryCall/quiz", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const questions = response.data?.quiz;
+
+      if (!Array.isArray(questions) || questions.length === 0) {
+        throw new Error("Invalid or empty quiz returned from backend.");
+      }
+
+      navigate("/quizgenerating", {
+        state: {
+          questions,
+          difficulty,
+          numQuestions,
+        },
+      });
+    } catch (error) {
+      console.error("Quiz generation failed:", error);
+      alert("Failed to generate quiz. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -102,9 +146,9 @@ export default function CreateQuiz() {
               className="w-full px-4 py-2 rounded-md bg-[#0f172a] border border-gray-600 focus:ring-2 focus:ring-blue-500"
             >
               <option value="" disabled>Select Difficulty</option>
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
             </select>
           </div>
 
@@ -126,10 +170,11 @@ export default function CreateQuiz() {
         {/* Generate Button */}
         <div className="text-center mt-8">
           <button
-            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition"
-            disabled={!difficulty || !numQuestions || !selectedFile}
+            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition disabled:opacity-50"
+            onClick={handleGenerateQuiz}
+            disabled={!difficulty || !numQuestions || !selectedFile || loading}
           >
-            Generate Quiz
+            {loading ? "Generating..." : "Generate Quiz"}
           </button>
         </div>
       </section>

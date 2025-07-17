@@ -1,226 +1,103 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './profile.css';
-import DefaultProfile from '../assets/user.jpg';
+import React, { useState } from "react";
+import { FaEdit, FaCamera, FaClipboardList, FaFileAlt } from "react-icons/fa";
 
-export default function Profile() {
-  const fileInputRef = useRef(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [profileImg, setProfileImg] = useState(DefaultProfile);
-  const [originalData, setOriginalData] = useState({ name: '', email: '' });
-
-  const [profileData, setProfileData] = useState({
-    name: '',
-    location: 'Not Provided',
-    email: '',
-  });
-
-useEffect(() => {
-  const fetchProfile = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-
-    try {
-      const res = await fetch('http://localhost:4000/api/auth/profile', {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      if (!res.ok) throw new Error('Failed to fetch profile');
-      const data = await res.json();
-
-      const profile = {
-        name: data.username || 'Guest',
-        email: data.email || 'Not Available',
-        location: 'Not Provided'
-      };
-
-      setProfileData(profile);
-      setOriginalData({ name: profile.name, email: profile.email });
-    } catch (err) {
-      console.error('❌ Error fetching user data:', err.message);
-    }
-  };
-
-  fetchProfile();
-}, []);
-
-
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleEditToggle = () => setIsEditing(prev => !prev);
-
-  const handleSave = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
-    try {
-      const res = await fetch("http://localhost:4000/api/auth/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          username: profileData.name,
-          email: profileData.email
-        })
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        localStorage.setItem("username", data.username);
-        localStorage.setItem("email", data.email);
-        setOriginalData({ name: data.username, email: data.email });
-        setIsEditing(false);
-      } else {
-        console.error("Update failed:", data.message);
-      }
-    } catch (err) {
-      console.error("Error updating profile:", err.message);
-    }
-  };
-
-  const handleCancel = () => {
-    setProfileData(prev => ({
-      ...prev,
-      name: originalData.name,
-      email: originalData.email
-    }));
-    setIsEditing(false);
-  };
-
-  const handleTabClick = (route) => {
-    window.location.href = route;
-  };
-
-  const handleImageClick = () => fileInputRef.current.click();
-
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImg(imageUrl); // for instant preview
-
-      // Upload to backend
-      try {
-        const response = await fetch("http://localhost:4000/api/auth/profile-image", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({ imageUrl }), // In real app, use cloud upload
-        });
-        const data = await response.json();
-        localStorage.setItem("profileImage", data.profileImage);
-      } catch (error) {
-        console.error("Error updating profile image:", error);
-      }
-    }
-  };
-
+const Profile = () => {
+  const [activeTab, setActiveTab] = useState("Overview");
+  const tabs = ["Overview", "Mindmaps", "Quizzes", "Notes"];
 
   return (
-    <div className="container">
-      <div className="profile-header">
-        <div className="profile-img-wrapper" onClick={handleImageClick}>
-          <img src={profileImg} alt="Profile" className="profile-img" />
-          <div className="img-hover-overlay">Edit Photo</div>
-        </div>
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          onChange={handleImageUpload}
-          style={{ display: 'none' }}
-        />
-
-        {isEditing ? (
-          <div className="edit-fields">
-            <input type="text" name="name" value={profileData.name} onChange={handleChange} className="edit-input" />
-            <input type="text" name="location" value={profileData.location} onChange={handleChange} className="edit-input" />
-            <input type="email" name="email" value={profileData.email} onChange={handleChange} className="edit-input" />
+    <div className="min-h-screen bg-[#0f172a] text-white font-sans">
+      {/* Profile Section */}
+      <section className="max-w-5xl mx-auto mt-10 px-4">
+        <div className="bg-[#1e2a47] p-6 rounded-lg text-center shadow-lg relative">
+          {/* Avatar */}
+          <div className="w-24 h-24 mx-auto relative">
+            <img
+              src="https://i.ibb.co/sQm3dSC/profile.png"
+              alt="avatar"
+              className="rounded-full w-full h-full border-4 border-[#0f172a]"
+            />
+            <div className="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full cursor-pointer hover:bg-blue-500">
+              <FaCamera />
+            </div>
           </div>
-        ) : (
-          <>
-            <h2>{profileData.name}</h2>
-            <p>
-              {profileData.location}<br />
-              Email: {profileData.email}<br />
-              Joined in 2024
-            </p>
-          </>
-        )}
-      </div>
 
-      {!isEditing ? (
-        <button className="edit" onClick={handleEditToggle}>
-          <img src="https://www.svgrepo.com/show/355801/edit.svg" alt="edit" />
-          Edit
-        </button>
-      ) : (
-        <div className="button-group">
-          <button type="button" className="save-btn" onClick={handleSave}>Save</button>
-          <button type="button" className="cancel-btn" onClick={handleCancel}>Cancel</button>
+          {/* Info */}
+          <h2 className="text-2xl font-bold mt-4">Souhardya</h2>
+          <p className="text-sm text-gray-300">Male</p>
+          <p className="text-sm text-gray-400 mt-1">Email: souhardya.2208@gmail.com</p>
+          <p className="text-sm text-gray-500">Joined in 2024</p>
+
+          <button className="mt-4 bg-[#0f172a] px-4 py-2 rounded-md hover:bg-[#2b3c55] flex items-center gap-2 mx-auto text-sm">
+            <FaEdit /> Edit
+          </button>
         </div>
-      )}
 
-      <div className="tabs">
-        <Link to="/overview" className="tab active">Overview</Link>
-        <Link to="/mindmaps" className="tab">Mindmaps</Link>
-        <Link to="/quizzes" className="tab">Quizzes</Link>
-        <Link to="/notes" className="tab">Notes</Link>
-      </div>
+        {/* Tabs */}
+        <div className="mt-6 flex justify-between items-center gap-2 rounded-md bg-[#1f2937] px-2 py-1">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`w-full py-2 rounded-md text-sm transition ${
+                activeTab === tab
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-[#2b3c55] text-gray-300"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
 
-      <h3 className="attempt">Attempted Quizzes</h3>
-      <table className="quiz-table">
-        <thead>
-          <tr>
-            <th>Quiz Title</th>
-            <th>Score</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>History of Science</td>
-            <td>85%</td>
-            <td><button className="status-btn completed">Completed</button></td>
-          </tr>
-          <tr>
-            <td>Introduction to Psychology</td>
-            <td>70%</td>
-            <td><button className="status-btn completed">Completed</button></td>
-          </tr>
-          <tr>
-            <td>Advanced Mathematics</td>
-            <td>In Progress</td>
-            <td><button className="status-btn in-progress">In Progress</button></td>
-          </tr>
-        </tbody>
-      </table>
+        {/* Dashboard Cards */}
+        {activeTab === "Overview" && (
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Attempted Quizzes */}
+            <div className="bg-[#152238] p-6 rounded-xl shadow-md">
+              <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
+                <FaClipboardList /> Attempted Quizzes
+              </h3>
+              <div className="space-y-4 text-sm">
+                <div className="flex justify-between items-center border-b border-[#2b3d59] pb-2">
+                  <div>
+                    <p className="text-white">History of Science</p>
+                    <p className="text-gray-400 text-xs">85%</p>
+                  </div>
+                  <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">Completed</span>
+                </div>
+                <div className="flex justify-between items-center border-b border-[#2b3d59] pb-2">
+                  <div>
+                    <p className="text-white">Introduction to Psychology</p>
+                    <p className="text-gray-400 text-xs">70%</p>
+                  </div>
+                  <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">Completed</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-white">Advanced Mathematics</p>
+                  </div>
+                  <span className="bg-yellow-500 text-xs text-white px-3 py-1 rounded-full">In Progress</span>
+                </div>
+              </div>
+            </div>
 
-      <div className="notes-shared">
-        <h3>Notes Shared</h3>
-        <span className="notes">Theories of Relativity</span>
-        <span className="note-tag">Cognitive Behavioral Therapy</span>
-        <span className="note-tag">Calculus Fundamentals</span>
-      </div>
-
-      <h3 className="mindmap">Mindmaps</h3>
-      <div className="mind">
-        <img src="https://a.storyblok.com/f/289344/3068x1988/b86b6a858a/summaries-mind-map.png" alt="Mindmap 1" />
-        <img src="https://lh5.googleusercontent.com/PlYQp14FPN15YWl0jOem_clWd3uQlhsBK8g2rwrtcogqzNrghO-RowH2yaMjxTFfIcdwKDoCiJwiuLKDn0lHXZUayi30CSJvKAa8AG_LhzLqVTlF007W7kbhwu7hPc--UO-7FiOR" alt="Mindmap 2" />
-        <img src="https://www.designorate.com/wp-content/uploads/2015/07/imindmap.jpg" alt="Mindmap 3" />
-      </div>
+            {/* Notes Shared */}
+            <div className="bg-[#152238] p-6 rounded-xl shadow-md">
+              <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
+                <FaFileAlt /> Notes Shared
+              </h3>
+              <div className="space-y-4 text-sm text-white">
+                <p className="border-b border-[#2b3d59] pb-2">Theories of Relativity</p>
+                <p className="border-b border-[#2b3d59] pb-2">Cognitive Behavioral Therapy</p>
+                <p>Calculus Fundamentals</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
     </div>
   );
-}
+};
+
+export default Profile;

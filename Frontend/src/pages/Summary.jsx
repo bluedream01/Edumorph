@@ -78,19 +78,7 @@ export default function Summary() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white font-sans">
-      {/* Navbar */}
-      <header className="fixed top-0 left-0 w-full bg-[#0f172a] z-50 border-b border-[#1e293b]">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold">EduMorph</h1>
-          <nav className="flex space-x-8 text-sm font-medium">
-            <a href="#home" className="hover:text-blue-400">Home</a>
-            <a href="#features" className="text-blue-400">Features</a>
-            <a href="#pricing" className="hover:text-blue-400">Pricing</a>
-            <a href="#contact" className="hover:text-blue-400">Contact</a>
-          </nav>
-        </div>
-      </header>
-
+      
       {/* Main */}
       <main className="pt-32 pb-16 px-4">
         <section
