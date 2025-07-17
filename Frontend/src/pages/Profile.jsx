@@ -1,36 +1,197 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaEdit, FaCamera, FaClipboardList, FaFileAlt } from "react-icons/fa";
+import DefaultProfile from '../assets/user.jpg';
 
-const Profile = () => {
+export default function Profile() {
+  const fileInputRef = useRef(null);
   const [activeTab, setActiveTab] = useState("Overview");
+  const [isEditing, setIsEditing] = useState(false);
+  const [profileImg, setProfileImg] = useState(DefaultProfile);
+  const [originalData, setOriginalData] = useState({ name: "", email: "" });
+
+  const [profileData, setProfileData] = useState({
+    name: "",
+    location: "Not Provided",
+    email: "",
+  });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const res = await fetch("http://localhost:4000/api/auth/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch profile");
+
+        const data = await res.json();
+        const profile = {
+          name: data.username || "Guest",
+          email: data.email || "Not Available",
+          location: "Not Provided",
+        };
+
+        setProfileData(profile);
+        setOriginalData({ name: profile.name, email: profile.email });
+      } catch (err) {
+        console.error("❌ Error fetching user data:", err.message);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const handleImageClick = () => fileInputRef.current.click();
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setProfileImg(imageUrl);
+
+      try {
+        const response = await fetch("http://localhost:4000/api/auth/profile-image", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ imageUrl }),
+        });
+        const data = await response.json();
+        localStorage.setItem("profileImage", data.profileImage);
+      } catch (error) {
+        console.error("Error updating profile image:", error);
+      }
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const res = await fetch("http://localhost:4000/api/auth/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          username: profileData.name,
+          email: profileData.email,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("email", data.email);
+        setOriginalData({ name: data.username, email: data.email });
+        setIsEditing(false);
+      } else {
+        console.error("Update failed:", data.message);
+      }
+    } catch (err) {
+      console.error("Error updating profile:", err.message);
+    }
+  };
+
+  const handleCancel = () => {
+    setProfileData((prev) => ({
+      ...prev,
+      name: originalData.name,
+      email: originalData.email,
+    }));
+    setIsEditing(false);
+  };
+
   const tabs = ["Overview", "Mindmaps", "Quizzes", "Notes"];
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white font-sans">
-      {/* Profile Section */}
       <section className="max-w-5xl mx-auto mt-10 px-4">
+        {/* Profile Card */}
         <div className="bg-[#1e2a47] p-6 rounded-lg text-center shadow-lg relative">
-          {/* Avatar */}
           <div className="w-24 h-24 mx-auto relative">
             <img
-              src="https://i.ibb.co/sQm3dSC/profile.png"
+              src={profileImg}
               alt="avatar"
-              className="rounded-full w-full h-full border-4 border-[#0f172a]"
+              className="rounded-full w-full h-full border-4 border-[#0f172a] object-cover"
             />
-            <div className="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full cursor-pointer hover:bg-blue-500">
+            <div
+              className="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full cursor-pointer hover:bg-blue-500"
+              onClick={handleImageClick}
+            >
               <FaCamera />
             </div>
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+            />
           </div>
 
-          {/* Info */}
-          <h2 className="text-2xl font-bold mt-4">Souhardya</h2>
-          <p className="text-sm text-gray-300">Male</p>
-          <p className="text-sm text-gray-400 mt-1">Email: souhardya.2208@gmail.com</p>
-          <p className="text-sm text-gray-500">Joined in 2024</p>
-
-          <button className="mt-4 bg-[#0f172a] px-4 py-2 rounded-md hover:bg-[#2b3c55] flex items-center gap-2 mx-auto text-sm">
-            <FaEdit /> Edit
-          </button>
+          {!isEditing ? (
+            <>
+              <h2 className="text-2xl font-bold mt-4">{profileData.name}</h2>
+              <p className="text-sm text-gray-300">{profileData.location}</p>
+              <p className="text-sm text-gray-400 mt-1">Email: {profileData.email}</p>
+              <p className="text-sm text-gray-500">Joined in 2024</p>
+              <button
+                className="mt-4 bg-[#0f172a] px-4 py-2 rounded-md hover:bg-[#2b3c55] flex items-center gap-2 mx-auto text-sm"
+                onClick={() => setIsEditing(true)}
+              >
+                <FaEdit /> Edit
+              </button>
+            </>
+          ) : (
+            <div className="mt-4 flex flex-col gap-2">
+              <input
+                className="bg-[#2c3e5a] text-white p-2 rounded"
+                type="text"
+                name="name"
+                value={profileData.name}
+                onChange={handleChange}
+              />
+              <input
+                className="bg-[#2c3e5a] text-white p-2 rounded"
+                type="text"
+                name="location"
+                value={profileData.location}
+                onChange={handleChange}
+              />
+              <input
+                className="bg-[#2c3e5a] text-white p-2 rounded"
+                type="email"
+                name="email"
+                value={profileData.email}
+                onChange={handleChange}
+              />
+              <div className="flex gap-4 justify-center mt-2">
+                <button onClick={handleSave} className="bg-green-600 px-4 py-1 rounded">
+                  Save
+                </button>
+                <button onClick={handleCancel} className="bg-red-500 px-4 py-1 rounded">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Tabs */}
@@ -50,10 +211,10 @@ const Profile = () => {
           ))}
         </div>
 
-        {/* Dashboard Cards */}
+        {/* Tab Content */}
         {activeTab === "Overview" && (
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Attempted Quizzes */}
+            {/* Quizzes */}
             <div className="bg-[#152238] p-6 rounded-xl shadow-md">
               <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
                 <FaClipboardList /> Attempted Quizzes
@@ -82,7 +243,7 @@ const Profile = () => {
               </div>
             </div>
 
-            {/* Notes Shared */}
+            {/* Notes */}
             <div className="bg-[#152238] p-6 rounded-xl shadow-md">
               <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
                 <FaFileAlt /> Notes Shared
@@ -98,6 +259,4 @@ const Profile = () => {
       </section>
     </div>
   );
-};
-
-export default Profile;
+}
