@@ -14,7 +14,7 @@ export default function Home() {
 
   const handleStart = () => {
     if (isLoggedIn) {
-      navigate("/notes");
+      navigate("/profile");
     } else {
       navigate("/login");
     }
