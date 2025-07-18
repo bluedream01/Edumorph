@@ -13,40 +13,40 @@ export default function Summary() {
   const [xpMessage, setXpMessage] = useState("");
 
   const handleSummarize = async () => {
-  if (!videoLink.trim()) return;
-  setIsLoading(true);
-  setSummary("");
-  setTranslatedText("");
-  setError("");
-  setXpMessage("");
+    if (!videoLink.trim()) return;
+    setIsLoading(true);
+    setSummary("");
+    setTranslatedText("");
+    setError("");
+    setXpMessage("");
 
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    const response = await fetch("/SummaryCall", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ url: videoLink }),
-    });
+      const response = await fetch("/SummaryCall", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ url: videoLink }),
+      });
 
-    if (!response.ok) throw new Error(await response.text());
+      if (!response.ok) throw new Error(await response.text());
 
-    const data = await response.json();
-    setSummary(data.summary || "No summary found.");
+      const data = await response.json();
+      setSummary(data.summary || "No summary found.");
 
-    // ✅ XP is already updated in backend — just show success message
-    setXpMessage("✅ 10 XP earned!");
-    setTimeout(() => setXpMessage(""), 4000);
-  } catch (err) {
-    console.error("Error:", err);
-    setError("Failed to summarize video.");
-  } finally {
-    setIsLoading(false);
-  }
-};
+      // ✅ XP is already updated in backend — just show success message
+      setXpMessage("✅ 10 XP earned!");
+      setTimeout(() => setXpMessage(""), 4000);
+    } catch (err) {
+      console.error("Error:", err);
+      setError("Failed to summarize video.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleTranslate = async () => {
     if (!summary || language === "Translate") return;
@@ -121,6 +121,11 @@ export default function Summary() {
                 value={videoLink}
                 onChange={(e) => setVideoLink(e.target.value)}
                 className="w-full bg-[#0f172a] border border-[#334155] text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSummarize() // 🔁 Call your custom function here
+                  }
+                }}
               />
               <button
                 onClick={handleSummarize}

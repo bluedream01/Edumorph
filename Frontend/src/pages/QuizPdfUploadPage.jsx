@@ -42,8 +42,13 @@ export default function CreateQuiz() {
 
     setLoading(true);
     try {
+      const token = localStorage.getItem("token");
+
       const response = await axios.post("/SummaryCall/quiz", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`, // 🔐 sends the token
+        },
       });
 
       const questions = response.data?.quiz;
@@ -76,7 +81,8 @@ export default function CreateQuiz() {
           Create a Quiz from <span className="text-blue-400">PDF</span>
         </h1>
         <p className="mt-4 text-gray-400 text-lg max-w-2xl mx-auto">
-          Upload a PDF document to generate a quiz. Specify the difficulty level and the number of questions.
+          Upload a PDF document to generate a quiz. Specify the difficulty level
+          and the number of questions.
         </p>
       </section>
 
@@ -96,7 +102,9 @@ export default function CreateQuiz() {
               <div className="w-16 h-16 bg-blue-600/20 rounded-full mx-auto flex items-center justify-center">
                 <Upload className="w-8 h-8 text-blue-500" />
               </div>
-              <h2 className="text-lg font-semibold mt-4">Upload PDF Document</h2>
+              <h2 className="text-lg font-semibold mt-4">
+                Upload PDF Document
+              </h2>
               <p className="text-gray-400 text-sm">
                 Drag and drop your file here or click to browse
               </p>
@@ -139,13 +147,17 @@ export default function CreateQuiz() {
         {/* Dropdowns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
           <div>
-            <label className="block mb-2 text-sm font-medium">Difficulty Level</label>
+            <label className="block mb-2 text-sm font-medium">
+              Difficulty Level
+            </label>
             <select
               value={difficulty}
               onChange={(e) => setDifficulty(e.target.value)}
               className="w-full px-4 py-2 rounded-md bg-[#0f172a] border border-gray-600 focus:ring-2 focus:ring-blue-500"
             >
-              <option value="" disabled>Select Difficulty</option>
+              <option value="" disabled>
+                Select Difficulty
+              </option>
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
@@ -153,15 +165,21 @@ export default function CreateQuiz() {
           </div>
 
           <div>
-            <label className="block mb-2 text-sm font-medium">Number of Questions</label>
+            <label className="block mb-2 text-sm font-medium">
+              Number of Questions
+            </label>
             <select
               value={numQuestions}
               onChange={(e) => setNumQuestions(e.target.value)}
               className="w-full px-4 py-2 rounded-md bg-[#0f172a] border border-gray-600 focus:ring-2 focus:ring-blue-500"
             >
-              <option value="" disabled>Select Number</option>
+              <option value="" disabled>
+                Select Number
+              </option>
               {[5, 10, 15, 20, 25].map((num) => (
-                <option key={num} value={num}>{num}</option>
+                <option key={num} value={num}>
+                  {num}
+                </option>
               ))}
             </select>
           </div>
@@ -185,7 +203,8 @@ export default function CreateQuiz() {
           Why Choose Our <span className="text-blue-400">Quiz Generator</span>
         </h2>
         <p className="mt-4 text-gray-400 max-w-xl mx-auto text-lg">
-          Experience the power of AI-driven quiz generation tailored to your learning needs.
+          Experience the power of AI-driven quiz generation tailored to your
+          learning needs.
         </p>
 
         <div className="grid md:grid-cols-3 gap-6 mt-12 px-4 max-w-6xl mx-auto">
@@ -206,7 +225,10 @@ export default function CreateQuiz() {
               icon: <FileText className="w-6 h-6" />,
             },
           ].map((item, idx) => (
-            <div key={idx} className="bg-[#0f172a] border border-gray-600 rounded-lg p-6">
+            <div
+              key={idx}
+              className="bg-[#0f172a] border border-gray-600 rounded-lg p-6"
+            >
               <div className="w-12 h-12 mx-auto mb-4 bg-blue-500 text-white rounded-full flex items-center justify-center">
                 {item.icon}
               </div>
