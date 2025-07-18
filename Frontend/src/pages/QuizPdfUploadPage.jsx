@@ -43,9 +43,7 @@ export default function CreateQuiz() {
     setLoading(true);
     try {
       const response = await axios.post("/SummaryCall/quiz", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       const questions = response.data?.quiz;
@@ -54,6 +52,7 @@ export default function CreateQuiz() {
         throw new Error("Invalid or empty quiz returned from backend.");
       }
 
+      // Send data to /quizgenerating with state
       navigate("/quizgenerating", {
         state: {
           questions,
@@ -71,6 +70,7 @@ export default function CreateQuiz() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white font-sans">
+      {/* Header */}
       <section className="pt-32 pb-20 text-center">
         <h1 className="text-5xl font-bold">
           Create a Quiz from <span className="text-blue-400">PDF</span>
@@ -136,7 +136,7 @@ export default function CreateQuiz() {
           )}
         </div>
 
-        {/* Difficulty + Questions */}
+        {/* Dropdowns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
           <div>
             <label className="block mb-2 text-sm font-medium">Difficulty Level</label>
@@ -167,7 +167,7 @@ export default function CreateQuiz() {
           </div>
         </div>
 
-        {/* Generate Button */}
+        {/* Submit Button */}
         <div className="text-center mt-8">
           <button
             className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition disabled:opacity-50"
@@ -179,7 +179,7 @@ export default function CreateQuiz() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features */}
       <section className="mt-24 py-16 bg-[#1e293b] text-center">
         <h2 className="text-3xl font-bold">
           Why Choose Our <span className="text-blue-400">Quiz Generator</span>
