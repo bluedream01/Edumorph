@@ -10,30 +10,43 @@ export default function Summary() {
   const [translatedText, setTranslatedText] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [error, setError] = useState("");
+  const [xpMessage, setXpMessage] = useState("");
 
   const handleSummarize = async () => {
-    if (!videoLink.trim()) return;
-    setIsLoading(true);
-    setSummary("");
-    setTranslatedText("");
-    setError("");
+  if (!videoLink.trim()) return;
+  setIsLoading(true);
+  setSummary("");
+  setTranslatedText("");
+  setError("");
+  setXpMessage("");
 
-    try {
-      const response = await fetch("/SummaryCall", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: videoLink }),
-      });
-      if (!response.ok) throw new Error(await response.text());
-      const data = await response.json();
-      setSummary(data.summary || "No summary found.");
-    } catch (err) {
-      console.error("Error:", err);
-      setError("Failed to summarize video.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch("/SummaryCall", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ url: videoLink }),
+    });
+
+    if (!response.ok) throw new Error(await response.text());
+
+    const data = await response.json();
+    setSummary(data.summary || "No summary found.");
+
+    // ✅ XP is already updated in backend — just show success message
+    setXpMessage("✅ 10 XP earned!");
+    setTimeout(() => setXpMessage(""), 4000);
+  } catch (err) {
+    console.error("Error:", err);
+    setError("Failed to summarize video.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const handleTranslate = async () => {
     if (!summary || language === "Translate") return;
@@ -78,18 +91,20 @@ export default function Summary() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white font-sans">
-      
       {/* Main */}
       <main className="pt-32 pb-16 px-4">
         <section
           className={`max-w-7xl mx-auto transition-all duration-700 ease-in-out ${
-            summary ? "flex justify-center" : "lg:grid lg:grid-cols-2 gap-12 items-center"
+            summary
+              ? "flex justify-center"
+              : "lg:grid lg:grid-cols-2 gap-12 items-center"
           }`}
         >
           {/* Left Side */}
           <div className="space-y-6 max-w-2xl w-full">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight text-center lg:text-left">
-              Summarize <span className="text-blue-500">Video Content</span> Instantly
+              Summarize <span className="text-blue-500">Video Content</span>{" "}
+              Instantly
             </h1>
             <p className="text-lg text-gray-400 text-center lg:text-left">
               Convert long educational videos into short, actionable insights.
@@ -97,7 +112,9 @@ export default function Summary() {
 
             {/* Input Section */}
             <div className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 space-y-4 shadow-md">
-              <label className="text-sm font-medium text-gray-300">YouTube Video Link</label>
+              <label className="text-sm font-medium text-gray-300">
+                YouTube Video Link
+              </label>
               <input
                 type="url"
                 placeholder="https://youtube.com/watch?v=..."
@@ -125,12 +142,17 @@ export default function Summary() {
             </div>
 
             {error && <p className="text-red-400">{error}</p>}
+            {xpMessage && (
+              <p className="text-green-500 font-medium">{xpMessage}</p>
+            )}
 
             {/* Summary */}
             {summary && (
               <div className="mt-8 bg-[#1e293b] border border-[#334155] rounded-xl p-6 shadow-md space-y-4">
                 <h3 className="text-xl font-bold text-blue-400">Summary</h3>
-                <p className="text-sm text-gray-300 whitespace-pre-wrap">{summary}</p>
+                <p className="text-sm text-gray-300 whitespace-pre-wrap">
+                  {summary}
+                </p>
 
                 <div className="flex flex-wrap items-center gap-4 pt-2 justify-center">
                   <button
@@ -146,7 +168,9 @@ export default function Summary() {
                     onChange={(e) => setLanguage(e.target.value)}
                     className="bg-[#0f172a] border border-[#334155] px-3 py-2 rounded-lg text-sm text-white"
                   >
-                    <option value="Translate" disabled>Translate to...</option>
+                    <option value="Translate" disabled>
+                      Translate to...
+                    </option>
                     <option value="Hindi">Hindi</option>
                     <option value="Spanish">Spanish</option>
                     <option value="French">French</option>
@@ -170,8 +194,12 @@ export default function Summary() {
 
                 {translatedText && (
                   <div className="pt-6">
-                    <h4 className="text-lg font-semibold text-green-400">Translated Summary</h4>
-                    <p className="text-sm text-gray-300 whitespace-pre-wrap">{translatedText}</p>
+                    <h4 className="text-lg font-semibold text-green-400">
+                      Translated Summary
+                    </h4>
+                    <p className="text-sm text-gray-300 whitespace-pre-wrap">
+                      {translatedText}
+                    </p>
                   </div>
                 )}
               </div>
@@ -193,17 +221,37 @@ export default function Summary() {
 
         {/* Features */}
         {!summary && (
-          <section id="features" className="mt-24 max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 transition-all duration-500">
+          <section
+            id="features"
+            className="mt-24 max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 transition-all duration-500"
+          >
             {[
-              { icon: <Zap className="text-white w-6 h-6" />, title: "Lightning Fast", desc: "Get summaries in under 30 seconds" },
-              { icon: <FileText className="text-white w-6 h-6" />, title: "Smart Summaries", desc: "AI extracts core ideas and concepts" },
-              { icon: <Clock className="text-white w-6 h-6" />, title: "Save Time", desc: "Review long content in minutes" }
+              {
+                icon: <Zap className="text-white w-6 h-6" />,
+                title: "Lightning Fast",
+                desc: "Get summaries in under 30 seconds",
+              },
+              {
+                icon: <FileText className="text-white w-6 h-6" />,
+                title: "Smart Summaries",
+                desc: "AI extracts core ideas and concepts",
+              },
+              {
+                icon: <Clock className="text-white w-6 h-6" />,
+                title: "Save Time",
+                desc: "Review long content in minutes",
+              },
             ].map((f, i) => (
-              <div key={i} className="bg-[#1e293b] p-6 text-center border border-[#334155] rounded-xl hover:shadow-lg">
+              <div
+                key={i}
+                className="bg-[#1e293b] p-6 text-center border border-[#334155] rounded-xl hover:shadow-lg"
+              >
                 <div className="w-12 h-12 mx-auto bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
                   {f.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-2">{f.title}</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  {f.title}
+                </h3>
                 <p className="text-sm text-gray-400">{f.desc}</p>
               </div>
             ))}

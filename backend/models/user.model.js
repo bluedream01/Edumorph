@@ -5,7 +5,8 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, trim: true },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   password: { type: String, required: true },
-  profilePic: { type: String, default: "" }
+  profilePic: { type: String, default: "" },
+  xp:{type:Number,default:0},
 }, { timestamps: true });
 
 // Hash password before saving
