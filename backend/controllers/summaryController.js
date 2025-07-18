@@ -3,8 +3,7 @@ const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { Supadata } = require("@supadata/js");
-const User = require('../models/user.model');
-
+const User = require("../models/user.model");
 
 const summary = async (req, res) => {
   const { url } = req.body;
@@ -87,7 +86,7 @@ const quiz = async (req, res) => {
 
     const { difficulty, noOfQuestions } = req.body;
     const filePath = req.file.path;
-
+    console.log(difficulty);
     // ✅ Read and parse the PDF
     const pdfBuffer = fs.readFileSync(filePath);
     const pdfData = await pdfParse(pdfBuffer);
@@ -125,6 +124,21 @@ const quiz = async (req, res) => {
 
     const quizResponse = await model.generateContent(quizPrompt);
     const quizText = (await quizResponse.response).text();
+    if(difficulty==="Easy"){
+    if (req.user?._id) {
+      await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 50 } });
+    }
+    console.log("User ID for XP update:", req.user?._id);}
+    else if(difficulty==="Medium"){
+    if (req.user?._id) {
+      await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 75 } });
+    }
+    console.log("User ID for XP update:", req.user?._id);}
+    else if(difficulty==="Hard"){
+    if (req.user?._id) {
+      await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 100 } });
+    }
+    console.log("User ID for XP update:", req.user?._id);}
 
     // ✅ Safely parse AI output
     let quizJSON;

@@ -19,7 +19,7 @@ router.post('/auth/update-xp', verifyToken, updateXP);
 
 router.post('/', verifyToken, summary);
 router.post('/translation', translation)
-router.post('/quiz', upload.single("pdf"), quiz)
+router.post('/quiz', verifyToken, upload.single("pdf"),  quiz)
 router.post("/mindmap", upload.single("file"), mindMap);
 router.use('/note', verifyToken);
 router.get('/note',getNotes)
