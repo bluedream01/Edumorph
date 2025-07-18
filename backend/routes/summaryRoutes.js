@@ -13,9 +13,11 @@ const router =express.Router()
 const upload = multer({ dest: "uploads/" });
 const verifyToken = require('../middleware/auth.middleware');
 const notesModel = require("../models/notes.model");
+const { updateXP } = require('../controllers/userController');
+router.post('/auth/update-xp', verifyToken, updateXP);
 
 
-router.post('/',summary)
+router.post('/', verifyToken, summary);
 router.post('/translation', translation)
 router.post('/quiz', upload.single("pdf"), quiz)
 router.post("/mindmap", upload.single("file"), mindMap);

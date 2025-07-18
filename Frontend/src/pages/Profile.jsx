@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaEdit, FaCamera, FaClipboardList, FaFileAlt } from "react-icons/fa";
+import { FaEdit, FaCamera, FaClipboardList, FaFileAlt, FaStar } from "react-icons/fa";
 import DefaultProfile from '../assets/user.jpg';
 
 export default function Profile() {
@@ -7,12 +7,14 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState("Overview");
   const [isEditing, setIsEditing] = useState(false);
   const [profileImg, setProfileImg] = useState(DefaultProfile);
-  const [originalData, setOriginalData] = useState({ name: "", email: "" });
+  const [userXp, setUserXp] = useState(0); // ✅ New XP state
 
+  const [originalData, setOriginalData] = useState({ name: "", email: "" });
   const [profileData, setProfileData] = useState({
     name: "",
     location: "Not Provided",
     email: "",
+    xp: 0,
   });
 
   useEffect(() => {
@@ -35,10 +37,13 @@ export default function Profile() {
           name: data.username || "Guest",
           email: data.email || "Not Available",
           location: "Not Provided",
+          xp:typeof data.xp !== 'undefined' ? data.xp : 0,
         };
 
         setProfileData(profile);
         setOriginalData({ name: profile.name, email: profile.email });
+        setUserXp(typeof data.xp !== 'undefined' ? data.xp : 0);
+
       } catch (err) {
         console.error("❌ Error fetching user data:", err.message);
       }
@@ -152,6 +157,13 @@ export default function Profile() {
               <p className="text-sm text-gray-300">{profileData.location}</p>
               <p className="text-sm text-gray-400 mt-1">Email: {profileData.email}</p>
               <p className="text-sm text-gray-500">Joined in 2024</p>
+
+              {/* ✅ XP Display */}
+              <div className="mt-4 text-yellow-400 flex justify-center items-center gap-2 text-sm font-medium">
+                <FaStar className="text-yellow-300" />
+                XP: {profileData.xp}
+              </div>
+
               <button
                 className="mt-4 bg-[#0f172a] px-4 py-2 rounded-md hover:bg-[#2b3c55] flex items-center gap-2 mx-auto text-sm"
                 onClick={() => setIsEditing(true)}
@@ -260,3 +272,4 @@ export default function Profile() {
     </div>
   );
 }
+

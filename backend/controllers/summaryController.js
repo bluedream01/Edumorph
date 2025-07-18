@@ -3,28 +3,21 @@ const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { Supadata } = require("@supadata/js");
+const User = require('../models/user.model');
+
 
 const summary = async (req, res) => {
   const { url } = req.body;
+  const userId = req.user?.id;
+
   if (!url || typeof url !== "string") {
-    return res
-      .status(400)
-      .json({ error: "YouTube URL is required in request body." });
+    return res.status(400).json({ error: "YouTube URL is required." });
   }
 
-  const supadata = new Supadata({
-    apiKey: process.env.SUPA_KEY,
-  });
-  try {
-    const transcript = await supadata.youtube.transcript({
-      url: url,
-    });
+  const supadata = new Supadata({ apiKey: process.env.SUPA_KEY });
 
-    console.log("Transcript response:", transcript); // 👈 debug log
-    console.log(
-      "Transcript object structure:",
-      JSON.stringify(transcript, null, 2)
-    );
+  try {
+    const transcript = await supadata.youtube.transcript({ url });
 
     if (
       !transcript ||
@@ -38,7 +31,7 @@ const summary = async (req, res) => {
 
     const fullText = transcript.content.map((line) => line.text).join(" ");
     const ai = new GoogleGenerativeAI(process.env.API_KEY);
-    const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const result = await model.generateContent(
       `Summarize the following YouTube video transcript in detail:\n\n${fullText}`
@@ -47,11 +40,16 @@ const summary = async (req, res) => {
     const response = await result.response;
     const text = await response.text();
 
-    console.log(text);
+    // ✅ Give XP after successful summary
+    if (req.user?._id) {
+      await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 10 } });
+    }
+    console.log("User ID for XP update:", req.user?._id);
+
     res.status(200).json({ summary: text });
   } catch (error) {
     console.error("Error generating summary:", error);
-    res.status(500).json({ error: "Failed to generate summary" });
+    res.status(500).json({ error: "Failed to generate summary." });
   }
 };
 
@@ -97,13 +95,17 @@ const quiz = async (req, res) => {
 
     if (!fullText || fullText.length < 50) {
       fs.unlinkSync(filePath);
-      return res.status(400).json({ error: "PDF content is too short or empty" });
+      return res
+        .status(400)
+        .json({ error: "PDF content is too short or empty" });
     }
 
     // ✅ Use Gemini to summarize
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    const summaryResponse = await model.generateContent(`Summarize the following:\n\n${fullText}`);
+    const summaryResponse = await model.generateContent(
+      `Summarize the following:\n\n${fullText}`
+    );
     const summary = (await summaryResponse.response).text();
 
     // ✅ Generate quiz using the summary
@@ -148,7 +150,6 @@ const quiz = async (req, res) => {
     res.status(500).json({ error: "Failed to generate quiz" });
   }
 };
-
 
 //mindmap
 
@@ -196,7 +197,9 @@ ${extractedText}
     // Step 3: Extract markdown
     const match = raw.match(/```markdown\s*([\s\S]*?)```/i);
     if (!match || !match[1].trim()) {
-      return res.status(500).json({ error: "Failed to extract markdown from AI response." });
+      return res
+        .status(500)
+        .json({ error: "Failed to extract markdown from AI response." });
     }
 
     const markdown = match[1].trim();
@@ -204,9 +207,9 @@ ${extractedText}
     console.log("✅ Markmap Markdown Generated:\n", markdown);
 
     // Step 4: Delete temp file
-    await fs.promises.unlink(file.path).catch((err) =>
-      console.error("Failed to delete file:", err)
-    );
+    await fs.promises
+      .unlink(file.path)
+      .catch((err) => console.error("Failed to delete file:", err));
   } catch (error) {
     console.error("❌ Error generating mindmap:", error);
     res.status(500).json({ error: "Failed to generate mind map" });
@@ -214,5 +217,8 @@ ${extractedText}
 };
 
 module.exports = {
-  summary,translation,quiz,mindMap
+  summary,
+  translation,
+  quiz,
+  mindMap,
 };
