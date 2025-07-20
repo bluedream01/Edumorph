@@ -8,6 +8,7 @@ const FlowchartGenius = () => {
   const [markdown, setMarkdown] = useState("");
   const [loading, setLoading] = useState(false);
   const [generated, setGenerated] = useState(false);
+  const [XpMessage, setXpMessage] = useState(false);
 
   const handleChooseFile = () => {
     fileInputRef.current.click();
@@ -24,12 +25,18 @@ const FlowchartGenius = () => {
     setLoading(true);
     const formData = new FormData();
     formData.append("file", selectedFile);
+     const token = localStorage.getItem("token");
 
     try {
       const response = await fetch("/SummaryCall/mindmap", {
-        method: "POST",
-        body: formData,
-      });
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`, // 👈 Add token here
+      },
+    }
+  
+  );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -40,6 +47,8 @@ const FlowchartGenius = () => {
       const raw = data.markdown || data.diagram || "";
       const cleaned = raw.replace(/```markdown\s*([\s\S]*?)\s*```/, "$1").trim();
       setMarkdown(cleaned);
+      setXpMessage("✅ 10 XP earned!");
+      setTimeout(() => setXpMessage(""), 4000);
     } catch (error) {
       console.error("Error uploading file:", error);
       alert("❌ Failed to generate mind map: " + error.message);
