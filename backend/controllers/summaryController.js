@@ -217,6 +217,10 @@ ${extractedText}
     }
 
     const markdown = match[1].trim();
+    if (req.user?._id) {
+      await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 20 } });
+    }
+    console.log("User ID for XP update:", req.user?._id);
     res.json({ markdown });
     console.log("✅ Markmap Markdown Generated:\n", markdown);
 

@@ -11,6 +11,7 @@ export default function Summary() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [error, setError] = useState("");
   const [xpMessage, setXpMessage] = useState("");
+  const [isTranslating, setIsTranslating] = useState(false);
 
   const handleSummarize = async () => {
     if (!videoLink.trim()) return;
@@ -123,7 +124,7 @@ export default function Summary() {
                 className="w-full bg-[#0f172a] border border-[#334155] text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    handleSummarize() // 🔁 Call your custom function here
+                    handleSummarize(); // 🔁 Call your custom function here
                   }
                 }}
               />
@@ -190,10 +191,14 @@ export default function Summary() {
                   <button
                     onClick={handleTranslate}
                     disabled={language === "Translate" || isLoading}
-                    className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white"
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-white transition ${
+                      isLoading
+                        ? "bg-green-400 cursor-not-allowed"
+                        : "bg-green-600 hover:bg-green-700"
+                    }`}
                   >
                     <Languages className="w-4 h-4" />
-                    Translate
+                    {isLoading ? "Translating..." : "Translate"}
                   </button>
                 </div>
 
