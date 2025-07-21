@@ -69,14 +69,17 @@ export default function Profile() {
       setProfileImg(imageUrl);
 
       try {
-        const response = await fetch("http://localhost:4000/api/auth/profile-image", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({ imageUrl }),
-        });
+        const response = await fetch(
+          "http://localhost:4000/api/auth/profile-image",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify({ imageUrl }),
+          }
+        );
         const data = await response.json();
         localStorage.setItem("profileImage", data.profileImage);
       } catch (error) {
@@ -131,7 +134,32 @@ export default function Profile() {
     setIsEditing(false);
   };
 
-  const tabs = ["Overview", "Mindmaps", "Quizzes", "Notes"];
+  const tabs = ["Overview", "Mindmaps", "Quizzes", "Notes", "Badges"];
+
+  const getBadge = (xp) => {
+    if (xp >= 2000) {
+      return {
+        name: "Platinum",
+        color: "bg-gradient-to-r from-gray-300 via-white to-gray-300",
+        emoji: "💎",
+      };
+    } else if (xp >= 1500) {
+      return { name: "Gold", color: "bg-yellow-500", emoji: "🥇" };
+    } else if (xp >= 1000) {
+      return { name: "Silver", color: "bg-gray-400", emoji: "🥈" };
+    } else if (xp >= 500) {
+      return { name: "Bronze", color: "bg-orange-600", emoji: "🥉" };
+    } else {
+      return { name: "Newbie", color: "bg-gray-700", emoji: "🎓" };
+    }
+  };
+  const badgeImages = {
+    Newbie: "./src/assets/newbie.png",
+    Bronze: "./src/assets/image.png",
+    Silver: "./src/assets/silver-badge.png",
+    Gold: "./src/assets/medal.png",
+    Platinum: "./src/assets/badge.png",
+  };
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white font-sans">
@@ -163,7 +191,9 @@ export default function Profile() {
             <>
               <h2 className="text-2xl font-bold mt-4">{profileData.name}</h2>
               <p className="text-sm text-gray-300">{profileData.location}</p>
-              <p className="text-sm text-gray-400 mt-1">Email: {profileData.email}</p>
+              <p className="text-sm text-gray-400 mt-1">
+                Email: {profileData.email}
+              </p>
               <p className="text-sm text-gray-500">Joined in 2024</p>
 
               <div className="mt-4 text-yellow-400 flex justify-center items-center gap-2 text-sm font-medium">
@@ -211,10 +241,16 @@ export default function Profile() {
                 onChange={handleChange}
               />
               <div className="flex gap-4 justify-center mt-2">
-                <button onClick={handleSave} className="bg-green-600 px-4 py-1 rounded">
+                <button
+                  onClick={handleSave}
+                  className="bg-green-600 px-4 py-1 rounded"
+                >
                   Save
                 </button>
-                <button onClick={handleCancel} className="bg-red-500 px-4 py-1 rounded">
+                <button
+                  onClick={handleCancel}
+                  className="bg-red-500 px-4 py-1 rounded"
+                >
                   Cancel
                 </button>
               </div>
@@ -253,20 +289,26 @@ export default function Profile() {
                     <p className="text-white">History of Science</p>
                     <p className="text-gray-400 text-xs">85%</p>
                   </div>
-                  <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">Completed</span>
+                  <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">
+                    Completed
+                  </span>
                 </div>
                 <div className="flex justify-between items-center border-b border-[#2b3d59] pb-2">
                   <div>
                     <p className="text-white">Introduction to Psychology</p>
                     <p className="text-gray-400 text-xs">70%</p>
                   </div>
-                  <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">Completed</span>
+                  <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">
+                    Completed
+                  </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="text-white">Advanced Mathematics</p>
                   </div>
-                  <span className="bg-yellow-500 text-xs text-white px-3 py-1 rounded-full">In Progress</span>
+                  <span className="bg-yellow-500 text-xs text-white px-3 py-1 rounded-full">
+                    In Progress
+                  </span>
                 </div>
               </div>
             </div>
@@ -277,10 +319,35 @@ export default function Profile() {
                 <FaFileAlt /> Notes Shared
               </h3>
               <div className="space-y-4 text-sm text-white">
-                <p className="border-b border-[#2b3d59] pb-2">Theories of Relativity</p>
-                <p className="border-b border-[#2b3d59] pb-2">Cognitive Behavioral Therapy</p>
+                <p className="border-b border-[#2b3d59] pb-2">
+                  Theories of Relativity
+                </p>
+                <p className="border-b border-[#2b3d59] pb-2">
+                  Cognitive Behavioral Therapy
+                </p>
                 <p>Calculus Fundamentals</p>
               </div>
+            </div>
+          </div>
+        )}
+        {activeTab === "Badges" && (
+          <div className="mt-6 bg-[#152238] p-6 rounded-xl shadow-md text-center">
+            <h3 className="text-xl font-bold text-[#9db4d2] mb-6 flex items-center justify-center gap-2">
+              <FaStar /> Your Badge
+            </h3>
+            <div className="flex flex-col items-center justify-center">
+              <img
+                src={badgeImages[getBadge(userXp).name]}
+                alt={`${getBadge(userXp).name} Badge`}
+                className="w-24 h-24 mb-2"
+              />
+              <div className="text-white font-semibold text-lg">
+                {getBadge(userXp).name} Badge
+              </div>
+              <p className="text-sm text-gray-400 mt-2">
+                XP: <span className="text-white">{userXp}</span> — Level up to
+                earn higher tier badges!
+              </p>
             </div>
           </div>
         )}
