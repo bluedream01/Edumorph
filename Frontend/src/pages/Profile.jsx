@@ -140,17 +140,38 @@ export default function Profile() {
     if (xp >= 2000) {
       return {
         name: "Platinum",
-        color: "bg-gradient-to-r from-gray-300 via-white to-gray-300",
+        color: "bg-gradient-to-r from-[#d1d5db] via-[#ffffff] to-[#d1d5db]", // smooth platinum shine
         emoji: "💎",
+        text: "text-gray-300",
       };
     } else if (xp >= 1500) {
-      return { name: "Gold", color: "bg-yellow-500", emoji: "🥇" };
+      return {
+        name: "Gold",
+        color: "bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500", // vibrant gold gradient
+        emoji: "🥇",
+        text: "text-yellow-300",
+      };
     } else if (xp >= 1000) {
-      return { name: "Silver", color: "bg-gray-400", emoji: "🥈" };
+      return {
+        name: "Silver",
+        color: "bg-gradient-to-r from-gray-300 via-gray-200 to-gray-400", // smooth metallic silver
+        emoji: "🥈",
+        text: "text-gray-200",
+      };
     } else if (xp >= 500) {
-      return { name: "Bronze", color: "bg-orange-600", emoji: "🥉" };
+      return {
+        name: "Bronze",
+        color: "bg-gradient-to-r from-orange-700 via-yellow-700 to-orange-500", // warm metallic bronze
+        emoji: "🥉",
+        text: "text-orange-400",
+      };
     } else {
-      return { name: "Newbie", color: "bg-gray-700", emoji: "🎓" };
+      return {
+        name: "Newbie",
+        color: "bg-gradient-to-r from-red-600 via-pink-600 to-red-700", // fresh reddish energy
+        emoji: "🎓",
+        text: "text-red-400",
+      };
     }
   };
   const badgeImages = {
@@ -159,6 +180,28 @@ export default function Profile() {
     Silver: "./src/assets/silver-badge.png",
     Gold: "./src/assets/medal.png",
     Platinum: "./src/assets/badge.png",
+  };
+  const getProgressData = (xp) => {
+    const tiers = [
+      { level: "Newbie", min: 0, max: 499 },
+      { level: "Bronze", min: 500, max: 999 },
+      { level: "Silver", min: 1000, max: 1499 },
+      { level: "Gold", min: 1500, max: 1999 },
+      { level: "Platinum", min: 2000, max: 2499 },
+      { level: "Diamond", min: 2500, max: 2999 },
+    ];
+
+    const currentTier =
+      tiers.find((t) => xp >= t.min && xp <= t.max) || tiers[tiers.length - 1];
+
+    const progress =
+      ((xp - currentTier.min) / (currentTier.max - currentTier.min)) * 100;
+
+    return {
+      level: currentTier.level,
+      next: currentTier.max + 1,
+      progress: Math.min(progress, 100).toFixed(2), // For smooth display
+    };
   };
 
   return (
@@ -200,6 +243,30 @@ export default function Profile() {
                 <FaStar className="text-yellow-300" />
                 XP: {profileData.xp}
               </div>
+              {(() => {
+                const { level, next, progress } = getProgressData(
+                  profileData.xp
+                );
+
+                return (
+                  <div className="mt-2 w-3/4 mx-auto">
+                    <div className="flex justify-between text-xs text-gray-400 mb-1">
+                      <span>{level}</span>
+                      <span>
+                        {profileData.xp}/{next} XP
+                      </span>
+                    </div>
+                    <div className="h-2 w-full bg-gray-700 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full bg-blue-500 transition-all duration-500 ${
+                          getBadge(profileData.xp).color
+                        }`}
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })()}
 
               <div className="mt-4 flex justify-center gap-4">
                 <button
