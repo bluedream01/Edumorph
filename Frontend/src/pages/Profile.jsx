@@ -1,13 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaEdit, FaCamera, FaClipboardList, FaFileAlt, FaStar } from "react-icons/fa";
-import DefaultProfile from '../assets/user.jpg';
+import { useNavigate } from "react-router-dom";
+import {
+  FaEdit,
+  FaCamera,
+  FaClipboardList,
+  FaFileAlt,
+  FaStar,
+  FaUser,
+} from "react-icons/fa";
+import DefaultProfile from "../assets/user.jpg";
 
 export default function Profile() {
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const [activeTab, setActiveTab] = useState("Overview");
   const [isEditing, setIsEditing] = useState(false);
   const [profileImg, setProfileImg] = useState(DefaultProfile);
-  const [userXp, setUserXp] = useState(0); // ✅ New XP state
+  const [userXp, setUserXp] = useState(0);
 
   const [originalData, setOriginalData] = useState({ name: "", email: "" });
   const [profileData, setProfileData] = useState({
@@ -37,13 +46,12 @@ export default function Profile() {
           name: data.username || "Guest",
           email: data.email || "Not Available",
           location: "Not Provided",
-          xp:typeof data.xp !== 'undefined' ? data.xp : 0,
+          xp: typeof data.xp !== "undefined" ? data.xp : 0,
         };
 
         setProfileData(profile);
         setOriginalData({ name: profile.name, email: profile.email });
-        setUserXp(typeof data.xp !== 'undefined' ? data.xp : 0);
-
+        setUserXp(profile.xp);
       } catch (err) {
         console.error("❌ Error fetching user data:", err.message);
       }
@@ -158,18 +166,26 @@ export default function Profile() {
               <p className="text-sm text-gray-400 mt-1">Email: {profileData.email}</p>
               <p className="text-sm text-gray-500">Joined in 2024</p>
 
-              {/* ✅ XP Display */}
               <div className="mt-4 text-yellow-400 flex justify-center items-center gap-2 text-sm font-medium">
                 <FaStar className="text-yellow-300" />
                 XP: {profileData.xp}
               </div>
 
-              <button
-                className="mt-4 bg-[#0f172a] px-4 py-2 rounded-md hover:bg-[#2b3c55] flex items-center gap-2 mx-auto text-sm"
-                onClick={() => setIsEditing(true)}
-              >
-                <FaEdit /> Edit
-              </button>
+              <div className="mt-4 flex justify-center gap-4">
+                <button
+                  className="bg-[#0f172a] px-4 py-2 rounded-md hover:bg-[#2b3c55] flex items-center gap-2 text-sm"
+                  onClick={() => setIsEditing(true)}
+                >
+                  <FaEdit /> Edit
+                </button>
+
+                <button
+                  className="bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500 flex items-center gap-2 text-sm"
+                  onClick={() => navigate("/onboarding")}
+                >
+                  <FaUser /> Fill Learning Details
+                </button>
+              </div>
             </>
           ) : (
             <div className="mt-4 flex flex-col gap-2">
@@ -272,4 +288,3 @@ export default function Profile() {
     </div>
   );
 }
-
