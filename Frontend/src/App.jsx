@@ -5,6 +5,8 @@ import Quizlanding from './pages/QuizPdfUploadPage';
 import Quizgenerate from './pages/Quizgenerating';
 import Notes from './pages/Notes';
 import Profile from './pages/Profile';
+import Onboarding from "./pages/Onboarding"; // adjust path if needed
+
 import './index.css';
 import Navbar from './navbar';
 import Mindmap from './pages/FlowchartGenius';
@@ -28,6 +30,8 @@ function App() {
         <Route path="/Mindmap" element={<PrivateRoute><Mindmap /></PrivateRoute>} />
         <Route path="/notes" element={<PrivateRoute><Notes /></PrivateRoute>} />
         <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+        <Route path="/onboarding" element={<PrivateRoute><Onboarding /></PrivateRoute>} />
+
 
         <Route path="/login" element={<RedirectIfLoggedIn><Loginpage /></RedirectIfLoggedIn>} />
         <Route path="/signup" element={<RedirectIfLoggedIn><Signuppage /></RedirectIfLoggedIn>} />
