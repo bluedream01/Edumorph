@@ -176,9 +176,9 @@ export default function Profile() {
   };
   const badgeImages = {
     Newbie: "./src/assets/newbie.png",
-    Bronze: "./src/assets/image.png",
-    Silver: "./src/assets/silver-badge.png",
-    Gold: "./src/assets/medal.png",
+    Bronze: "./src/assets/bronze badge.png",
+    Silver: "./src/assets/silver medal page.png",
+    Gold: "./src/assets/gold badge.png",
     Platinum: "./src/assets/badge.png",
   };
   const getProgressData = (xp) => {
