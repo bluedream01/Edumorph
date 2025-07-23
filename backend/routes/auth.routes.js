@@ -73,6 +73,28 @@ router.put("/profile-image", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Error updating image", error: err.message });
   }
 });
+// router.post("/api/user/onboarding", verifyToken, async (req, res) => {
+router.post("/onboarding", verifyToken, async (req, res) => {
+  try {
+    const { class: userClass, board, subjects, levels } = req.body;
+    const userId = req.user._id;
+
+    await User.findByIdAndUpdate(userId, {
+      onboarding: {
+        class: userClass,
+        board,
+        subjects,
+        levels,
+      },
+    });
+
+    res.status(200).json({ message: "Onboarding data saved" });
+  } catch (err) {
+    console.error("Failed to save onboarding:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 
 module.exports = router;
 

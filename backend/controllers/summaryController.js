@@ -8,6 +8,11 @@ const User = require("../models/user.model");
 const summary = async (req, res) => {
   const { url } = req.body;
   const userId = req.user?.id;
+  const user = await User.findById(userId);
+  const userClass = user?.onboarding?.class || "General";
+  const userBoard = user?.onboarding?.board || "General";
+  const subject = user?.onboarding?.subjects?.[0] || "General";
+  const subjectLevel = user?.onboarding?.levels?.[subject] || "Beginner";
 
   if (!url || typeof url !== "string") {
     return res.status(400).json({ error: "YouTube URL is required." });
@@ -33,8 +38,9 @@ const summary = async (req, res) => {
     const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const result = await model.generateContent(
-      `Summarize the following YouTube video transcript in detail:\n\n${fullText}`
+      `Summarize the following YouTube video transcript in detail for a ${subjectLevel} level ${subject} student of Class ${userClass}, Board ${userBoard}:\n\n${fullText}`
     );
+    console.log(result);
 
     const response = await result.response;
     const text = await response.text();
@@ -76,6 +82,12 @@ const translation = async (req, res) => {
 
 //QUIZ
 const quiz = async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const subject = user?.onboarding?.subjects?.[0] || "General";
+  const subjectLevel = user?.onboarding?.levels?.[subject] || "Beginner";
+  const userClass = user?.onboarding?.class || "General";
+  const userBoard = user?.onboarding?.board || "General";
+
   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
   try {
@@ -102,43 +114,44 @@ const quiz = async (req, res) => {
     // ✅ Use Gemini to summarize
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    const summaryResponse = await model.generateContent(
-      `Summarize the following:\n\n${fullText}`
-    );
-    const summary = (await summaryResponse.response).text();
+    // const summaryResponse = await model.generateContent(
+    //   `Summarize the following:\n\n${fullText}`
+    // );
+    // const summary = (await summaryResponse.response).text();
 
     // ✅ Generate quiz using the summary
     const quizPrompt = `
-      Create a ${difficulty} level quiz with ${noOfQuestions} multiple choice questions
-      based on this summary:\n\n"${summary}".
-      
-      Format as a JSON array like:
-      [
-        {
-          "question": "What is the capital of France?",
-          "options": ["Paris", "London", "Berlin", "Rome"],
-          "correctAnswer": "Paris"
-        }
-      ]
+      Create a ${difficulty} level quiz for Class ${userClass} (${userBoard}) on the subject "${subject}" [Level: ${subjectLevel}]
+with ${noOfQuestions} multiple choice questions based on this summary:\n\n"${fullText}".
+
+Return as JSON:
+[
+  {
+    "question": "...",
+    "options": ["A", "B", "C", "D"],
+    "correctAnswer": "..."
+  }
+]
     `;
 
     const quizResponse = await model.generateContent(quizPrompt);
     const quizText = (await quizResponse.response).text();
-    if(difficulty==="Easy"){
-    if (req.user?._id) {
-      await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 50 } });
+    if (difficulty === "Easy") {
+      if (req.user?._id) {
+        await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 50 } });
+      }
+      console.log("User ID for XP update:", req.user?._id);
+    } else if (difficulty === "Medium") {
+      if (req.user?._id) {
+        await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 75 } });
+      }
+      console.log("User ID for XP update:", req.user?._id);
+    } else if (difficulty === "Hard") {
+      if (req.user?._id) {
+        await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 100 } });
+      }
+      console.log("User ID for XP update:", req.user?._id);
     }
-    console.log("User ID for XP update:", req.user?._id);}
-    else if(difficulty==="Medium"){
-    if (req.user?._id) {
-      await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 75 } });
-    }
-    console.log("User ID for XP update:", req.user?._id);}
-    else if(difficulty==="Hard"){
-    if (req.user?._id) {
-      await User.findByIdAndUpdate(req.user._id, { $inc: { xp: 100 } });
-    }
-    console.log("User ID for XP update:", req.user?._id);}
 
     // ✅ Safely parse AI output
     let quizJSON;
@@ -169,6 +182,11 @@ const quiz = async (req, res) => {
 
 const mindMap = async (req, res) => {
   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+  const user = await User.findById(req.user._id);
+  const subject = user?.onboarding?.subjects?.[0] || "General";
+  const subjectLevel = user?.onboarding?.levels?.[subject] || "Beginner";
+  const userClass = user?.onboarding?.class || "General";
+  const userBoard = user?.onboarding?.board || "General";
 
   try {
     const file = req.file;
@@ -184,25 +202,20 @@ const mindMap = async (req, res) => {
 
     // Step 2: Prompt for Markmap
     const prompt = `
-Convert the following lab experiment into a mind map using markdown format.
-Use clear, nested headings in this structure:
-
-# Title
-## Section
-### Subsection
-- Bullet points where helpful
-
-Respond with only markdown enclosed in:
+Convert the following pdf (Class ${userClass}, Board: ${userBoard}, Subject: ${subject}, Level: ${subjectLevel})
+into a mind map using markdown format.
 
 \`\`\`markdown
 # ...
 ## ...
+### ...
+- bullet
 \`\`\`
 
 Text:
 ${extractedText}
     `.trim();
-
+    console.log(prompt);
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const result = await model.generateContent(prompt);
     const response = await result.response;

@@ -74,13 +74,39 @@ const OnboardingForm = () => {
   };
 
   const progressPercent = ((step + 1) / (totalSteps + 1)) * 100;
-  console.log("Progress:", progressPercent);
+  // console.log("Progress:", progressPercent);
   const cardClasses = (isSelected) =>
     `px-6 py-3 border rounded-md transition-colors duration-200 ${
       isSelected
         ? "bg-blue-600 text-white border-blue-500"
         : "bg-[#0D162A] text-white border-gray-600 hover:bg-blue-900"
     }`;
+  const submitOnboarding = async () => {
+    try {
+      const response = await fetch("/api/auth/onboarding", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // or however you store your token
+        },
+        body: JSON.stringify({
+          class: classSelected,
+          board: boardSelected,
+          subjects: selectedSubjects,
+          levels: subjectLevels,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit onboarding");
+      }
+
+      const data = await response.json();
+      console.log("Onboarding submitted:", data);
+    } catch (error) {
+      console.error("Error submitting onboarding:", error.message);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0D162A] to-[#0D162A] flex flex-col items-center justify-start px-4 py-10">
@@ -381,10 +407,11 @@ const OnboardingForm = () => {
             </div>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white" >
-                <Link to="/">
-                Get Started
-                </Link>
+              <Button
+                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={submitOnboarding}
+              >
+                <Link to="/">Get Started</Link>
               </Button>
               <Button
                 variant="secondary"
