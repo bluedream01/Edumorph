@@ -47,9 +47,8 @@ const OnboardingForm = () => {
   const totalSteps = 6;
 
   const nextStep = () => {
-  if (step < totalSteps) setStep((prev) => prev + 1);
-};
-
+    if (step < totalSteps) setStep((prev) => prev + 1);
+  };
 
   const selectClass = (cls) => {
     setClassSelected(cls);
@@ -122,186 +121,221 @@ const OnboardingForm = () => {
       </div>
 
       <AnimatePresence mode="wait">
-               {step === 0 && (
-                   <motion.div
-                     key="step-0"
-                     {...fadeMotionProps}
-                     className="w-full max-w-3xl mx-auto bg-[#0F1D37] rounded-2xl px-10 py-16 text-center shadow-xl border border-blue-600/20"
-                   >
-                     <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-6 leading-snug">
-                       Let's Customize Your Learning Experience
-                     </h2>
-                     <p className="text-gray-400 mb-8 text-sm sm:text-sm leading-relaxed max-w-md mx-auto">
-                       Answer a few quick questions to help us shape the platform around your goals.
-                     </p>
-                     <Button
-                       onClick={nextStep}
-                       className="px-10 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition-all duration-300 shadow-md"
-                     >
-                       Continue
-                     </Button>
-                   </motion.div>
-                 )}
-
-
-
+        {step === 0 && (
+          <motion.div
+            key="step-0"
+            {...fadeMotionProps}
+            className="w-full max-w-3xl mx-auto bg-[#0F1D37] rounded-2xl px-10 py-16 text-center shadow-xl border border-blue-600/20"
+          >
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-6 leading-snug">
+              Let's Customize Your Learning Experience
+            </h2>
+            <p className="text-gray-400 mb-8 text-sm sm:text-sm leading-relaxed max-w-md mx-auto">
+              Answer a few quick questions to help us shape the platform around
+              your goals.
+            </p>
+            <Button
+              onClick={nextStep}
+              className="px-10 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition-all duration-300 shadow-md"
+            >
+              Continue
+            </Button>
+          </motion.div>
+        )}
 
         {step === 1 && (
-            <motion.div
-              key="step-1"
-              {...fadeMotionProps}
-              className="w-full max-w-3xl mx-auto text-center"
-            >
-              <div className="bg-[#0F1D37] rounded-2xl px-10 py-16 shadow-xl border border-blue-600/20">
-                <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
-                  Which Class Are You In?
-                </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 justify-center">
-                  {[6, 7, 8, 9, 10].map((cls) => (
-                    <button
-                      key={cls}
-                      className="mt-8 px-5 py-2 border border-white-100 text-white-100 hover:bg-blue-500 hover:text-white rounded-md font-medium transition duration-300"
-                      onClick={() => selectClass(cls)}
-                    >
-                      Class {cls}
-                    </button>
-                  ))}
-                </div>
-                </div>
-              </motion.div>
-            )}
-
+          <motion.div
+            key="step-1"
+            {...fadeMotionProps}
+            className="w-full max-w-3xl mx-auto text-center"
+          >
+            <div className="bg-[#0F1D37] rounded-2xl px-10 py-16 shadow-xl border border-blue-600/20">
+              <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
+                Which Class Are You In?
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 justify-center">
+                {[6, 7, 8, 9, 10].map((cls) => (
+                  <button
+                    key={cls}
+                    className="mt-8 px-5 py-2 border border-white-100 text-white-100 hover:bg-blue-500 hover:text-white rounded-md font-medium transition duration-300"
+                    onClick={() => selectClass(cls)}
+                  >
+                    Class {cls}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
 
         {step === 2 && (
-  <motion.div
-    key="step-2"
-    {...fadeMotionProps}
-    className="w-full max-w-3xl mx-auto text-center"
-  >
-    <div className="bg-[#0F1D37] rounded-2xl px-10 py-16 shadow-xl border border-blue-600/20">
-      <h2 className="text-3xl sm:text-3xl font-semibold text-white mb-10">
-        Select Your Academic Board
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 justify-center">
-        {["ICSE", "CBSE", "WBCHSE"].map((board) => (
-          <button
-            key={board}
-            className="px-5 py-2 border border-white-500 text-white-500 hover:bg-blue-500 hover:text-white rounded-md font-medium transition duration-300"
-            onClick={() => selectBoard(board)}
+          <motion.div
+            key="step-2"
+            {...fadeMotionProps}
+            className="w-full max-w-3xl mx-auto text-center"
           >
-            {board}
-          </button>
-        ))}
-      </div>
-    </div>
-  </motion.div>
-)}
+            <div className="bg-[#0F1D37] rounded-2xl px-10 py-16 shadow-xl border border-blue-600/20">
+              <h2 className="text-3xl sm:text-3xl font-semibold text-white mb-10">
+                Select Your Academic Board
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 justify-center">
+                {["ICSE", "CBSE", "WBCHSE"].map((board) => (
+                  <button
+                    key={board}
+                    className="px-5 py-2 border border-white-500 text-white-500 hover:bg-blue-500 hover:text-white rounded-md font-medium transition duration-300"
+                    onClick={() => selectBoard(board)}
+                  >
+                    {board}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
 
-       {step === 3 && (
-            <motion.div
-               key="step-3"
-                {...fadeMotionProps}
-                className="w-full max-w-4xl mx-auto text-center"
+        {step === 3 && (
+          <motion.div
+            key="step-3"
+            {...fadeMotionProps}
+            className="w-full max-w-4xl mx-auto text-center"
+          >
+            <div className="bg-[#0F1D37] rounded-2xl px-10 py-16 shadow-xl border border-blue-600/20">
+              <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-2">
+                Which Subjects Do You Need Help With?
+              </h2>
+              <p className="text-sm text-gray-400 mb-8">
+                Select all that apply
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 justify-center">
+                {subjects.map((subj) => (
+                  <button
+                    key={subj.name}
+                    onClick={() => toggleSubject(subj.name)}
+                    className={`rounded-xl border flex flex-col items-center gap-2 px-5 py-4 text-sm font-medium transition-all duration-200 ${
+                      selectedSubjects.includes(subj.name)
+                        ? "bg-blue-500 text-white border-blue-500"
+                        : "border-[#1C2942] hover:border-blue-400 text-white"
+                    }`}
+                  >
+                    {subj.icon}
+                    {subj.name}
+                  </button>
+                ))}
+              </div>
+              <Button
+                onClick={() => {
+                  if (selectedSubjects.length === 0) {
+                    alert("Please select at least one subject.");
+                    return;
+                  }
+                  nextStep();
+                }}
+                disabled={selectedSubjects.length === 0}
+                className={`mt-10 px-20 py-2 font-medium rounded-lg transition duration-300 shadow-md ${
+                  selectedSubjects.length === 0
+                    ? "bg-gray-600 cursor-not-allowed"
+                    : "bg-blue-500 hover:bg-blue-600 text-white"
+                }`}
               >
-                <div className="bg-[#0F1D37] rounded-2xl px-10 py-16 shadow-xl border border-blue-600/20">
-                  <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-2">
-                    Which Subjects Do You Need Help With?
-                  </h2>
-                  <p className="text-sm text-gray-400 mb-8">Select all that apply</p>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 justify-center">
-                    {subjects.map((subj) => (
-                      <button
-                        key={subj.name}
-                        onClick={() => toggleSubject(subj.name)}
-                        className={`rounded-xl border flex flex-col items-center gap-2 px-5 py-4 text-sm font-medium transition-all duration-200 ${
-                          selectedSubjects.includes(subj.name)
-                            ? "bg-blue-500 text-white border-blue-500"
-                            : "border-[#1C2942] hover:border-blue-400 text-white"
-                        }`}
-                      >
-                        {subj.icon}
-                        {subj.name}
-                      </button>
-                    ))}
-                  </div>
-                  <Button
-                    onClick={nextStep}
-                    className="mt-10 px-20 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300 shadow-md"
-                    >
-                    Next
-                 </Button>
-                 </div>
-            </motion.div>
-          )}
+                Next
+              </Button>
+            </div>
+          </motion.div>
+        )}
 
-
-  {step === 4 && (
-   <motion.div
-    key="step-4"
-    {...fadeMotionProps}
-    className="text-center w-full max-w-3xl mx-auto"
-  >
-    <div className="bg-[#0F1D37] rounded-2xl px-10 py-14 shadow-xl border border-blue-600/20">
-      <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-8">
-        How Confident Are You in Each Subject?
-      </h2>
-
-      <div className="flex flex-col gap-4 mb-8">
-        {selectedSubjects.map((subject) => (
-          <div
-            key={subject}
-            className="flex justify-between items-center bg-[#0D162A] border border-[#1C2942] px-5 py-3 rounded-xl text-white"
+        {step === 4 && (
+          <motion.div
+            key="step-4"
+            {...fadeMotionProps}
+            className="text-center w-full max-w-3xl mx-auto"
           >
-            <span className="font-medium flex items-center gap-3">
-              {subjects.find((s) => s.name === subject)?.icon}
-              {subject}
-            </span>
-            <select
-              value={subjectLevels[subject] || ""}
-              onChange={(e) =>
-                setSubjectLevels((prev) => ({
-                  ...prev,
-                  [subject]: e.target.value,
-                }))
-              }
-              className="bg-[#1C2942] text-white px-4 py-2 rounded-md border border-[#2B3A55] focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            >
-              <option value="">Select level</option>
-              <option value="Beginner">Beginner</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Expert">Expert</option>
-            </select>
-          </div>
-        ))}
-      </div>
+            <div className="bg-[#0F1D37] rounded-2xl px-10 py-14 shadow-xl border border-blue-600/20">
+              <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-8">
+                How Confident Are You in Each Subject?
+              </h2>
 
-      <Button
-        onClick={nextStep}
-        className="mt-6 px-15 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300 shadow-md"
-      >
-        Next
-      </Button>
-    </div>
-  </motion.div>
-)}
+              <div className="flex flex-col gap-4 mb-8">
+                {selectedSubjects.map((subject) => (
+                  <div
+                    key={subject}
+                    className="flex justify-between items-center bg-[#0D162A] border border-[#1C2942] px-5 py-3 rounded-xl text-white"
+                  >
+                    <span className="font-medium flex items-center gap-3">
+                      {subjects.find((s) => s.name === subject)?.icon}
+                      {subject}
+                    </span>
+                    <select
+                      value={subjectLevels[subject] || ""}
+                      onChange={(e) =>
+                        setSubjectLevels((prev) => ({
+                          ...prev,
+                          [subject]: e.target.value,
+                        }))
+                      }
+                      className="bg-[#1C2942] text-white px-4 py-2 rounded-md border border-[#2B3A55] focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                    >
+                      <option value="">Select level</option>
+                      <option value="Beginner">Beginner</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Expert">Expert</option>
+                    </select>
+                  </div>
+                ))}
+              </div>
 
-{step === 5 && (
-  <motion.div key="step-5" {...fadeMotionProps} className="text-center w-full max-w-3xl mx-auto">
-    <div className="bg-[#0F1D37] rounded-2xl px-10 py-14 shadow-xl border border-blue-600/20">
-      <CheckCircle className="text-green-400 w-12 h-12 mx-auto mb-5" />
-      <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">All Set!</h2>
-      <p className="text-white text-opacity-70 text-sm sm:text-base mb-8 leading-relaxed">
-        You’ve successfully completed onboarding. Let’s begin your journey!
-      </p>
-      <Button
-        className="mt-5 px-5 py-2 bg-transparent border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-md transition"
-        onClick={nextStep} 
-      >
-        Start Learning
-      </Button>
-    </div>
-  </motion.div>
-)}
+              <Button
+                onClick={() => {
+                  const allSelected = selectedSubjects.every(
+                    (subj) => subjectLevels[subj]
+                  );
+                  if (!allSelected) {
+                    alert("Please select a level for each subject.");
+                    return;
+                  }
+                  nextStep();
+                }}
+                disabled={
+                  selectedSubjects.length === 0 ||
+                  !selectedSubjects.every((subj) => subjectLevels[subj])
+                }
+                className={`mt-6 px-15 py-2 font-medium rounded-lg transition duration-300 shadow-md ${
+                  selectedSubjects.length === 0 ||
+                  !selectedSubjects.every((subj) => subjectLevels[subj])
+                    ? "bg-gray-600 cursor-not-allowed"
+                    : "bg-blue-500 hover:bg-blue-600 text-white"
+                }`}
+              >
+                Next
+              </Button>
+            </div>
+          </motion.div>
+        )}
+
+        {step === 5 && (
+          <motion.div
+            key="step-5"
+            {...fadeMotionProps}
+            className="text-center w-full max-w-3xl mx-auto"
+          >
+            <div className="bg-[#0F1D37] rounded-2xl px-10 py-14 shadow-xl border border-blue-600/20">
+              <CheckCircle className="text-green-400 w-12 h-12 mx-auto mb-5" />
+              <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
+                All Set!
+              </h2>
+              <p className="text-white text-opacity-70 text-sm sm:text-base mb-8 leading-relaxed">
+                You’ve successfully completed onboarding. Let’s begin your
+                journey!
+              </p>
+              <Button
+                className="mt-5 px-5 py-2 bg-transparent border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-md transition"
+                onClick={()=>{submitOnboarding();nextStep();}}
+                
+              >
+                Start Learning
+              </Button>
+            </div>
+          </motion.div>
+        )}
 
         {step === 6 && (
           <motion.div
@@ -341,6 +375,7 @@ const OnboardingForm = () => {
                         <Button
                           size="sm"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 text-sm"
+                          
                         >
                           <span className="flex items-center gap-1">
                             <svg
@@ -407,10 +442,7 @@ const OnboardingForm = () => {
             </div>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white"
-                onClick={submitOnboarding}
-              >
+              <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white" onClick={submitOnboarding}>
                 <Link to="/">Get Started</Link>
               </Button>
               <Button

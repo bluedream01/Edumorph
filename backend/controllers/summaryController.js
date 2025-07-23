@@ -83,8 +83,13 @@ const translation = async (req, res) => {
 //QUIZ
 const quiz = async (req, res) => {
   const user = await User.findById(req.user._id);
-  const subject = user?.onboarding?.subjects?.[0] || "General";
-  const subjectLevel = user?.onboarding?.levels?.[subject] || "Beginner";
+  const subjects = user?.onboarding?.subjects || [];
+const levels = user?.onboarding?.levels || {};
+
+const subjectDetails = subjects.map(
+  (subj) => `${subj} (${levels[subj] || "Beginner"})`
+).join(", ");
+
   const userClass = user?.onboarding?.class || "General";
   const userBoard = user?.onboarding?.board || "General";
 
@@ -121,7 +126,7 @@ const quiz = async (req, res) => {
 
     // ✅ Generate quiz using the summary
     const quizPrompt = `
-      Create a ${difficulty} level quiz for Class ${userClass} (${userBoard}) on the subject "${subject}" [Level: ${subjectLevel}]
+      Create a ${difficulty} level quiz for Class ${userClass} (${userBoard}) whose level is ${subjectDetails}
 with ${noOfQuestions} multiple choice questions based on this summary:\n\n"${fullText}".
 
 Return as JSON:
@@ -133,7 +138,7 @@ Return as JSON:
   }
 ]
     `;
-
+console.log(quizPrompt);
     const quizResponse = await model.generateContent(quizPrompt);
     const quizText = (await quizResponse.response).text();
     if (difficulty === "Easy") {
@@ -202,19 +207,39 @@ const mindMap = async (req, res) => {
 
     // Step 2: Prompt for Markmap
     const prompt = `
-Convert the following pdf (Class ${userClass}, Board: ${userBoard}, Subject: ${subject}, Level: ${subjectLevel})
-into a mind map using markdown format.
+You are an experienced teacher.
 
+Convert the following content into a **mind map** in **valid Markdown** using the following strict structure:
+
+Use:
+- \`#\` for the main topic (title of mind map)
+- \`##\` for primary branches
+- \`###\` for sub-branches
+- \`- bullet\` for details under each sub-branch
+
+Only include the Markdown inside the code block.
+
+Example format:
 \`\`\`markdown
-# ...
-## ...
-### ...
-- bullet
+# Machine Learning
+
+## Types
+### Supervised
+- Uses labeled data
+### Unsupervised
+- Finds hidden patterns
+
+## Applications
+- Recommendation Systems
+- Fraud Detection
 \`\`\`
+
+Now convert this text (Class ${userClass}, Board: ${userBoard}, Subject: ${subject}, Level: ${subjectLevel}) into a properly structured markdown mindmap.
 
 Text:
 ${extractedText}
-    `.trim();
+`.trim();
+
     console.log(prompt);
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const result = await model.generateContent(prompt);

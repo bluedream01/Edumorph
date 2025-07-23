@@ -9,13 +9,13 @@ const UserSchema = new mongoose.Schema({
   xp: { type: Number, default: 0 },
 
   onboarding: {
-    class: { type: Number },
-    board: { type: String },
-    subjects: [String],
+    class: { type: Number, default: 0 }, // default 0 if not provided
+    board: { type: String, default: "General" },
+    subjects: { type: [String], default: ["General"] },
     levels: {
       type: Map,
-      of: String, // e.g., { Mathematics: "Beginner" }
-      default: {}
+      of: String,
+      default: { General: "Beginner" }
     }
   }
 }, { timestamps: true });
