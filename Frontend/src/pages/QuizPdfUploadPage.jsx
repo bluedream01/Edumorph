@@ -1,12 +1,15 @@
+
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Upload, FileText, X } from "lucide-react";
 
-export default function CreateQuiz() {
-  const [selectedFile, setSelectedFile] = useState(null);
+
+const QuizPdfUploadPage = () => {
+  const [file, setFile] = useState(null);
   const [difficulty, setDifficulty] = useState("");
   const [numQuestions, setNumQuestions] = useState("");
+
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
@@ -20,13 +23,53 @@ export default function CreateQuiz() {
     }
   };
 
-  const handleChooseFile = () => {
-    fileInputRef.current?.click();
+
+  const navigate = useNavigate();
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
-  const handleRemoveFile = () => {
-    setSelectedFile(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+  const handleGenerateQuiz = async () => {
+    if (!file || !difficulty || !numQuestions) {
+      alert("Please fill out all fields and upload a PDF.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("pdf", file);
+    formData.append("difficulty", difficulty);
+    formData.append("noOfQuestions", numQuestions); // 👈 Match backend key exactly
+
+    setLoading(true);
+    try {
+      const response = await axios.post("/SummaryCall/quiz", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const questions = response.data?.quiz;
+
+      if (!Array.isArray(questions) || questions.length === 0) {
+        throw new Error("Invalid or empty quiz returned from backend.");
+      }
+
+      setQuizData({ questions });
+
+      navigate("/quizgenerating", {
+        state: {
+          questions,
+          difficulty,
+          numQuestions,
+        },
+      });
+    } catch (error) {
+      console.error("Quiz generation failed:", error);
+      alert("Failed to generate quiz. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGenerateQuiz = async () => {
@@ -74,6 +117,7 @@ export default function CreateQuiz() {
   };
 
   return (
+
     <div className="min-h-screen bg-[#0f172a] text-white font-sans">
       {/* Header */}
       <section className="pt-32 pb-20 text-center">
@@ -140,9 +184,8 @@ export default function CreateQuiz() {
                   Remove
                 </button>
               </div>
+
             </div>
-          )}
-        </div>
 
         {/* Dropdowns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
@@ -182,8 +225,9 @@ export default function CreateQuiz() {
                 </option>
               ))}
             </select>
+
           </div>
-        </div>
+
 
         {/* Submit Button */}
         <div className="text-center mt-8">
@@ -234,10 +278,13 @@ export default function CreateQuiz() {
               </div>
               <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
               <p className="text-sm text-gray-400">{item.desc}</p>
+
             </div>
-          ))}
+          )}
         </div>
-      </section>
+      </main>
     </div>
   );
-}
+};
+
+export default QuizPdfUploadPage;

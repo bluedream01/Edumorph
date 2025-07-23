@@ -1,16 +1,19 @@
+
 import React, { useEffect, useState } from "react";
 import { Upload, Brain, FileText, ClipboardCheck, BookOpen } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import heroImage from "../assets/hero-blue-dark.jpg";
 
+
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
   }, []);
+
 
   const handleStart = () => {
     if (isLoggedIn) {
@@ -20,53 +23,23 @@ export default function Home() {
     }
   };
 
+
   return (
-    <div className="bg-[#0f172a] text-white font-sans">
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24 grid lg:grid-cols-2 items-center gap-12">
-        <div className="space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Maximize Your <span className="text-blue-400">Academic Performance</span> with AI
-          </h1>
-          <p className="text-lg text-gray-400">
-            Upload notes, ask questions, and generate summaries & quizzes instantly.
-            Transform your study experience with intelligent AI assistance.
+    <>
+      <section className="hero">
+        <div className="hero-content">
+          <h1 className="hero-title">Maximize Your Academic Performance with AI</h1>
+          <p className="hero-text">
+            EduMorph harnesses advanced AI to elevate your learning experience. Upload notes, ask questions, and receive summaries and quizzes to master any subject.
           </p>
-
-          <div className="flex space-x-4">
-            <button
-              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg"
-              onClick={handleStart}
-            >
-              {isLoggedIn ? "Go to Dashboard" : "Get Started"}
+          {!isLoggedIn && (
+            <button className="hero-btn" onClick={() => navigate('/login')}>
+              Get Started
             </button>
-            <button className="px-5 py-2.5 border border-white hover:bg-white hover:text-[#0f172a] rounded-lg transition">
-              Watch Demo
-            </button>
-          </div>
-
-          <div className="flex flex-wrap gap-4 pt-4 text-sm text-gray-400">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-400 rounded-full"></span> Free to start
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-blue-400 rounded-full"></span> AI-powered
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-purple-400 rounded-full"></span> Instant results
-            </span>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="absolute inset-0 bg-blue-600 opacity-20 rounded-3xl blur-3xl animate-pulse"></div>
-          <img
-            src={heroImage}
-            alt="AI Brain Book"
-            className="relative z-10 w-full rounded-3xl shadow-lg"
-          />
+          )}
         </div>
       </section>
+
 
       {/* Features Section */}
       <section className="bg-[#0f172a] py-20">
@@ -171,64 +144,28 @@ export default function Home() {
                 </div>
               );
             })}
-          </div>
 
-          {/* Stats */}
-          <div className="mt-10 text-center text-gray-400 text-sm">
-            Join thousands of students already using EduMorph
-            <div className="flex justify-center gap-6 mt-2 text-xs">
-              <span>✅ 10,000+ active users</span>
-              <span>⭐ 4.9/5 rating</span>
-              <span>🎓 50+ universities</span>
-            </div>
+          </div>
+          <div className="story-card">
+            <img src={LuffyImage} className="story-image" alt="Student 2" />
+            <p className="story-text">“I was struggling with complex topics...”</p>
+            <p className="story-author">- David Chan</p>
+          </div>
+          <div className="story-card">
+            <img src={RobinImage} className="story-image" alt="Student 3" />
+            <p className="story-text">“Thanks to EduMorph, I can now study more effectively...”</p>
+            <p className="story-author">- Emily Rodriguez</p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[#0f172a] border-t border-[#1e293b] py-12">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8 text-gray-400 text-sm">
-          <div>
-            <h4 className="text-white font-bold text-lg mb-2">EduMorph</h4>
-            <p className="mb-2">Transforming education with AI-powered learning tools for students worldwide.</p>
-            <div className="flex space-x-4 mt-2">
-              <a href="#"><i className="fab fa-twitter" /></a>
-              <a href="#"><i className="fab fa-instagram" /></a>
-              <a href="#"><i className="fab fa-github" /></a>
-            </div>
-          </div>
-          <div>
-            <h5 className="text-white font-semibold mb-2">Product</h5>
-            <ul className="space-y-1">
-              <li>Features</li>
-              <li>Pricing</li>
-              <li>API</li>
-              <li>Integrations</li>
-            </ul>
-          </div>
-          <div>
-            <h5 className="text-white font-semibold mb-2">Company</h5>
-            <ul className="space-y-1">
-              <li>About</li>
-              <li>Blog</li>
-              <li>Careers</li>
-              <li>Contact</li>
-            </ul>
-          </div>
-          <div>
-            <h5 className="text-white font-semibold mb-2">Legal</h5>
-            <ul className="space-y-1">
-              <li>Privacy Policy</li>
-              <li>Terms of Service</li>
-              <li>Cookie Policy</li>
-              <li>Data Protection</li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-8 text-center text-xs text-gray-500">
-          © 2024 EduMorph. All rights reserved. Made with ❤️ for students everywhere.
+      <footer className="footer">
+        <div className="footer-row">
+          <Link to="/terms" className="footer-link">Terms of Service</Link>
+          <span className="footer-text">©2025 EduMorph. All rights reserved.</span>
+          <Link to="/privacy" className="footer-link">Privacy Policy</Link>
         </div>
       </footer>
-    </div>
+    </>
   );
 }

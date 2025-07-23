@@ -1,21 +1,27 @@
-import { useState, useEffect } from "react";
-import { Play, Volume2, Languages, Zap, FileText, Clock } from "lucide-react";
-import studyImage from "../assets/study-workspace-blue.jpg";
+import React, { useEffect, useState } from "react";
+import "./summary.css";
+// import "./index.css"
+import bookImage from "../assets/book.jpg";
 
-export default function Summary() {
-  const [videoLink, setVideoLink] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+const Summary = () => {
+  const [url, setUrl] = useState("");
   const [summary, setSummary] = useState("");
+  const [plainText, setplainText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [language, setLanguage] = useState("Translate");
   const [translatedText, setTranslatedText] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
+
   const [error, setError] = useState("");
   const [xpMessage, setXpMessage] = useState("");
   const [isTranslating, setIsTranslating] = useState(false);
 
-  const handleSummarize = async () => {
-    if (!videoLink.trim()) return;
+
+  //calls the summary from backend
+  const SummaryCall = async () => {
+    setplainText("");
     setIsLoading(true);
+
     setSummary("");
     setTranslatedText("");
     setError("");
@@ -28,6 +34,7 @@ export default function Summary() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ url: videoLink }),
@@ -41,56 +48,80 @@ export default function Summary() {
       // ✅ XP is already updated in backend — just show success message
       setXpMessage("✅ 10 XP earned!");
       setTimeout(() => setXpMessage(""), 4000);
+
     } catch (err) {
-      console.error("Error:", err);
-      setError("Failed to summarize video.");
+      console.error("Error during summary call:", err.message);
+      setSummary("Could not generate summary. Please check the URL.");
+      setplainText("");
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Re-enable button
     }
   };
+  //calls the translation from the backend
 
   const handleTranslate = async () => {
+    setTranslatedText("")
     if (!summary || language === "Translate") return;
     setIsLoading(true);
-    setTranslatedText("");
     try {
       const response = await fetch("/SummaryCall/translation", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ summary, language }),
       });
-      if (!response.ok) throw new Error(await response.text());
-      const data = await response.json();
-      setTranslatedText(data.summary?.replace(/[*_#`]/g, "") || "");
-    } catch (err) {
-      console.error("Translation error:", err);
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Server error: ${errText}`);
+      }
+
+      const json = await response.json();
+      setTranslatedText(json.summary);
+      setTranslatedText(json.summary.replace(/[*_#`]/g, ""));
+    } catch (error) {
+      console.error("Translation failed:", error.message);
       setTranslatedText("Translation failed.");
+      
     } finally {
       setIsLoading(false);
     }
   };
 
+  //for speech text
   const speakText = (text, lang = "en-US") => {
     if (!text) return;
+
     const synth = window.speechSynthesis;
+
+    // Cancel if already speaking
     if (isSpeaking) {
       synth.cancel();
       setIsSpeaking(false);
       return;
     }
+
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
-    utterance.rate = 0.9;
-    utterance.onend = () => setIsSpeaking(false);
+    utterance.rate = 0.5;
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+    };
+
     synth.speak(utterance);
     setIsSpeaking(true);
   };
-
+  //handles error for speech option
   useEffect(() => {
-    return () => window.speechSynthesis.cancel();
+    return () => {
+      window.speechSynthesis.cancel();
+    };
   }, []);
 
   return (
+
     <div className="min-h-screen bg-[#0f172a] text-white font-sans">
       {/* Main */}
       <main className="pt-32 pb-16 px-4">
@@ -214,18 +245,29 @@ export default function Summary() {
                 )}
               </div>
             )}
+
           </div>
 
-          {/* Right Side Image */}
-          {!summary && (
-            <div className="mt-12 lg:mt-0 relative transition-opacity duration-500 ease-in-out">
-              <div className="absolute inset-0 bg-blue-600 rounded-3xl blur-3xl opacity-20 animate-pulse"></div>
-              <img
-                src={studyImage}
-                alt="Study workspace"
-                className="relative z-10 rounded-3xl w-full shadow-lg"
-              />
-            </div>
+          <div className="button-group">
+            <button
+              className="primary-button"
+              onClick={SummaryCall}
+              disabled={isLoading}
+            >
+              {isLoading ? "Summarizing..." : "Summarize"}
+            </button>
+          </div>
+
+          {plainText && (<h2 className="section-subtitle">Summary</h2>)}
+          <p className="summary-text">{plainText}</p>
+
+          {plainText && (
+            <button
+              className="primary-button"
+              onClick={() => speakText(plainText)}
+            >
+              {isSpeaking ? "🛑 Stop" : "🔊 Speak Summary"}
+            </button>
           )}
         </section>
 
@@ -268,6 +310,9 @@ export default function Summary() {
           </section>
         )}
       </main>
+
     </div>
   );
-}
+};
+
+export default Summary;
