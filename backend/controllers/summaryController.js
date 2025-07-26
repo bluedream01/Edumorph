@@ -38,7 +38,7 @@ const summary = async (req, res) => {
     const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const result = await model.generateContent(
-      `Summarize the following YouTube video transcript in detail for a ${subjectLevel} level ${subject} student of Class ${userClass}, Board ${userBoard}:\n\n${fullText}`
+      `Summarize the following YouTube video transcript in detail for a ${subjectLevel} level ${subject} student of Class ${userClass}, Board ${userBoard} in language English:\n\n${fullText}`
     );
     console.log(result);
 
