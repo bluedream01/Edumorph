@@ -22,8 +22,8 @@ const subjects = [
   { name: "English", icon: <BookOpen className="w-5 h-5 mb-1" /> },
   { name: "History", icon: <Clock className="w-5 h-5 mb-1" /> },
   { name: "Geography", icon: <Globe className="w-5 h-5 mb-1" /> },
-  { name: "Computer", icon: <Computer className="w-5 h-5 mb-1" /> },
-  { name: "Economics", icon: <LineChart className="w-5 h-5 mb-1" /> },
+  // { name: "Computer", icon: <Computer className="w-5 h-5 mb-1" /> },
+  // { name: "Economics", icon: <LineChart className="w-5 h-5 mb-1" /> },
 ];
 
 const recommendedTopics = {

@@ -72,7 +72,7 @@ export default function Home() {
       <section className="bg-[#0f172a] py-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-semibold text-center mb-10">
-            Powerful Features for <span className="text-blue-400">Smarter Learning</span>
+            Powerful Features for <span className="text-blue-400">Smart Learning</span>
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center">
