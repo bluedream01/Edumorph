@@ -35,10 +35,17 @@ const Flashcards = () => {
     );
   }
 
-  const currentFlashcard = chapter.flashcards[currentIndex];
+  // Flatten all flashcards by difficulty
+  const allFlashcards = [
+    ...(chapter.flashcards.beginner || []),
+    ...(chapter.flashcards.intermediate || []),
+    ...(chapter.flashcards.hard || [])
+  ];
+
+  const currentFlashcard = allFlashcards[currentIndex];
 
   const nextCard = () => {
-    if (currentIndex < chapter.flashcards.length - 1) {
+    if (currentIndex < allFlashcards.length - 1) {
       setCurrentIndex(currentIndex + 1);
       setIsFlipped(false);
     }
@@ -77,7 +84,7 @@ const Flashcards = () => {
           </p>
           <div className="mt-4">
             <span className="text-sm text-muted-foreground">
-              Card {currentIndex + 1} of {chapter.flashcards.length}
+              Card {currentIndex + 1} of {allFlashcards.length}
             </span>
           </div>
         </div>
@@ -99,7 +106,7 @@ const Flashcards = () => {
                   <div className="text-center">
                     <h3 className="text-lg font-medium text-muted-foreground mb-4">Question</h3>
                     <p className="text-xl font-semibold text-card-foreground leading-relaxed">
-                      {currentFlashcard.question}
+                      {currentFlashcard?.question}
                     </p>
                   </div>
                   <div className="mt-8 text-sm text-muted-foreground flex items-center">
@@ -115,7 +122,7 @@ const Flashcards = () => {
                   <div className="text-center">
                     <h3 className="text-lg font-medium text-primary mb-4">Answer</h3>
                     <p className="text-xl font-semibold text-card-foreground leading-relaxed">
-                      {currentFlashcard.answer}
+                      {currentFlashcard?.answer}
                     </p>
                   </div>
                   <div className="mt-8 text-sm text-muted-foreground flex items-center">
@@ -140,7 +147,7 @@ const Flashcards = () => {
             </Button>
 
             <div className="flex space-x-2">
-              {chapter.flashcards.map((_, index) => (
+              {allFlashcards.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => {
@@ -159,7 +166,7 @@ const Flashcards = () => {
             <Button
               variant="outline"
               onClick={nextCard}
-              disabled={currentIndex === chapter.flashcards.length - 1}
+              disabled={currentIndex === allFlashcards.length - 1}
               className="flex items-center"
             >
               Next
