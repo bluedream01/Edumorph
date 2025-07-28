@@ -14,7 +14,7 @@ import Mindmap from './pages/FlowchartGenius';
 import Loginpage from './pages/Components/Login';
 import Signuppage from './pages/Components/Signup';
 import Chatbot from './pages/Components/Chatbot';
-
+import TestPage from './pages/TestPage';
 import './index.css';
 import Navbar from './navbar';
 
@@ -41,6 +41,7 @@ function App() {
          <Route path="/flashcards/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><Flashcards /></PrivateRoute>} />
         <Route path="/login" element={<RedirectIfLoggedIn><Loginpage /></RedirectIfLoggedIn>} />
         <Route path="/signup" element={<RedirectIfLoggedIn><Signuppage /></RedirectIfLoggedIn>} />
+        <Route path="/test/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><TestPage /></PrivateRoute>}/>
       </Routes>
     </Router>
   );

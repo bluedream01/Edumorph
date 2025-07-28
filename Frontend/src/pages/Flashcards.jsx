@@ -1,33 +1,68 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getCourseData } from "./data/courseData";
 import { Button } from "./components/ui/button";
-import { ArrowLeft, ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  RotateCcw,
+  Lock,
+} from "lucide-react";
+import axios from "axios";
+import TestPage from "./TestPage";
 
 const Flashcards = () => {
   const {
     class: selectedClass,
     board: selectedBoard,
     subjectId,
-    chapterId
+    chapterId,
   } = useParams();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [userXP, setUserXP] = useState(0);
+
+  // Fetch user XP
+  useEffect(() => {
+    const fetchUserXP = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Or whatever key you used
+        if (!token) throw new Error("No token found");
+
+        const res = await axios.get("/api/auth/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserXP(res.data?.xp || 0);
+      } catch (error) {
+        console.error("Error fetching user XP", error);
+      }
+    };
+
+    fetchUserXP();
+  }, []);
 
   const courseData = getCourseData(selectedClass, selectedBoard);
-  const subject = courseData?.subjects.find(s => s.id === subjectId);
-  const chapter = subject?.chapters.find(c => c.id === chapterId);
+  const subject = courseData?.subjects.find((s) => s.id === subjectId);
+  const chapter = subject?.chapters.find((c) => c.id === chapterId);
 
   if (!chapter) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-card-foreground mb-4">Chapter Not Found</h1>
+          <h1 className="text-2xl font-bold text-card-foreground mb-4">
+            Chapter Not Found
+          </h1>
           <p className="text-muted-foreground mb-6">
             The selected chapter is not available.
           </p>
-          <Link to={`/chapters/${selectedClass}/${selectedBoard}/${subjectId}`} className="text-primary hover:underline">
+          <Link
+            to={`/chapters/${selectedClass}/${selectedBoard}/${subjectId}`}
+            className="text-primary hover:underline"
+          >
             Back to Chapters
           </Link>
         </div>
@@ -35,11 +70,16 @@ const Flashcards = () => {
     );
   }
 
-  // Flatten all flashcards by difficulty
+  // Conditionally unlock flashcards based on XP
+  const beginnerFlashcards = chapter.flashcards.beginner || [];
+  const intermediateFlashcards =
+    userXP >= 200 ? chapter.flashcards.intermediate || [] : [];
+  const hardFlashcards = userXP >= 500 ? chapter.flashcards.hard || [] : [];
+
   const allFlashcards = [
-    ...(chapter.flashcards.beginner || []),
-    ...(chapter.flashcards.intermediate || []),
-    ...(chapter.flashcards.hard || [])
+    ...beginnerFlashcards,
+    ...intermediateFlashcards,
+    ...hardFlashcards,
   ];
 
   const currentFlashcard = allFlashcards[currentIndex];
@@ -86,7 +126,33 @@ const Flashcards = () => {
             <span className="text-sm text-muted-foreground">
               Card {currentIndex + 1} of {allFlashcards.length}
             </span>
+            <div className="mt-6">
+              <Link
+                to={`/test/${selectedClass}/${selectedBoard}/${subjectId}/${chapterId}`}
+                element={<TestPage />}
+              >
+                <Button className="bg-green-600 hover:bg-green-700 text-white">
+                  Take Test
+                </Button>
+              </Link>
+            </div>
           </div>
+        </div>
+
+        {/* XP Lock Notices */}
+        <div className="text-center mb-4 space-y-2 text-yellow-500 text-sm">
+          {userXP < 200 && chapter.flashcards.intermediate?.length > 0 && (
+            <div className="flex items-center justify-center">
+              <Lock className="w-4 h-4 mr-1" />
+              Intermediate flashcards are locked (need 200 XP).
+            </div>
+          )}
+          {userXP < 500 && chapter.flashcards.hard?.length > 0 && (
+            <div className="flex items-center justify-center">
+              <Lock className="w-4 h-4 mr-1" />
+              Hard flashcards are locked (need 500 XP).
+            </div>
+          )}
         </div>
 
         <div className="max-w-2xl mx-auto">
@@ -100,11 +166,13 @@ const Flashcards = () => {
                 isFlipped ? "rotate-y-180" : ""
               }`}
             >
-              {/* Front of card (Question) */}
+              {/* Front */}
               <div className="absolute inset-0 w-full h-full backface-hidden">
                 <div className="h-full bg-card border border-border rounded-xl p-8 flex flex-col items-center justify-center shadow-lg hover:shadow-card transition-shadow duration-300">
                   <div className="text-center">
-                    <h3 className="text-lg font-medium text-muted-foreground mb-4">Question</h3>
+                    <h3 className="text-lg font-medium text-muted-foreground mb-4">
+                      Question
+                    </h3>
                     <p className="text-xl font-semibold text-card-foreground leading-relaxed">
                       {currentFlashcard?.question}
                     </p>
@@ -116,11 +184,13 @@ const Flashcards = () => {
                 </div>
               </div>
 
-              {/* Back of card (Answer) */}
+              {/* Back */}
               <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
                 <div className="h-full bg-primary/5 border border-primary/20 rounded-xl p-8 flex flex-col items-center justify-center shadow-lg">
                   <div className="text-center">
-                    <h3 className="text-lg font-medium text-primary mb-4">Answer</h3>
+                    <h3 className="text-lg font-medium text-primary mb-4">
+                      Answer
+                    </h3>
                     <p className="text-xl font-semibold text-card-foreground leading-relaxed">
                       {currentFlashcard?.answer}
                     </p>

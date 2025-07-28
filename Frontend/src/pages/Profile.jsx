@@ -24,6 +24,7 @@ export default function Profile() {
     location: "Not Provided",
     email: "",
     xp: 0,
+    levels: {},
   });
 
   useEffect(() => {
@@ -47,6 +48,7 @@ export default function Profile() {
           email: data.email || "Not Available",
           location: "Not Provided",
           xp: typeof data.xp !== "undefined" ? data.xp : 0,
+          levels: data.levels || {},
         };
 
         setProfileData(profile);
@@ -345,6 +347,43 @@ export default function Profile() {
         {/* Tab Content */}
         {activeTab === "Overview" && (
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-[#152238] p-6 rounded-xl shadow-md md:col-span-2">
+              <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
+                <FaUser /> Your Learning Levels
+              </h3>
+              {Object.keys(profileData.levels || {}).length === 0 ? (
+                <p className="text-gray-400 text-sm">
+                  You haven't set any learning levels yet.
+                </p>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {Object.entries(profileData.levels).map(
+                    ([subject, level]) => (
+                      <div
+                        key={subject}
+                        className="bg-[#1f2d40] rounded-lg p-4 shadow hover:shadow-lg transition duration-300"
+                      >
+                        <h4 className="text-white font-semibold text-sm mb-1">
+                          {subject}
+                        </h4>
+                        <span
+                          className={`inline-block px-3 py-1 text-xs font-medium rounded-full
+            ${
+              level === "Beginner"
+                ? "bg-green-700 text-green-200"
+                : level === "Intermediate"
+                ? "bg-yellow-700 text-yellow-200"
+                : "bg-purple-700 text-purple-200"
+            }`}
+                        >
+                          {level}
+                        </span>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+            </div>
             {/* Quizzes */}
             <div className="bg-[#152238] p-6 rounded-xl shadow-md">
               <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
@@ -395,6 +434,8 @@ export default function Profile() {
                 <p>Calculus Fundamentals</p>
               </div>
             </div>
+            {/* Learning Levels */}
+      
           </div>
         )}
         {activeTab === "Badges" && (
