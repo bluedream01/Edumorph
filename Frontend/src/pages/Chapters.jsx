@@ -12,11 +12,16 @@ const Chapters = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-card-foreground mb-4">Subject Not Found</h1>
+          <h1 className="text-2xl font-bold text-card-foreground mb-4">
+            Subject Not Found
+          </h1>
           <p className="text-muted-foreground mb-6">
             The selected subject is not available.
           </p>
-          <Link to={`/subjects/${selectedClass}/${selectedBoard}`} className="text-primary hover:underline">
+          <Link
+            to={`/subjects/${selectedClass}/${selectedBoard}`}
+            className="text-primary hover:underline"
+          >
             Back to Subjects
           </Link>
         </div>
@@ -43,11 +48,10 @@ const Chapters = () => {
           >
             <span className="text-3xl">{subject.icon}</span>
           </div>
-          <h1 className="text-4xl font-bold mb-4">
-            {subject.name} Chapters
-          </h1>
+          <h1 className="text-4xl font-bold mb-4">{subject.name} Chapters</h1>
           <p className="text-lg text-muted-foreground">
-            Class {selectedClass} {selectedBoard} • Choose a chapter to start learning
+            Class {selectedClass} {selectedBoard} • Choose a chapter to start
+            learning
           </p>
         </div>
 
@@ -66,7 +70,11 @@ const Chapters = () => {
                 {chapter.title}
               </h3>
               <p className="text-muted-foreground text-sm">
-                {chapter.flashcards.length} flashcards available
+                {Object.values(chapter.flashcards).reduce(
+                  (sum, level) => sum + level.length,
+                  0
+                )}{" "}
+                flashcards available
               </p>
             </Link>
           ))}
