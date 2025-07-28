@@ -7,6 +7,9 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   profilePic: { type: String, default: "" },
   xp: { type: Number, default: 0 },
+  firstName: { type: String, default: "" },
+  lastName: { type: String, default: "" },
+  phone: { type: String, default: "" },
 
   onboarding: {
     class: { type: Number, default: 0 }, // default 0 if not provided
