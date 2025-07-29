@@ -24,11 +24,10 @@ const Flashcards = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [userXP, setUserXP] = useState(0);
 
-  // Fetch user XP
   useEffect(() => {
     const fetchUserXP = async () => {
       try {
-        const token = localStorage.getItem("token"); // Or whatever key you used
+        const token = localStorage.getItem("token");
         if (!token) throw new Error("No token found");
 
         const res = await axios.get("/api/auth/profile", {
@@ -70,7 +69,6 @@ const Flashcards = () => {
     );
   }
 
-  // Conditionally unlock flashcards based on XP
   const beginnerFlashcards = chapter.flashcards.beginner || [];
   const intermediateFlashcards =
     userXP >= 200 ? chapter.flashcards.intermediate || [] : [];
@@ -139,7 +137,6 @@ const Flashcards = () => {
           </div>
         </div>
 
-        {/* XP Lock Notices */}
         <div className="text-center mb-4 space-y-2 text-yellow-500 text-sm">
           {userXP < 200 && chapter.flashcards.intermediate?.length > 0 && (
             <div className="flex items-center justify-center">
@@ -155,66 +152,70 @@ const Flashcards = () => {
           )}
         </div>
 
-        <div className="max-w-2xl mx-auto">
+        <div className=" max-w-2xl mx-auto">
           {/* Flashcard */}
           <div
-            className="relative w-full h-80 mb-8 cursor-pointer perspective-1000"
-            onClick={flipCard}
-          >
-            <div
-              className={`relative w-full h-full transition-transform duration-500 transform-style-preserve-3d ${
-                isFlipped ? "rotate-y-180" : ""
-              }`}
-            >
-              {/* Front */}
-              <div className="absolute inset-0 w-full h-full backface-hidden">
-                <div className="h-full bg-card border border-border rounded-xl p-8 flex flex-col items-center justify-center shadow-lg hover:shadow-card transition-shadow duration-300">
-                  <div className="text-center">
-                    <h3 className="text-lg font-medium text-muted-foreground mb-4">
-                      Question
-                    </h3>
-                    <p className="text-xl font-semibold text-card-foreground leading-relaxed">
-                      {currentFlashcard?.question}
-                    </p>
-                  </div>
-                  <div className="mt-8 text-sm text-muted-foreground flex items-center">
-                    <RotateCcw className="w-4 h-4 mr-2" />
-                    Click to reveal answer
-                  </div>
-                </div>
-              </div>
+  className="relative w-full h-80 mt-5 mb-8 cursor-pointer perspective-1000"
+  onClick={flipCard}
+>
+  <div
+    className={`relative w-full h-full transition-transform duration-500 transform-style-preserve-3d ${
+      isFlipped ? "rotate-y-180" : ""
+    }`}
+  >
+    {/* Front - Question Side */}
+    <div className="absolute inset-0 w-full h-full backface-hidden">
+      <div className="h-full bg-gradient-to-br from-fuchsia-600/40 to-purple-500/40 backdrop-blur-lg border border-fuchsia-300/40 rounded-2xl p-8 flex flex-col items-center justify-center shadow-xl shadow-purple-600/20 hover:shadow-purple-500/40 transition-all duration-300">
+        <div className="text-center">
+          <h3 className="text-lg font-bold text-fuchsia-100 mb-3 tracking-widest uppercase">
+            Question
+          </h3>
+          <p className="text-2xl font-semibold text-white leading-relaxed text-center">
+            {currentFlashcard?.question}
+          </p>
+        </div>
+        <div className="mt-10 text-sm text-fuchsia-100/80 flex items-center italic">
+          <RotateCcw className="w-4 h-4 mr-2" />
+          Tap to reveal the answer
+        </div>
+      </div>
+    </div>
 
-              {/* Back */}
-              <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                <div className="h-full bg-primary/5 border border-primary/20 rounded-xl p-8 flex flex-col items-center justify-center shadow-lg">
-                  <div className="text-center">
-                    <h3 className="text-lg font-medium text-primary mb-4">
-                      Answer
-                    </h3>
-                    <p className="text-xl font-semibold text-card-foreground leading-relaxed">
-                      {currentFlashcard?.answer}
-                    </p>
-                  </div>
-                  <div className="mt-8 text-sm text-muted-foreground flex items-center">
-                    <RotateCcw className="w-4 h-4 mr-2" />
-                    Click to see question
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    {/* Back - Answer Side */}
+    <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
+      <div className="h-full bg-gradient-to-br from-rose-500/40 to-orange-400/40 backdrop-blur-lg border border-rose-300/30 rounded-2xl p-8 flex flex-col items-center justify-center shadow-xl shadow-rose-600/20 hover:shadow-rose-500/40 transition-all duration-300">
+        <div className="text-center">
+          <h3 className="text-lg font-bold text-rose-100 mb-3 tracking-widest uppercase">
+            Answer
+          </h3>
+          <p className="text-2xl font-semibold text-white leading-relaxed text-center">
+            {currentFlashcard?.answer}
+          </p>
+        </div>
+        <div className="mt-10 text-sm text-rose-100/80 flex items-center italic">
+          <RotateCcw className="w-4 h-4 mr-2" />
+          Tap to return to question
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
           {/* Navigation */}
           <div className="flex items-center justify-between">
             <Button
-              variant="outline"
-              onClick={prevCard}
-              disabled={currentIndex === 0}
-              className="flex items-center"
-            >
-              <ChevronLeft className="w-4 h-4 mr-2" />
-              Previous
-            </Button>
+  variant="outline"
+  onClick={prevCard}
+  disabled={currentIndex === 0}
+  className="flex items-center transition-all duration-200 ease-in-out hover:scale-105 hover:-translate-y-0.5"
+>
+  <ChevronLeft className="w-4 h-4 mr-2" />
+  Previous
+</Button>
+
+
 
             <div className="flex space-x-2">
               {allFlashcards.map((_, index) => (
@@ -237,7 +238,7 @@ const Flashcards = () => {
               variant="outline"
               onClick={nextCard}
               disabled={currentIndex === allFlashcards.length - 1}
-              className="flex items-center"
+              className="flex items-center transition-all duration-200 ease-in-out hover:scale-105 hover:-translate-y-0.5"
             >
               Next
               <ChevronRight className="w-4 h-4 ml-2" />

@@ -4,18 +4,20 @@ import { ArrowLeft } from "lucide-react";
 
 const Subjects = () => {
   const { class: selectedClass, board: selectedBoard } = useParams();
-
   const courseData = getCourseData(selectedClass, selectedBoard);
 
   if (!courseData) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-card-foreground mb-4">Course Not Found</h1>
-          <p className="text-muted-foreground mb-6">
+        <div className="text-center text-white">
+          <h1 className="text-3xl font-bold mb-4">Course Not Found</h1>
+          <p className="text-gray-400 mb-6">
             The selected class and board combination is not available yet.
           </p>
-          <Link to="/courses" className="text-primary hover:underline">
+          <Link
+            to="/courses"
+            className="text-blue-400 hover:underline hover:text-blue-500"
+          >
             Back to Course Selection
           </Link>
         </div>
@@ -24,45 +26,49 @@ const Subjects = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen text-white relative bg-background">
+      <div className="absolute inset-0 bg-blue/30 backdrop-blur-sm shadow-inner shadow-blue/40 z-0" />
+      <div className="container mx-auto px-6 py-12 relative z-10">
+        
+        {/* Back Button */}
         <div className="mb-8">
           <Link
             to="/courses"
-            className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
+            className="inline-flex items-center text-white-600 "
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Course Selection
           </Link>
         </div>
 
+        {/* Title */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">
-            Class {selectedClass} {selectedBoard} Subjects
-            
+          <h1 className="text-4xl md:text-5xl font-bold mb-3 tracking-tight text-white drop-shadow-md">
+            Class {selectedClass} — {selectedBoard}
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Choose a subject to explore chapters and flashcards
+          <p className="text-lg text-gray-400">
+            Choose a subject to explore chapters, flashcards & XP rewards
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {/* Subjects Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl min-h-[65vh] mx-auto">
           {courseData.subjects.map((subject, index) => (
             <Link
               key={subject.id}
               to={`/chapters/${selectedClass}/${selectedBoard}/${subject.id}`}
-              className="group p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-card animate-fade-in cursor-pointer"
+              className="group rounded-2xl p-6 border border-white/10 bg-white/5 backdrop-blur-md shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-blue-500/30 hover:border-blue-500/40 transition-all duration-300 transform hover:-translate-y-1"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div
-                className={`w-16 h-16 rounded-lg bg-gradient-to-r ${subject.color} p-4 mb-6 group-hover:shadow-glow transition-all duration-300 mx-auto flex items-center justify-center`}
+                className={`w-16 h-16 mb-6 rounded-xl flex items-center justify-center ${subject.color} bg-opacity-30 mx-auto text-3xl group-hover:scale-110 transition-transform duration-300`}
               >
-                <span className="text-2xl">{subject.icon}</span>
+                {subject.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-card-foreground text-center">
+              <h3 className="text-xl font-semibold text-center text-white mb-2">
                 {subject.name}
               </h3>
-              <p className="text-muted-foreground text-center text-sm">
+              <p className="text-sm text-center text-gray-300">
                 {subject.chapters.length} chapters available
               </p>
             </Link>
