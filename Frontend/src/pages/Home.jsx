@@ -76,59 +76,62 @@ export default function Home() {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center">
-            <Link to="/notes" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full hover:shadow-lg transition cursor-pointer">
-              <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
-                <Upload className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Upload Notes</h3>
-              <p className="text-sm text-gray-400">
-                Simply upload your study materials, lecture notes, or textbooks. Our AI processes any format instantly.
-              </p>
-            </Link>
+            <Link to="/notes" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full h-64 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer">
+  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
+    <Upload className="w-6 h-6 text-white" />
+  </div>
+  <h3 className="text-lg font-semibold mb-2">Upload Notes</h3>
+  <p className="text-sm text-gray-400">
+    Simply upload your study materials, lecture notes, or textbooks. Our AI processes any format instantly.
+  </p>
+</Link>
 
-            <Link to="/mindmap" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full hover:shadow-lg transition cursor-pointer">
-              <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
-                <Brain className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">AI Mindmaps</h3>
-              <p className="text-sm text-gray-400">
-                Generate interactive mindmaps from your content to visualize concepts and connections.
-              </p>
-            </Link>
+<Link to="/mindmap" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full h-64 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer">
+  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
+    <Brain className="w-6 h-6 text-white" />
+  </div>
+  <h3 className="text-lg font-semibold mb-2">AI Mindmaps</h3>
+  <p className="text-sm text-gray-400">
+    Generate interactive mindmaps from your content to visualize concepts and connections.
+  </p>
+</Link>
 
-            <Link to="/summary" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full hover:shadow-lg transition cursor-pointer">
-              <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Smart Summaries</h3>
-              <p className="text-sm text-gray-400">
-                Get concise, intelligent summaries that capture the key points and essential information.
-              </p>
-            </Link>
+<Link to="/summary" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full h-64 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer">
+  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
+    <FileText className="w-6 h-6 text-white" />
+  </div>
+  <h3 className="text-lg font-semibold mb-2">Smart Summaries</h3>
+  <p className="text-sm text-gray-400">
+    Get concise, intelligent summaries that capture the key points and essential information.
+  </p>
+</Link>
 
-            <Link to="/quizzes" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full hover:shadow-lg transition cursor-pointer">
-              <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
-                <ClipboardCheck className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Practice Quizzes</h3>
-              <p className="text-sm text-gray-400">
-                Test your knowledge with AI-generated quizzes tailored to your study materials.
-              </p>
-            </Link>
+<Link to="/quizzes" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full h-64 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer">
+  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
+    <ClipboardCheck className="w-6 h-6 text-white" />
+  </div>
+  <h3 className="text-lg font-semibold mb-2">Practice Quizzes</h3>
+  <p className="text-sm text-gray-400">
+    Test your knowledge with AI-generated quizzes tailored to your study materials.
+  </p>
+</Link>
 
-            {/* Centered Courses Card Below */}
-            <Link
-              to="/courses"
-              className="col-span-full bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full sm:w-[40%] h-52 mt-6 hover:shadow-lg transition cursor-pointer text-center"
-            >
-              <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                <BookOpen className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Courses</h3>
-              <p className="text-sm text-gray-400">
-                Access structured courses with chapters and interactive flashcards for comprehensive learning
-              </p>
-            </Link>
+<Link
+  to="/courses"
+  className="col-span-full bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full sm:w-[40%] h-64 mt-6 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer text-center mx-auto"
+>
+  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-5 mx-auto">
+    <BookOpen className="w-6 h-6 text-white" />
+  </div>
+  <h3 className="text-lg font-semibold text-white mb-2">Courses</h3>
+  <p className="text-sm text-gray-400 leading-snug ">
+    Explore structured learning paths with topic-wise chapters,  
+    <br /> interactive flashcards, and quick revision tools.
+    <br /> Perfect for deep understanding and exam prep.
+  </p>
+</Link>
+
+
           </div>
 
           {/* Optional: Tutorial Hint */}
