@@ -1,9 +1,8 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getCourseData } from "./data/courseData";
 import { Button } from "./components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { useEffect } from "react";
 import axios from "axios";
 
 const TestPage = () => {
@@ -41,10 +40,7 @@ const TestPage = () => {
 
   const handleSubmit = () => {
     const currentQuestion = questions[currentQuestionIndex];
-    if (
-      selectedOption.trim().toLowerCase() ===
-      currentQuestion.answer.trim().toLowerCase()
-    ) {
+    if (selectedOption === currentQuestion.answer) {
       setScore((prev) => prev + 1);
     }
 
@@ -56,26 +52,11 @@ const TestPage = () => {
     }
   };
 
-  if (!chapter) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold">Chapter Not Found</h1>
-          <Link
-            to={`/chapters/${selectedClass}/${selectedBoard}/${subjectId}`}
-            className="text-blue-600 underline"
-          >
-            Back to Chapters
-          </Link>
-        </div>
-      </div>
-    );
-  }
   useEffect(() => {
     if (showResult) {
       const updateXP = async () => {
         try {
-          const earnedXP = score * 10; // Customize XP formula
+          const earnedXP = score * 10;
           await axios.post(
             "/api/auth/update-xp",
             { xp: earnedXP },
@@ -94,6 +75,22 @@ const TestPage = () => {
       updateXP();
     }
   }, [showResult]);
+
+  if (!chapter) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">Chapter Not Found</h1>
+          <Link
+            to={`/chapters/${selectedClass}/${selectedBoard}/${subjectId}`}
+            className="text-blue-600 underline"
+          >
+            Back to Chapters
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background px-4 py-8">
@@ -128,13 +125,23 @@ const TestPage = () => {
                 Q{currentQuestionIndex + 1}:{" "}
                 {questions[currentQuestionIndex].question}
               </p>
-              <input
-                type="text"
-                placeholder="Type your answer..."
-                className="w-full p-2 border rounded-md mb-4"
-                value={selectedOption}
-                onChange={(e) => setSelectedOption(e.target.value)}
-              />
+
+              <div className="space-y-2 mb-4">
+                {questions[currentQuestionIndex].options.map((option, idx) => (
+                  <button
+                    key={idx}
+                    className={`w-full text-left px-4 py-2 rounded-md border transition-colors ${
+                      selectedOption === option
+                        ? "bg-primary text-white border-primary"
+                        : "bg-background hover:bg-muted"
+                    }`}
+                    onClick={() => setSelectedOption(option)}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+
               <Button onClick={handleSubmit} disabled={!selectedOption}>
                 {currentQuestionIndex === questions.length - 1
                   ? "Finish"
