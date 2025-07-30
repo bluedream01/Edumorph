@@ -17,6 +17,7 @@ import Chatbot from './pages/Components/Chatbot';
 import TestPage from './pages/TestPage';
 import './index.css';
 import Navbar from './navbar';
+import FlashcardMatchGame from "./pages/FlashcardMatchGame";
 
 import PrivateRoute from './utils/PrivateRoute';
 import RedirectIfLoggedIn from './utils/RedirectIfLoggedIn';
@@ -42,6 +43,15 @@ function App() {
         <Route path="/login" element={<RedirectIfLoggedIn><Loginpage /></RedirectIfLoggedIn>} />
         <Route path="/signup" element={<RedirectIfLoggedIn><Signuppage /></RedirectIfLoggedIn>} />
         <Route path="/test/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><TestPage /></PrivateRoute>}/>
+                  <Route
+            path="/match/:class/:board/:subjectId/:chapterId"
+            element={
+              <PrivateRoute>
+                <FlashcardMatchGame />
+              </PrivateRoute>
+            }
+          />
+
       </Routes>
     </Router>
   );

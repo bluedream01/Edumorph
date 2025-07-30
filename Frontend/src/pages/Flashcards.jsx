@@ -133,6 +133,14 @@ const Flashcards = () => {
                   Take Test
                 </Button>
               </Link>
+              <Link
+                to={`/match/${selectedClass}/${selectedBoard}/${subjectId}/${chapterId}`}
+                state={{ flashcards: allFlashcards }} // Optional: if you want to pass flashcards via route state
+              >
+                <Button className="mt-4 p-4 m-4 bg-blue-600 hover:bg-blue-700 text-white">
+                  Play Match Game
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
