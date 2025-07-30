@@ -3,7 +3,9 @@ import { useState, useEffect } from "react";
 import { getCourseData } from "./data/courseData";
 import { Button } from "./components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import {RotateCw, Home} from "lucide-react"; 
 import axios from "axios";
+import Confetti from "react-confetti";
 
 const TestPage = () => {
   const {
@@ -20,7 +22,7 @@ const TestPage = () => {
   const [difficulty, setDifficulty] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(null);
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
 
@@ -29,27 +31,31 @@ const TestPage = () => {
 
   const startQuiz = (level) => {
     const levelQuestions = chapter?.flashcards?.[level] || [];
-    const randomFive = selectRandomFive(levelQuestions);
+    const filtered = levelQuestions.filter((q) => q.options && q.answer);
+    const randomFive = selectRandomFive(filtered);
     setDifficulty(level);
     setQuestions(randomFive);
     setCurrentQuestionIndex(0);
     setScore(0);
     setShowResult(false);
-    setSelectedOption("");
+    setSelectedOption(null);
   };
 
-  const handleSubmit = () => {
-    const currentQuestion = questions[currentQuestionIndex];
-    if (selectedOption === currentQuestion.answer) {
-      setScore((prev) => prev + 1);
-    }
+  const handleOptionClick = (option) => {
+    if (selectedOption !== null) return;
 
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1);
-      setSelectedOption("");
-    } else {
-      setShowResult(true);
-    }
+    setSelectedOption(option);
+    const correct = option === questions[currentQuestionIndex].answer;
+    if (correct) setScore((prev) => prev + 1);
+
+    setTimeout(() => {
+      if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex((prev) => prev + 1);
+        setSelectedOption(null);
+      } else {
+        setShowResult(true);
+      }
+    }, 1000);
   };
 
   useEffect(() => {
@@ -66,24 +72,22 @@ const TestPage = () => {
               },
             }
           );
-          console.log("XP updated successfully");
         } catch (error) {
           console.error("Failed to update XP:", error);
         }
       };
-
       updateXP();
     }
   }, [showResult]);
 
   if (!chapter) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#0D1321] text-white">
         <div className="text-center">
           <h1 className="text-2xl font-bold">Chapter Not Found</h1>
           <Link
             to={`/chapters/${selectedClass}/${selectedBoard}/${subjectId}`}
-            className="text-blue-600 underline"
+            className="text-blue-500 underline"
           >
             Back to Chapters
           </Link>
@@ -93,79 +97,203 @@ const TestPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background px-4 py-8">
-      <div className="container mx-auto max-w-xl">
-        <div className="mb-4">
-          <Link
-            to={`/flashcards/${selectedClass}/${selectedBoard}/${subjectId}/${chapterId}`}
-            className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Flashcards
-          </Link>
-        </div>
+    <div className="min-h-screen bg-[#0D1321] text-white relative px-6 py-12">
+      {showResult && score >= 4 && (
+        <Confetti
+          numberOfPieces={350}       // Reduce to ~80-120 for smoother animation
+          recycle={false}            // Confetti stops after one burst
+          width={window.innerWidth}
+          height={window.innerHeight}
+          style={{ position: "fixed", top: 0, left: 0, width: "100%", overflowX: "hidden" }}
+        />
+      )}
 
-        <h1 className="text-3xl font-bold mb-6">{chapter.title} • Test</h1>
+
+      <div className="absolute top-6 left-6">
+        <Link
+          to={`/flashcards/${selectedClass}/${selectedBoard}/${subjectId}/${chapterId}`}
+          className="inline-flex items-center text-sm text-blue-400 hover:underline"
+        >
+          <ArrowLeft className="w-4 h-4 mr-1" />
+          Back to Flashcards
+        </Link>
+      </div>
+
+      <div className="max-w-4xl mx-auto pt-8">
+        <h1 className="text-3xl font-bold text-center mb-10">
+          {chapter.title} • Test
+        </h1>
 
         {!difficulty ? (
-          <div className="space-y-4">
-            <p className="text-lg font-semibold">Select Difficulty:</p>
-            <div className="flex gap-4">
-              <Button onClick={() => startQuiz("beginner")}>Beginner</Button>
-              <Button onClick={() => startQuiz("intermediate")}>
-                Intermediate
-              </Button>
-              <Button onClick={() => startQuiz("hard")}>Hard</Button>
+          <div className="bg-[#11192C] px-10 py-12 rounded-2xl text-center shadow-xl">
+            <h2 className="text-2xl font-semibold mb-8">Select Difficulty Level</h2>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              {["Beginner", "Intermediate", "Hard"].map((level) => (
+                <button
+                  key={level}
+                  onClick={() => startQuiz(level.toLowerCase())}
+                  className="flex-1 py-3 rounded-md border border-white text-white hover:bg-blue-600 transition-all"
+                >
+                  {level}
+                </button>
+              ))}
             </div>
           </div>
         ) : !showResult ? (
-          <>
-            <div className="bg-card border p-6 rounded-xl shadow">
-              <p className="mb-4 text-lg font-medium">
-                Q{currentQuestionIndex + 1}:{" "}
-                {questions[currentQuestionIndex].question}
-              </p>
+          <div className="bg-[#1C2333] border border-gray-700 p-8 rounded-xl shadow-lg">
+            {/* Progress bar */}
+            <div className="mb-6">
+              <div className="flex justify-between text-sm mb-2 text-gray-400">
+                <span>
+                  Question {currentQuestionIndex + 1} of {questions.length}
+                </span>
+                <span>
+                  {Math.round(
+                    ((currentQuestionIndex + 1) / questions.length) * 100
+                  )}
+                  % Complete
+                </span>
+              </div>
+              <div className="h-2 bg-gray-700 rounded-full">
+                <div
+                  className="h-2 bg-blue-500 rounded-full transition-all"
+                  style={{
+                    width: `${((currentQuestionIndex + 1) / questions.length) * 100}%`,
+                  }}
+                />
+              </div>
+            </div>
 
-              <div className="space-y-2 mb-4">
-                {questions[currentQuestionIndex].options.map((option, idx) => (
+            {/* Question */}
+            <p className="text-xl font-bold text-center my-8">
+              {questions[currentQuestionIndex].question}
+            </p>
+
+            {/* Options */}
+            <div className="space-y-3 mb-4">
+              {questions[currentQuestionIndex].options.map((option, idx) => {
+                const isAnswer = option === questions[currentQuestionIndex].answer;
+                const isSelected = option === selectedOption;
+
+                let optionClass =
+                  "bg-[#1D253C] border border-gray-600 text-white hover:bg-[#2A3350]";
+                if (selectedOption !== null) {
+                  if (isAnswer) {
+                    optionClass = "bg-green-600 border-green-400 text-white";
+                  } else if (isSelected) {
+                    optionClass = "bg-red-600 border-red-400 text-white";
+                  } else {
+                    optionClass =
+                      "bg-[#1D253C] border border-gray-600 text-white opacity-60";
+                  }
+                }
+
+                return (
                   <button
                     key={idx}
-                    className={`w-full text-left px-4 py-2 rounded-md border transition-colors ${
-                      selectedOption === option
-                        ? "bg-primary text-white border-primary"
-                        : "bg-background hover:bg-muted"
-                    }`}
-                    onClick={() => setSelectedOption(option)}
+                    onClick={() => handleOptionClick(option)}
+                    disabled={selectedOption !== null}
+                    className={`w-full text-left px-6 py-4 rounded-md transition-all duration-300 ${optionClass}`}
                   >
                     {option}
                   </button>
-                ))}
+                );
+              })}
+            </div>
+
+            {/* Explanation */}
+            {selectedOption && questions[currentQuestionIndex].explanation && (
+              <div className="mt-4 bg-[#2E3A59] text-blue-100 p-4 rounded-md text-sm">
+                <strong>Explanation:</strong>{" "}
+                {questions[currentQuestionIndex].explanation}
+              </div>
+            )}
+
+            {/* Navigation buttons */}
+            <div className="mt-8 flex justify-between">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  if (currentQuestionIndex > 0) {
+                    setCurrentQuestionIndex((prev) => prev - 1);
+                    setSelectedOption(null);
+                  }
+                }}
+                disabled={currentQuestionIndex === 0}
+              >
+                Previous
+              </Button>
+
+              {currentQuestionIndex === questions.length - 1 && (
+                <Button
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => setShowResult(true)}
+                >
+                  Finish Quiz
+                </Button>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="text-center mt-20 relative">
+            <div className="flex flex-col items-center gap-4">
+              <div className="text-5xl">🏆</div>
+              <h2 className="text-3xl font-bold text-white">
+                {score >= 4 ? "Excellent!" : score >= 2 ? "Good Try!" : "Keep Practicing!"} 🎉
+              </h2>
+              <p className="text-4xl font-extrabold text-blue-400">
+                {Math.round((score / questions.length) * 100)}%
+              </p>
+              <p className="text-lg text-gray-300">
+                You scored {score} out of {questions.length} questions correctly
+              </p>
+
+              {/* Encouragement Box */}
+              <div className="mt-6 bg-green-900 text-green-200 px-6 py-4 rounded-lg max-w-xl">
+                {score >= 4 && (
+                  <p>
+                    You've demonstrated excellent understanding of the material. Keep up the great work!
+                  </p>
+                )}
+                {score === 3 && (
+                  <p>
+                    You're getting there! Review the weak areas and try again to improve your score.
+                  </p>
+                )}
+                {score < 3 && (
+                  <p>
+                    Don't worry! Go back, review the flashcards, and you'll improve with practice.
+                  </p>
+                )}
               </div>
 
-              <Button onClick={handleSubmit} disabled={!selectedOption}>
-                {currentQuestionIndex === questions.length - 1
-                  ? "Finish"
-                  : "Next"}
-              </Button>
-            </div>
-          </>
-        ) : (
-          <div className="text-center mt-12">
-            <h2 className="text-2xl font-bold mb-4">Test Completed 🎉</h2>
-            <p className="text-lg">
-              You scored <span className="font-semibold">{score}</span> out of{" "}
-              <span className="font-semibold">{questions.length}</span>
-            </p>
-            <div className="mt-6 flex flex-col gap-4 items-center">
-              <Button onClick={() => setDifficulty(null)}>
-                Try Another Level
-              </Button>
-              <Link
-                to={`/chapters/${selectedClass}/${selectedBoard}/${subjectId}`}
-                className="inline-block"
-              >
-                <Button variant="outline">Back to Chapters</Button>
-              </Link>
+              {/* Buttons */}
+              
+
+              <div className="flex gap-4 mt-8">
+                <button
+                  onClick={() => startQuiz(difficulty)}
+                  className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                >
+                  <RotateCw className="w-4 h-4" />
+                  Try Again
+                </button>
+
+                <Link
+                  to={`/chapters/${selectedClass}/${selectedBoard}/${subjectId}`}
+                  className="flex items-center gap-2 px-6 py-3 bg-[#161B22] text-white border border-[#30363D] rounded-lg hover:bg-[#1f2630] transition"
+                >
+                  <Home className="w-4 h-4" />
+                  Back to Home
+                </Link>
+              </div>
+
+
+              {/* Footer */}
+              <p className="mt-8 text-sm text-gray-500">
+                Quiz completed on {new Date().toLocaleDateString("en-IN")} <br />
+                Want to improve? Review your study materials and try again!
+              </p>
             </div>
           </div>
         )}
