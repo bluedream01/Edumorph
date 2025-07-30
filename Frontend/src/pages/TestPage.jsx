@@ -56,7 +56,7 @@ const TestPage = () => {
     if (showResult) {
       const updateXP = async () => {
         try {
-          const earnedXP = score * 10;
+          const earnedXP = score * 20;
           await axios.post(
             "/api/auth/update-xp",
             { xp: earnedXP },
