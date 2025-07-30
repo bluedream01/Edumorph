@@ -340,61 +340,106 @@ export const courseData = [
                   id: "wpe-b1",
                   difficulty: "beginner",
                   question: "What is work in physics?",
-                  answer: "Work is said to be done when a force is applied and there is displacement in the direction of the force."
+                  options: [
+                    "Work is applying force without displacement.",
+                    "Work is energy stored in a system.",
+                    "Work is done when a force causes displacement.",
+                    "Work is the weight of an object."
+                  ],
+                  answer: "Work is done when a force causes displacement."
                 },
                 {
                   id: "wpe-b2",
                   difficulty: "beginner",
                   question: "What is the SI unit of work?",
-                  answer: "The SI unit of work is joule (J)."
+                  options: ["Newton", "Joule", "Watt", "Pascal"],
+                  answer: "Joule"
                 },
                 {
                   id: "wpe-b3",
                   difficulty: "beginner",
                   question: "What is positive work?",
-                  answer: "Positive work is done when force and displacement are in the same direction."
+                  options: [
+                    "When there is no displacement",
+                    "When force and displacement are in opposite directions",
+                    "When force and displacement are in the same direction",
+                    "When an object is at rest"
+                  ],
+                  answer: "When force and displacement are in the same direction"
                 },
                 {
                   id: "wpe-b4",
                   difficulty: "beginner",
                   question: "What is negative work?",
-                  answer: "Negative work is done when force and displacement are in opposite directions."
+                  options: [
+                    "When no force is applied",
+                    "When there is no displacement",
+                    "When force and displacement are in opposite directions",
+                    "When the object gains speed"
+                  ],
+                  answer: "When force and displacement are in opposite directions"
                 },
                 {
                   id: "wpe-b5",
                   difficulty: "beginner",
                   question: "What is power?",
-                  answer: "Power is the rate of doing work."
+                  options: [
+                    "The capacity to do work",
+                    "Work done per unit force",
+                    "Rate of doing work",
+                    "The force applied over time"
+                  ],
+                  answer: "Rate of doing work"
                 },
                 {
                   id: "wpe-b6",
                   difficulty: "beginner",
                   question: "What is the SI unit of power?",
-                  answer: "The SI unit of power is watt (W)."
+                  options: ["Watt", "Joule", "Newton", "Calorie"],
+                  answer: "Watt"
                 },
                 {
                   id: "wpe-b7",
                   difficulty: "beginner",
                   question: "Define energy.",
-                  answer: "Energy is the capacity to do work."
+                  options: [
+                    "The rate of doing work",
+                    "The force acting on a body",
+                    "Capacity to do work",
+                    "Distance moved per unit time"
+                  ],
+                  answer: "Capacity to do work"
                 },
                 {
                   id: "wpe-b8",
                   difficulty: "beginner",
                   question: "Name the SI unit of energy.",
-                  answer: "The SI unit of energy is joule (J)."
+                  options: ["Watt", "Joule", "Calorie", "Newton"],
+                  answer: "Joule"
                 },
                 {
                   id: "wpe-b9",
                   difficulty: "beginner",
                   question: "Give one example of mechanical energy.",
-                  answer: "A moving car possesses mechanical energy."
+                  options: [
+                    "A hot cup of coffee",
+                    "A glowing bulb",
+                    "A moving car",
+                    "A stretched rubber band"
+                  ],
+                  answer: "A moving car"
                 },
                 {
                   id: "wpe-b10",
                   difficulty: "beginner",
                   question: "What is kinetic energy?",
-                  answer: "The energy possessed by a body due to its motion."
+                  options: [
+                    "Energy due to position",
+                    "Energy stored in bonds",
+                    "Energy due to motion",
+                    "Energy in atoms"
+                  ],
+                  answer: "Energy due to motion"
                 }
               ],
               intermediate: [
@@ -402,61 +447,116 @@ export const courseData = [
                   id: "wpe-i1",
                   difficulty: "intermediate",
                   question: "State the formula for work.",
+                  options: [
+                    "Work = Force × Displacement × sinθ",
+                    "Work = Mass × Acceleration",
+                    "Work = Force × Time",
+                    "Work = Force × Displacement × cosθ"
+                  ],
                   answer: "Work = Force × Displacement × cosθ"
                 },
                 {
                   id: "wpe-i2",
                   difficulty: "intermediate",
                   question: "Define 1 joule of work.",
-                  answer: "1 joule is the work done when a force of 1 newton displaces a body by 1 meter in its direction."
+                  options: [
+                    "1 N force moves a body by 1 m",
+                    "1 N displaces a body 1 m in its direction",
+                    "1 kg force displaces an object",
+                    "1 J moves an object to 1 km"
+                  ],
+                  answer: "1 N displaces a body 1 m in its direction"
                 },
                 {
                   id: "wpe-i3",
                   difficulty: "intermediate",
                   question: "What is the formula for power?",
+                  options: [
+                    "Power = Work × Time",
+                    "Power = Energy × Time",
+                    "Power = Work / Time",
+                    "Power = Force / Distance"
+                  ],
                   answer: "Power = Work / Time"
                 },
                 {
                   id: "wpe-i4",
                   difficulty: "intermediate",
                   question: "What is 1 watt?",
-                  answer: "1 watt is the power when 1 joule of work is done in 1 second."
+                  options: [
+                    "1 J of work in 1 min",
+                    "1 W = 100 J/s",
+                    "1 J of work in 1 s",
+                    "1 kWh per hour"
+                  ],
+                  answer: "1 J of work in 1 s"
                 },
                 {
                   id: "wpe-i5",
                   difficulty: "intermediate",
                   question: "State the formula for kinetic energy.",
+                  options: [
+                    "K.E. = m × v²",
+                    "K.E. = ½ × m × v²",
+                    "K.E. = m × a",
+                    "K.E. = m × g × h"
+                  ],
                   answer: "K.E. = ½ × m × v²"
                 },
                 {
                   id: "wpe-i6",
                   difficulty: "intermediate",
                   question: "State the formula for potential energy.",
+                  options: [
+                    "P.E. = ½ × m × v²",
+                    "P.E. = m × g × h",
+                    "P.E. = m × a",
+                    "P.E. = Force × Displacement"
+                  ],
                   answer: "P.E. = m × g × h"
                 },
                 {
                   id: "wpe-i7",
                   difficulty: "intermediate",
-                  question: "What is commercial unit of energy?",
-                  answer: "Kilowatt-hour (kWh)"
+                  question: "What is the commercial unit of energy?",
+                  options: ["Watt", "Joule", "Kilowatt-hour", "Ampere-hour"],
+                  answer: "Kilowatt-hour"
                 },
                 {
                   id: "wpe-i8",
                   difficulty: "intermediate",
                   question: "1 kWh is equal to how many joules?",
-                  answer: "1 kWh = 3.6 × 10^6 joules"
+                  options: [
+                    "3.6 × 10³ J",
+                    "3.6 × 10⁶ J",
+                    "36 × 10³ J",
+                    "3600 J"
+                  ],
+                  answer: "3.6 × 10⁶ J"
                 },
                 {
                   id: "wpe-i9",
                   difficulty: "intermediate",
                   question: "State the work-energy theorem.",
-                  answer: "Work done by a force is equal to the change in kinetic energy of the body."
+                  options: [
+                    "Work done equals change in displacement",
+                    "Work equals force divided by energy",
+                    "Work done is equal to the change in kinetic energy",
+                    "Energy is equal to time × speed"
+                  ],
+                  answer: "Work done is equal to the change in kinetic energy"
                 },
                 {
                   id: "wpe-i10",
                   difficulty: "intermediate",
                   question: "Define average power.",
-                  answer: "Average power is the total work done divided by the total time taken."
+                  options: [
+                    "Maximum power exerted in 1 s",
+                    "Rate of energy production",
+                    "Total work done divided by total time",
+                    "Instantaneous force applied"
+                  ],
+                  answer: "Total work done divided by total time"
                 }
               ],
               hard: [
@@ -464,61 +564,77 @@ export const courseData = [
                   id: "wpe-h1",
                   difficulty: "hard",
                   question: "A force of 10 N moves a body by 2 m at 60° angle. Find the work done.",
-                  answer: "Work = 10 × 2 × cos60° = 10 joules"
+                  options: ["20 J", "10 J", "5 J", "15 J"],
+                  answer: "10 J"
                 },
                 {
                   id: "wpe-h2",
                   difficulty: "hard",
-                  question: "A 2 kg object falls from a height of 10 m. Find the potential energy lost.",
-                  answer: "P.E. = mgh = 2 × 9.8 × 10 = 196 J"
+                  question: "A 2 kg object falls from a height of 10 m. What is the potential energy lost?",
+                  options: ["196 J", "20 J", "100 J", "980 J"],
+                  answer: "196 J"
                 },
                 {
                   id: "wpe-h3",
                   difficulty: "hard",
                   question: "A motor does 3000 J work in 60 s. Find its power.",
-                  answer: "Power = 3000 / 60 = 50 W"
+                  options: ["30 W", "60 W", "50 W", "45 W"],
+                  answer: "50 W"
                 },
                 {
                   id: "wpe-h4",
                   difficulty: "hard",
-                  question: "Calculate the kinetic energy of a 5 kg object moving at 4 m/s.",
-                  answer: "K.E. = 0.5 × 5 × 4² = 40 J"
+                  question: "Find the kinetic energy of a 5 kg object moving at 4 m/s.",
+                  options: ["20 J", "40 J", "80 J", "100 J"],
+                  answer: "40 J"
                 },
                 {
                   id: "wpe-h5",
                   difficulty: "hard",
-                  question: "If a man does 150 J of work in climbing a stair of height 3 m, what is his mass?",
-                  answer: "m = W / (g × h) = 150 / (9.8 × 3) ≈ 5.1 kg"
+                  question: "A man does 150 J of work to climb 3 m. What is his mass?",
+                  options: ["5.1 kg", "15 kg", "10 kg", "4.2 kg"],
+                  answer: "5.1 kg"
                 },
                 {
                   id: "wpe-h6",
                   difficulty: "hard",
-                  question: "An electric bulb uses 100 W power and runs for 5 hours. Find energy in kWh.",
-                  answer: "Energy = (100 × 5)/1000 = 0.5 kWh"
+                  question: "An electric bulb of 100 W runs for 5 hours. Energy consumed in kWh?",
+                  options: ["0.5 kWh", "5 kWh", "1 kWh", "2.5 kWh"],
+                  answer: "0.5 kWh"
                 },
                 {
                   id: "wpe-h7",
                   difficulty: "hard",
                   question: "Why is no work done if displacement is zero?",
-                  answer: "Because Work = Force × Displacement × cosθ, and displacement = 0 ⇒ Work = 0"
+                  options: [
+                    "Because force is zero",
+                    "Because time is zero",
+                    "Because Work = Force × Displacement × cosθ",
+                    "Because energy is constant"
+                  ],
+                  answer: "Because Work = Force × Displacement × cosθ"
                 },
                 {
                   id: "wpe-h8",
                   difficulty: "hard",
-                  question: "A body of mass 3 kg moves at 10 m/s. Find the work required to stop it.",
-                  answer: "Work = Loss of K.E. = ½ × 3 × 10² = 150 J"
+                  question: "A 3 kg body moving at 10 m/s is stopped. Find work required.",
+                  options: ["150 J", "300 J", "75 J", "200 J"],
+                  answer: "150 J"
                 },
                 {
                   id: "wpe-h9",
                   difficulty: "hard",
-                  question: "A car engine delivers 25 kW. How much energy is produced in 1 minute?",
-                  answer: "Energy = Power × Time = 25000 × 60 = 1.5 × 10^6 J"
+                  question: "A 25 kW engine runs for 1 minute. Energy produced?",
+                  options: ["1.5 × 10⁶ J", "25 × 60 J", "15000 J", "15 × 10⁶ J"],
+                  answer: "1.5 × 10⁶ J"
                 },
                 {
                   id: "wpe-h10",
                   difficulty: "hard",
-                  question: "A machine is 80% efficient and uses 500 J energy. How much useful work is done?",
-                  answer: "Useful work = 80% of 500 = 400 J"
+                  question: "A machine is 80% efficient and uses 500 J. Useful work done?",
+                  options: ["400 J", "450 J", "500 J", "300 J"],
+                  answer: "400 J"
+
                 }
               ]
             }
@@ -532,185 +648,311 @@ export const courseData = [
                   id: "machines-b1",
                   difficulty: "beginner",
                   question: "What is a machine?",
-                  answer: "A machine is a device that makes our work easier by applying force in a convenient direction or multiplying the force."
+                  options: [
+                    "A device that consumes fuel to work",
+                    "A device that stores energy",
+                    "A device that makes work easier by applying force conveniently or multiplying force",
+                    "A vehicle engine"
+                  ],
+                  answer: "A device that makes work easier by applying force conveniently or multiplying force"
                 },
                 {
                   id: "machines-b2",
                   difficulty: "beginner",
                   question: "What is the load in a machine?",
-                  answer: "The load is the object or weight that is to be lifted or moved using a machine."
+                  options: [
+                    "The energy given to a machine",
+                    "The object or weight to be lifted or moved",
+                    "The force applied to operate a machine",
+                    "The resistance of the machine"
+                  ],
+                  answer: "The object or weight to be lifted or moved"
                 },
                 {
                   id: "machines-b3",
                   difficulty: "beginner",
                   question: "What is the effort in a machine?",
-                  answer: "Effort is the force applied to operate a machine."
+                  options: [
+                    "The speed of operation",
+                    "The time taken to complete work",
+                    "The force applied to operate a machine",
+                    "The output of the machine"
+                  ],
+                  answer: "The force applied to operate a machine"
                 },
                 {
                   id: "machines-b4",
                   difficulty: "beginner",
                   question: "What is mechanical advantage?",
-                  answer: "Mechanical advantage is the ratio of load to effort."
+                  options: [
+                    "Ratio of effort to load",
+                    "Ratio of velocity to time",
+                    "Ratio of load to effort",
+                    "Force multiplied by distance"
+                  ],
+                  answer: "Ratio of load to effort"
                 },
                 {
                   id: "machines-b5",
                   difficulty: "beginner",
                   question: "What is velocity ratio?",
-                  answer: "Velocity ratio is the ratio of distance moved by the effort to the distance moved by the load."
+                  options: [
+                    "Distance moved by effort / Distance moved by load",
+                    "Load × effort",
+                    "Speed × time",
+                    "Effort / Load"
+                  ],
+                  answer: "Distance moved by effort / Distance moved by load"
                 },
                 {
                   id: "machines-b6",
                   difficulty: "beginner",
                   question: "What is efficiency of a machine?",
-                  answer: "Efficiency is the ratio of work output to work input, expressed as a percentage."
+                  options: [
+                    "Work input / Work output",
+                    "Ratio of effort to time",
+                    "Ratio of work output to work input",
+                    "Work done in 1 hour"
+                  ],
+                  answer: "Ratio of work output to work input"
                 },
                 {
                   id: "machines-b7",
                   difficulty: "beginner",
                   question: "What is an ideal machine?",
-                  answer: "An ideal machine is 100% efficient, i.e., all the input work is converted into output work."
+                  options: [
+                    "A machine that never breaks",
+                    "A 100% efficient machine",
+                    "A machine with zero input",
+                    "A very powerful machine"
+                  ],
+                  answer: "A 100% efficient machine"
                 },
                 {
                   id: "machines-b8",
                   difficulty: "beginner",
                   question: "Name one simple machine.",
-                  answer: "A lever is an example of a simple machine."
+                  options: ["Motor", "Bulb", "Pulley", "Lever"],
+                  answer: "Lever"
                 },
                 {
                   id: "machines-b9",
                   difficulty: "beginner",
                   question: "What is the function of a pulley?",
-                  answer: "A pulley helps in changing the direction of effort and may also multiply force."
+                  options: [
+                    "To change direction of motion",
+                    "To generate electricity",
+                    "To increase temperature",
+                    "To change direction of effort and possibly multiply force"
+                  ],
+                  answer: "To change direction of effort and possibly multiply force"
                 },
                 {
                   id: "machines-b10",
                   difficulty: "beginner",
                   question: "Do all machines have 100% efficiency?",
-                  answer: "No, real machines always have efficiency less than 100% due to friction and energy loss."
+                  options: [
+                    "Yes, if well-oiled",
+                    "No, because of friction and energy loss",
+                    "Yes, in ideal conditions",
+                    "Sometimes only electric ones"
+                  ],
+                  answer: "No, because of friction and energy loss"
                 }
               ],
               intermediate: [
                 {
                   id: "machines-i1",
                   difficulty: "intermediate",
-                  question: "State the relation between mechanical advantage, velocity ratio, and efficiency.",
-                  answer: "Efficiency = (Mechanical Advantage / Velocity Ratio) × 100"
+                  question: "What is the relation between mechanical advantage, velocity ratio, and efficiency?",
+                  options: [
+                    "Efficiency = M.A. × V.R.",
+                    "Efficiency = (V.R. / M.A.) × 100",
+                    "Efficiency = (M.A. / V.R.) × 100",
+                    "Efficiency = M.A. + V.R."
+                  ],
+                  answer: "Efficiency = (M.A. / V.R.) × 100"
                 },
                 {
                   id: "machines-i2",
                   difficulty: "intermediate",
                   question: "What is the SI unit of mechanical advantage?",
-                  answer: "Mechanical advantage has no unit; it is a ratio."
+                  options: ["Newton", "Joule", "It has no unit", "Watt"],
+                  answer: "It has no unit"
                 },
                 {
                   id: "machines-i3",
                   difficulty: "intermediate",
-                  question: "Name a machine that has mechanical advantage less than 1.",
-                  answer: "A shovel has mechanical advantage less than 1; it increases speed at the expense of force."
+                  question: "Which of these machines has mechanical advantage less than 1?",
+                  options: ["Inclined plane", "Screw jack", "Shovel", "Pulley"],
+                  answer: "Shovel"
                 },
                 {
                   id: "machines-i4",
                   difficulty: "intermediate",
                   question: "What is a lever?",
-                  answer: "A lever is a rigid bar that rotates around a fixed point called a fulcrum."
+                  options: [
+                    "A movable pulley system",
+                    "A machine that generates electricity",
+                    "A rigid bar rotating around a fixed point",
+                    "A curved handle used in motors"
+                  ],
+                  answer: "A rigid bar rotating around a fixed point"
                 },
                 {
                   id: "machines-i5",
                   difficulty: "intermediate",
-                  question: "Define velocity ratio for an inclined plane.",
-                  answer: "Velocity ratio = Length of the inclined plane / Height of the inclined plane"
+                  question: "What is the velocity ratio for an inclined plane?",
+                  options: [
+                    "Height / Length",
+                    "Length × Height",
+                    "Length / Height",
+                    "None of these"
+                  ],
+                  answer: "Length / Height"
                 },
                 {
                   id: "machines-i6",
                   difficulty: "intermediate",
-                  question: "How does friction affect the efficiency of a machine?",
-                  answer: "Friction reduces the efficiency by converting part of the input energy into heat."
+                  question: "How does friction affect machine efficiency?",
+                  options: [
+                    "It increases output energy",
+                    "It increases input work",
+                    "It reduces efficiency by converting input to heat",
+                    "It has no effect"
+                  ],
+                  answer: "It reduces efficiency by converting input to heat"
                 },
                 {
                   id: "machines-i7",
                   difficulty: "intermediate",
                   question: "What is a compound pulley?",
-                  answer: "A compound pulley is a combination of fixed and movable pulleys to increase mechanical advantage."
+                  options: [
+                    "A single movable pulley",
+                    "A pulley made of metal",
+                    "A combination of fixed and movable pulleys",
+                    "A pulley used in cranes only"
+                  ],
+                  answer: "A combination of fixed and movable pulleys"
                 },
                 {
                   id: "machines-i8",
                   difficulty: "intermediate",
                   question: "What is the use of a screw jack?",
-                  answer: "A screw jack is used to lift heavy vehicles like cars during repairs."
+                  options: [
+                    "To screw nails",
+                    "To open bottle caps",
+                    "To lift heavy vehicles like cars",
+                    "To apply lubricants"
+                  ],
+                  answer: "To lift heavy vehicles like cars"
                 },
                 {
                   id: "machines-i9",
                   difficulty: "intermediate",
                   question: "Why is the mechanical advantage of a single movable pulley 2?",
-                  answer: "Because the load is supported by two segments of rope, sharing the effort equally."
+                  options: [
+                    "Because it multiplies the load",
+                    "Because load is supported by two rope segments",
+                    "Because it's double efficiency",
+                    "Because it rotates twice"
+                  ],
+                  answer: "Because load is supported by two rope segments"
                 },
                 {
                   id: "machines-i10",
                   difficulty: "intermediate",
                   question: "Why can efficiency never be greater than 100%?",
-                  answer: "Because some energy is always lost to friction and other resistances in real machines."
+                  options: [
+                    "Because machines have limited power",
+                    "Because energy is always fully transferred",
+                    "Because some energy is lost to friction",
+                    "Because V.R. is always small"
+                  ],
+                  answer: "Because some energy is lost to friction"
                 }
               ],
+
               hard: [
                 {
                   id: "machines-h1",
                   difficulty: "hard",
-                  question: "A machine has M.A. = 4 and V.R. = 5. Calculate its efficiency.",
-                  answer: "Efficiency = (4 / 5) × 100 = 80%"
+                  question: "A machine has M.A. = 4 and V.R. = 5. What is its efficiency?",
+                  options: ["80%", "100%", "60%", "20%"],
+                  answer: "80%"
                 },
                 {
                   id: "machines-h2",
                   difficulty: "hard",
-                  question: "A machine requires an effort of 200 N to lift a load of 800 N. What is the mechanical advantage?",
-                  answer: "M.A. = Load / Effort = 800 / 200 = 4"
+                  question: "A machine uses 200 N effort to lift 800 N load. What is its mechanical advantage?",
+                  options: ["2", "3", "4", "5"],
+                  answer: "4"
                 },
                 {
                   id: "machines-h3",
                   difficulty: "hard",
-                  question: "A lever has a load arm of 40 cm and effort arm of 80 cm. Find its mechanical advantage.",
-                  answer: "M.A. = Effort arm / Load arm = 80 / 40 = 2"
+                  question: "A lever with 40 cm load arm and 80 cm effort arm has what mechanical advantage?",
+                  options: ["1", "2", "0.5", "4"],
+                  answer: "2"
                 },
                 {
                   id: "machines-h4",
                   difficulty: "hard",
-                  question: "If a screw jack has a pitch of 5 mm and a handle of radius 25 cm, find the velocity ratio.",
-                  answer: "V.R. = 2πr / pitch = 2×π×25 / 0.5 = 314.16"
+                  question: "Find velocity ratio for screw jack with pitch 5 mm and handle radius 25 cm.",
+                  options: ["314.16", "15.7", "78.5", "100"],
+                  answer: "314.16"
                 },
                 {
                   id: "machines-h5",
                   difficulty: "hard",
-                  question: "A pulley system has a velocity ratio of 4 and efficiency of 75%. Calculate mechanical advantage.",
-                  answer: "M.A. = (Efficiency × V.R.) / 100 = (75 × 4)/100 = 3"
+                  question: "Pulley system: V.R. = 4, efficiency = 75%. Find M.A.",
+                  options: ["3", "4", "2", "5"],
+                  answer: "3"
                 },
                 {
                   id: "machines-h6",
                   difficulty: "hard",
-                  question: "In an inclined plane of length 6 m and height 1.5 m, find its velocity ratio.",
-                  answer: "V.R. = 6 / 1.5 = 4"
+                  question: "Inclined plane length 6 m, height 1.5 m. What is V.R.?",
+                  options: ["3", "4", "2", "6"],
+                  answer: "4"
                 },
                 {
                   id: "machines-h7",
                   difficulty: "hard",
-                  question: "Why is the velocity ratio always greater than mechanical advantage in real machines?",
-                  answer: "Because energy losses like friction reduce output force, making M.A. < V.R."
+                  question: "Why is V.R. always greater than M.A. in real machines?",
+                  options: [
+                    "Because of frictional losses",
+                    "Because effort is more than load",
+                    "Because efficiency is > 100%",
+                    "Because output force is more"
+                  ],
+                  answer: "Because of frictional losses"
                 },
                 {
                   id: "machines-h8",
                   difficulty: "hard",
-                  question: "A lever of class I has M.A. < 1. Give an example.",
-                  answer: "A pair of tweezers or a pair of scissors has mechanical advantage less than 1."
+                  question: "Give an example of class I lever with M.A. < 1.",
+                  options: ["Screwdriver", "Tweezers", "Nutcracker", "Spade"],
+                  answer: "Tweezers"
                 },
                 {
                   id: "machines-h9",
                   difficulty: "hard",
-                  question: "In a wheel and axle, radius of wheel is 40 cm, axle is 10 cm. Find V.R.",
-                  answer: "V.R. = Radius of wheel / Radius of axle = 40 / 10 = 4"
+                  question: "Wheel radius = 40 cm, axle radius = 10 cm. Find V.R.",
+                  options: ["2", "3", "4", "5"],
+                  answer: "4"
                 },
                 {
                   id: "machines-h10",
                   difficulty: "hard",
-                  question: "What does it mean if a machine has efficiency of 60%?",
-                  answer: "It means that only 60% of input work is converted into useful output; 40% is lost."
+                  question: "What does 60% efficiency mean for a machine?",
+                  options: [
+                    "Machine gains 60% energy",
+                    "Only 60% input is converted to output",
+                    "It runs at 60 rpm",
+                    "It wastes no energy"
+                  ],
+                  answer: "Only 60% input is converted to output"
                 }
               ]
             }
@@ -720,424 +962,756 @@ export const courseData = [
             title: "Refraction of Light at Plane Surfaces",
             flashcards: {
               beginner: [
-                { id: "refraction-b1", difficulty: "beginner", question: "What is refraction?", answer: "Refraction is the bending of light when it passes from one medium to another." },
-                { id: "refraction-b2", difficulty: "beginner", question: "Why does refraction occur?", answer: "Refraction occurs due to the change in speed of light in different media." },
-                { id: "refraction-b3", difficulty: "beginner", question: "What is a medium in optics?", answer: "A medium is the material through which light travels, like air, water, or glass." },
-                { id: "refraction-b4", difficulty: "beginner", question: "What happens to the light ray when it enters a denser medium?", answer: "It bends towards the normal." },
-                { id: "refraction-b5", difficulty: "beginner", question: "What happens to the light ray when it enters a rarer medium?", answer: "It bends away from the normal." },
-                { id: "refraction-b6", difficulty: "beginner", question: "What is the incident ray?", answer: "The ray of light that strikes the surface before refraction." },
-                { id: "refraction-b7", difficulty: "beginner", question: "What is the refracted ray?", answer: "The ray of light that travels in the new medium after bending." },
-                { id: "refraction-b8", difficulty: "beginner", question: "What is the normal in refraction?", answer: "A line drawn perpendicular to the surface at the point of incidence." },
-                { id: "refraction-b9", difficulty: "beginner", question: "Give one real-life example of refraction.", answer: "A straw appearing bent in a glass of water." },
-                { id: "refraction-b10", difficulty: "beginner", question: "Does light change its speed or direction during refraction?", answer: "It changes both speed and direction." }
+                {
+                  id: "refraction-b1",
+                  difficulty: "beginner",
+                  question: "What is refraction?",
+                  options: [
+                    "The bending of light when it passes from one medium to another.",
+                    "The reflection of light from a surface.",
+                    "The absorption of light by an object.",
+                    "The scattering of light in different directions."
+                  ],
+                  answer: "The bending of light when it passes from one medium to another."
+                },
+                {
+                  id: "refraction-b2",
+                  difficulty: "beginner",
+                  question: "Why does refraction occur?",
+                  options: [
+                    "Because light's speed changes in different media.",
+                    "Because light is absorbed by different media.",
+                    "Because light reflects off surfaces.",
+                    "Because light is scattered randomly."
+                  ],
+                  answer: "Because light's speed changes in different media."
+                },
+                {
+                  id: "refraction-b3",
+                  difficulty: "beginner",
+                  question: "What is a medium in optics?",
+                  options: [
+                    "A material through which light travels, such as air, water, or glass.",
+                    "A device for measuring light.",
+                    "A lens used to focus light.",
+                    "An instrument that emits light."
+                  ],
+                  answer: "A material through which light travels, such as air, water, or glass."
+                },
+                {
+                  id: "refraction-b4",
+                  difficulty: "beginner",
+                  question: "What happens to the light ray when it enters a denser medium?",
+                  options: [
+                    "It bends towards the normal.",
+                    "It bends away from the normal.",
+                    "It slows down without bending.",
+                    "It speeds up and remains straight."
+                  ],
+                  answer: "It bends towards the normal."
+                },
+                {
+                  id: "refraction-b5",
+                  difficulty: "beginner",
+                  question: "What happens to the light ray when it enters a rarer medium?",
+                  options: [
+                    "It bends away from the normal.",
+                    "It bends towards the normal.",
+                    "It speeds up and continues straight.",
+                    "It stops bending."
+                  ],
+                  answer: "It bends away from the normal."
+                },
+                {
+                  id: "refraction-b6",
+                  difficulty: "beginner",
+                  question: "What is the incident ray?",
+                  options: [
+                    "The ray of light that strikes the surface before refraction.",
+                    "The ray of light that bounces off a surface.",
+                    "The ray of light that is absorbed by a surface.",
+                    "The ray of light that is emitted from a source."
+                  ],
+                  answer: "The ray of light that strikes the surface before refraction."
+                },
+                {
+                  id: "refraction-b7",
+                  difficulty: "beginner",
+                  question: "What is the refracted ray?",
+                  options: [
+                    "The ray of light that travels in the new medium after bending.",
+                    "The ray of light that is reflected.",
+                    "The ray of light that is absorbed.",
+                    "The ray of light that never changes direction."
+                  ],
+                  answer: "The ray of light that travels in the new medium after bending."
+                },
+                {
+                  id: "refraction-b8",
+                  difficulty: "beginner",
+                  question: "What is the normal in refraction?",
+                  options: [
+                    "A line drawn perpendicular to the surface at the point of incidence.",
+                    "The direction of the incident ray.",
+                    "A line parallel to the surface.",
+                    "The angle between the incident and refracted rays."
+                  ],
+                  answer: "A line drawn perpendicular to the surface at the point of incidence."
+                },
+                {
+                  id: "refraction-b9",
+                  difficulty: "beginner",
+                  question: "Give one real-life example of refraction.",
+                  options: [
+                    "A straw appearing bent in a glass of water.",
+                    "A bird flying in the sky.",
+                    "A ball bouncing off a wall.",
+                    "The sound of thunder."
+                  ],
+                  answer: "A straw appearing bent in a glass of water."
+                },
+                {
+                  id: "refraction-b10",
+                  difficulty: "beginner",
+                  question: "Does light change its speed or direction during refraction?",
+                  options: [
+                    "It changes both speed and direction.",
+                    "It changes only speed.",
+                    "It changes only direction.",
+                    "It does not change either."
+                  ],
+                  answer: "It changes both speed and direction."
+                }
               ],
               intermediate: [
-                { id: "refraction-i1", difficulty: "intermediate", question: "Define refractive index.", answer: "Refractive index is the ratio of the speed of light in vacuum to that in a medium." },
-                { id: "refraction-i2", difficulty: "intermediate", question: "What is Snell's Law?", answer: "Snell's Law states that n₁·sin(i) = n₂·sin(r), where n is refractive index." },
-                { id: "refraction-i3", difficulty: "intermediate", question: "What is the formula for refractive index using speed?", answer: "n = c / v, where c is the speed of light in vacuum, v in medium." },
-                { id: "refraction-i4", difficulty: "intermediate", question: "What is lateral displacement?", answer: "The sideways shift in the path of a refracted ray through a rectangular glass slab." },
-                { id: "refraction-i5", difficulty: "intermediate", question: "Name one device that uses refraction.", answer: "A magnifying glass." },
-                { id: "refraction-i6", difficulty: "intermediate", question: "What is the angle of incidence?", answer: "It is the angle between the incident ray and the normal." },
-                { id: "refraction-i7", difficulty: "intermediate", question: "What is the angle of refraction?", answer: "It is the angle between the refracted ray and the normal." },
-                { id: "refraction-i8", difficulty: "intermediate", question: "What happens when light enters perpendicularly into a new medium?", answer: "It does not bend but only changes speed." },
-                { id: "refraction-i9", difficulty: "intermediate", question: "What is an optically denser medium?", answer: "A medium in which light travels slower, like glass compared to air." },
-                { id: "refraction-i10", difficulty: "intermediate", question: "Does refraction follow the laws of reflection?", answer: "No, it follows the laws of refraction like Snell’s Law." }
+                {
+                  id: "refraction-i1",
+                  difficulty: "intermediate",
+                  question: "Define refractive index.",
+                  options: [
+                    "The ratio of the speed of light in vacuum to that in a medium.",
+                    "The measure of light's brightness.",
+                    "The ratio of the wavelength in vacuum to that in a medium.",
+                    "The distance light travels in a medium."
+                  ],
+                  answer: "The ratio of the speed of light in vacuum to that in a medium."
+                },
+                {
+                  id: "refraction-i2",
+                  difficulty: "intermediate",
+                  question: "What is Snell's Law?",
+                  options: [
+                    "n₁·sin(i) = n₂·sin(r), where n is the refractive index.",
+                    "n₁ + sin(i) = n₂ + sin(r)",
+                    "n₁/sin(i) = n₂/sin(r)",
+                    "n₁ - sin(i) = n₂ - sin(r)"
+                  ],
+                  answer: "n₁·sin(i) = n₂·sin(r), where n is the refractive index."
+                },
+                {
+                  id: "refraction-i3",
+                  difficulty: "intermediate",
+                  question: "What is the formula for refractive index using speed?",
+                  options: [
+                    "n = c / v",
+                    "n = v / c",
+                    "n = c * v",
+                    "n = c - v"
+                  ],
+                  answer: "n = c / v"
+                },
+                {
+                  id: "refraction-i4",
+                  difficulty: "intermediate",
+                  question: "What is lateral displacement?",
+                  options: [
+                    "The sideways shift in the path of a refracted ray through a rectangular glass slab.",
+                    "The bending of light towards the normal.",
+                    "The reflection of light within a medium.",
+                    "The absorption of light by a medium."
+                  ],
+                  answer: "The sideways shift in the path of a refracted ray through a rectangular glass slab."
+                },
+                {
+                  id: "refraction-i5",
+                  difficulty: "intermediate",
+                  question: "Name one device that uses refraction.",
+                  options: [
+                    "A magnifying glass.",
+                    "A microphone.",
+                    "A thermometer.",
+                    "A barometer."
+                  ],
+                  answer: "A magnifying glass."
+                },
+                {
+                  id: "refraction-i6",
+                  difficulty: "intermediate",
+                  question: "What is the angle of incidence?",
+                  options: [
+                    "The angle between the incident ray and the normal.",
+                    "The angle between the refracted ray and the surface.",
+                    "The angle between the incident and reflected rays.",
+                    "The angle of the refracted ray with the normal."
+                  ],
+                  answer: "The angle between the incident ray and the normal."
+                },
+                {
+                  id: "refraction-i7",
+                  difficulty: "intermediate",
+                  question: "What is the angle of refraction?",
+                  options: [
+                    "The angle between the refracted ray and the normal.",
+                    "The angle between the incident ray and the surface.",
+                    "The angle of reflection.",
+                    "The angle between the incident and refracted rays."
+                  ],
+                  answer: "The angle between the refracted ray and the normal."
+                },
+                {
+                  id: "refraction-i8",
+                  difficulty: "intermediate",
+                  question: "What happens when light enters perpendicularly into a new medium?",
+                  options: [
+                    "It does not bend but only changes speed.",
+                    "It bends away from the normal.",
+                    "It bends towards the normal.",
+                    "It gets absorbed."
+                  ],
+                  answer: "It does not bend but only changes speed."
+                },
+                {
+                  id: "refraction-i9",
+                  difficulty: "intermediate",
+                  question: "What is an optically denser medium?",
+                  options: [
+                    "A medium in which light travels slower, like glass compared to air.",
+                    "A medium with high transparency.",
+                    "A medium in which light travels faster.",
+                    "A medium that absorbs light."
+                  ],
+                  answer: "A medium in which light travels slower, like glass compared to air."
+                },
+                {
+                  id: "refraction-i10",
+                  difficulty: "intermediate",
+                  question: "Does refraction follow the laws of reflection?",
+                  options: [
+                    "No, it follows the laws of refraction like Snell’s Law.",
+                    "Yes, it follows the laws of reflection.",
+                    "It follows both laws equally.",
+                    "It follows neither law."
+                  ],
+                  answer: "No, it follows the laws of refraction like Snell’s Law."
+                }
               ],
               hard: [
-                { id: "refraction-h1", difficulty: "hard", question: "If the angle of incidence is 30° and the angle of refraction is 20°, find the refractive index.", answer: "n = sin(30°)/sin(20°) ≈ 0.5/0.342 = 1.46" },
-                { id: "refraction-h2", difficulty: "hard", question: "Light enters from air (n=1) to glass (n=1.5). What is the ratio of speeds?", answer: "v_air/v_glass = n_glass/n_air = 1.5" },
-                { id: "refraction-h3", difficulty: "hard", question: "Calculate the speed of light in glass if its refractive index is 1.5.", answer: "v = c/n = 3×10⁸ / 1.5 = 2×10⁸ m/s" },
-                { id: "refraction-h4", difficulty: "hard", question: "A ray of light passes through a parallel-sided glass slab. Describe its emergent ray.", answer: "The emergent ray is parallel to the incident ray but laterally displaced." },
-                { id: "refraction-h5", difficulty: "hard", question: "Derive the formula for refractive index using Snell's law.", answer: "From Snell’s Law: n = sin(i)/sin(r), where i and r are angles of incidence and refraction." },
-                { id: "refraction-h6", difficulty: "hard", question: "Why do objects appear raised in water?", answer: "Due to refraction, light bends away from the normal making objects appear higher." },
-                { id: "refraction-h7", difficulty: "hard", question: "A glass slab causes 1 cm lateral displacement. What affects this value?", answer: "Refractive index, thickness of the slab, and angle of incidence." },
-                { id: "refraction-h8", difficulty: "hard", question: "Why does a coin placed in water appear closer?", answer: "Due to refraction at the water surface, the light rays bend, making the coin appear raised." },
-                { id: "refraction-h9", difficulty: "hard", question: "Which has higher refractive index: diamond or glass?", answer: "Diamond; it has a refractive index of about 2.42, much higher than glass." },
-                { id: "refraction-h10", difficulty: "hard", question: "Is the refractive index of a medium constant for all wavelengths?", answer: "No, refractive index varies with wavelength. This is called dispersion." }
+                {
+                  id: "refraction-h1",
+                  difficulty: "hard",
+                  question: "If the angle of incidence is 30° and the angle of refraction is 20°, find the refractive index.",
+                  options: [
+                    "Approximately 1.46",
+                    "Approximately 0.68",
+                    "Approximately 2.00",
+                    "Approximately 1.00"
+                  ],
+                  answer: "Approximately 1.46"
+                },
+                {
+                  id: "refraction-h2",
+                  difficulty: "hard",
+                  question: "Light enters from air (n=1) to glass (n=1.5). What is the ratio of speeds?",
+                  options: [
+                    "1.5",
+                    "0.67",
+                    "2.0",
+                    "1.0"
+                  ],
+                  answer: "1.5"
+                },
+                {
+                  id: "refraction-h3",
+                  difficulty: "hard",
+                  question: "Calculate the speed of light in glass if its refractive index is 1.5.",
+                  options: [
+                    "2×10⁸ m/s",
+                    "3×10⁸ m/s",
+                    "1.5×10⁸ m/s",
+                    "2.5×10⁸ m/s"
+                  ],
+                  answer: "2×10⁸ m/s"
+                },
+                {
+                  id: "refraction-h4",
+                  difficulty: "hard",
+                  question: "A ray of light passes through a parallel-sided glass slab. Describe its emergent ray.",
+                  options: [
+                    "The emergent ray is parallel to the incident ray but laterally displaced.",
+                    "It bends away from the normal.",
+                    "It becomes convergent.",
+                    "It becomes divergent."
+                  ],
+                  answer: "The emergent ray is parallel to the incident ray but laterally displaced."
+                },
+                {
+                  id: "refraction-h5",
+                  difficulty: "hard",
+                  question: "Derive the formula for refractive index using Snell's law.",
+                  options: [
+                    "n = sin(i)/sin(r)",
+                    "n = sin(r)/sin(i)",
+                    "n = tan(i)/tan(r)",
+                    "n = tan(r)/tan(i)"
+                  ],
+                  answer: "n = sin(i)/sin(r)"
+                },
+                {
+                  id: "refraction-h6",
+                  difficulty: "hard",
+                  question: "Why do objects appear raised in water?",
+                  options: [
+                    "Due to the bending of light, objects appear higher than they actually are.",
+                    "Due to reflection.",
+                    "Because water magnifies objects.",
+                    "Because water absorbs light."
+                  ],
+                  answer: "Due to the bending of light, objects appear higher than they actually are."
+                },
+                {
+                  id: "refraction-h7",
+                  difficulty: "hard",
+                  question: "A glass slab causes 1 cm lateral displacement. What factors affect this value?",
+                  options: [
+                    "Refractive index, thickness of the slab, and angle of incidence.",
+                    "Only thickness.",
+                    "Only refractive index.",
+                    "Only the angle of incidence."
+                  ],
+                  answer: "Refractive index, thickness of the slab, and angle of incidence."
+                },
+                {
+                  id: "refraction-h8",
+                  difficulty: "hard",
+                  question: "Why does a coin placed in water appear closer?",
+                  options: [
+                    "Due to the refraction at the water surface, the coin appears raised.",
+                    "Because water reflects the coin.",
+                    "Because of the absorption of light.",
+                    "Because of an optical illusion."
+                  ],
+                  answer: "Due to the refraction at the water surface, the coin appears raised."
+                },
+                {
+                  id: "refraction-h9",
+                  difficulty: "hard",
+                  question: "Which has a higher refractive index: diamond or glass?",
+                  options: [
+                    "Diamond",
+                    "Glass",
+                    "Both are the same.",
+                    "Depends on light wavelength."
+                  ],
+                  answer: "Diamond"
+                },
+                {
+                  id: "refraction-h10",
+                  difficulty: "hard",
+                  question: "Is the refractive index of a medium constant for all wavelengths?",
+                  options: [
+                    "No, it varies with wavelength due to dispersion.",
+                    "Yes, it is constant.",
+                    "It depends on the medium's color.",
+                    "It depends on temperature."
+                  ],
+                  answer: "No, it varies with wavelength due to dispersion."
+                }
               ]
             }
           },
 
           {
-            "id": "refraction-lens-10-icse",
-            "title": "Refraction of Light Through a Lens",
+            "id": "refraction-plane-surfaces-10-icse",
+            "title": "Refraction of Light at Plane Surfaces",
             "flashcards": {
               "beginner": [
                 {
-                  "id": "lens-b1",
+                  "id": "refraction-b1",
                   "difficulty": "beginner",
-                  "question": "What is a lens?",
-                  "answer": "A lens is a transparent optical device that bends light rays by refraction."
+                  "question": "What is refraction?",
+                  "options": [
+                    "The bending of light when it passes from one medium to another.",
+                    "The reflection of light from a surface.",
+                    "The absorption of light by an object.",
+                    "The scattering of light in different directions."
+                  ],
+                  "answer": "The bending of light when it passes from one medium to another."
                 },
                 {
-                  "id": "lens-b2",
+                  "id": "refraction-b2",
                   "difficulty": "beginner",
-                  "question": "What are the two main types of lenses?",
-                  "answer": "Convex (converging) and Concave (diverging) lenses."
+                  "question": "Why does refraction occur?",
+                  "options": [
+                    "Because light's speed changes in different media.",
+                    "Because light is absorbed by different media.",
+                    "Because light reflects off surfaces.",
+                    "Because light is scattered randomly."
+                  ],
+                  "answer": "Because light's speed changes in different media."
                 },
                 {
-                  "id": "lens-b3",
+                  "id": "refraction-b3",
                   "difficulty": "beginner",
-                  "question": "What does a convex lens do to light rays?",
-                  "answer": "It converges (brings together) light rays."
+                  "question": "What is a medium in optics?",
+                  "options": [
+                    "A material through which light travels, such as air, water, or glass.",
+                    "A device for measuring light.",
+                    "A lens used to focus light.",
+                    "An instrument that emits light."
+                  ],
+                  "answer": "A material through which light travels, such as air, water, or glass."
                 },
                 {
-                  "id": "lens-b4",
+                  "id": "refraction-b4",
                   "difficulty": "beginner",
-                  "question": "What does a concave lens do to light rays?",
-                  "answer": "It diverges (spreads out) light rays."
+                  "question": "What happens to the light ray when it enters a denser medium?",
+                  "options": [
+                    "It bends towards the normal.",
+                    "It bends away from the normal.",
+                    "It slows down without bending.",
+                    "It speeds up and remains straight."
+                  ],
+                  "answer": "It bends towards the normal."
                 },
                 {
-                  "id": "lens-b5",
+                  "id": "refraction-b5",
                   "difficulty": "beginner",
-                  "question": "What is the principal axis of a lens?",
-                  "answer": "It is the imaginary line passing through the center of the lens and its optical center."
+                  "question": "What happens to the light ray when it enters a rarer medium?",
+                  "options": [
+                    "It bends away from the normal.",
+                    "It bends towards the normal.",
+                    "It speeds up and continues straight.",
+                    "It stops bending."
+                  ],
+                  "answer": "It bends away from the normal."
                 },
                 {
-                  "id": "lens-b6",
+                  "id": "refraction-b6",
                   "difficulty": "beginner",
-                  "question": "What is the optical center of a lens?",
-                  "answer": "The point inside the lens through which a ray passes without deviation."
+                  "question": "What is the incident ray?",
+                  "options": [
+                    "The ray of light that strikes the surface before refraction.",
+                    "The ray of light that bounces off a surface.",
+                    "The ray of light that is absorbed by a surface.",
+                    "The ray of light that is emitted from a source."
+                  ],
+                  "answer": "The ray of light that strikes the surface before refraction."
                 },
                 {
-                  "id": "lens-b7",
+                  "id": "refraction-b7",
                   "difficulty": "beginner",
-                  "question": "What is the principal focus of a convex lens?",
-                  "answer": "It is the point where parallel rays converge after refraction."
+                  "question": "What is the refracted ray?",
+                  "options": [
+                    "The ray of light that travels in the new medium after bending.",
+                    "The ray of light that is reflected.",
+                    "The ray of light that is absorbed.",
+                    "The ray of light that never changes direction."
+                  ],
+                  "answer": "The ray of light that travels in the new medium after bending."
                 },
                 {
-                  "id": "lens-b8",
+                  "id": "refraction-b8",
                   "difficulty": "beginner",
-                  "question": "What is the focal length of a lens?",
-                  "answer": "It is the distance between the optical center and the principal focus."
+                  "question": "What is the normal in refraction?",
+                  "options": [
+                    "A line drawn perpendicular to the surface at the point of incidence.",
+                    "The direction of the incident ray.",
+                    "A line parallel to the surface.",
+                    "The angle between the incident and refracted rays."
+                  ],
+                  "answer": "A line drawn perpendicular to the surface at the point of incidence."
                 },
                 {
-                  "id": "lens-b9",
+                  "id": "refraction-b9",
                   "difficulty": "beginner",
-                  "question": "Does a concave lens form real or virtual images?",
-                  "answer": "A concave lens always forms virtual, erect, and diminished images."
+                  "question": "Give one real-life example of refraction.",
+                  "options": [
+                    "A straw appearing bent in a glass of water.",
+                    "A bird flying in the sky.",
+                    "A ball bouncing off a wall.",
+                    "The sound of thunder."
+                  ],
+                  "answer": "A straw appearing bent in a glass of water."
                 },
                 {
-                  "id": "lens-b10",
+                  "id": "refraction-b10",
                   "difficulty": "beginner",
-                  "question": "What kind of image does a convex lens form when the object is at infinity?",
-                  "answer": "A real, inverted, and highly diminished image at the focus."
-                }
-              ],
-              "intermediate": [
-                {
-                  "id": "lens-i1",
-                  "difficulty": "intermediate",
-                  "question": "State the lens formula.",
-                  "answer": "1/f = 1/v - 1/u, where f is focal length, v is image distance, and u is object distance."
-                },
-                {
-                  "id": "lens-i2",
-                  "difficulty": "intermediate",
-                  "question": "What is the sign convention for lenses?",
-                  "answer": "Distances measured opposite to incident light are negative; others are positive."
-                },
-                {
-                  "id": "lens-i3",
-                  "difficulty": "intermediate",
-                  "question": "What does a positive focal length indicate?",
-                  "answer": "It indicates a convex lens."
-                },
-                {
-                  "id": "lens-i4",
-                  "difficulty": "intermediate",
-                  "question": "What is the nature of the image formed by a convex lens when the object is between F and 2F?",
-                  "answer": "The image is real, inverted, and magnified, formed beyond 2F."
-                },
-                {
-                  "id": "lens-i5",
-                  "difficulty": "intermediate",
-                  "question": "What kind of image does a convex lens form when the object is at the focus?",
-                  "answer": "An image at infinity, highly enlarged, and real."
-                },
-                {
-                  "id": "lens-i6",
-                  "difficulty": "intermediate",
-                  "question": "What kind of image does a convex lens form when the object is between focus and optical center?",
-                  "answer": "A virtual, erect, and magnified image on the same side."
-                },
-                {
-                  "id": "lens-i7",
-                  "difficulty": "intermediate",
-                  "question": "What is the unit of power of a lens?",
-                  "answer": "Dioptre (D)"
-                },
-                {
-                  "id": "lens-i8",
-                  "difficulty": "intermediate",
-                  "question": "What is the power of a lens with a focal length of 50 cm?",
-                  "answer": "P = 100/f = 100/50 = +2D"
-                },
-                {
-                  "id": "lens-i9",
-                  "difficulty": "intermediate",
-                  "question": "Is the power of a concave lens positive or negative?",
-                  "answer": "Negative."
-                },
-                {
-                  "id": "lens-i10",
-                  "difficulty": "intermediate",
-                  "question": "What is meant by magnification?",
-                  "answer": "It is the ratio of height of the image to the height of the object."
-                }
-              ],
-              "hard": [
-                {
-                  "id": "lens-h1",
-                  "difficulty": "hard",
-                  "question": "An object is placed 20 cm from a convex lens of focal length 10 cm. Where is the image formed?",
-                  "answer": "Using 1/f = 1/v - 1/u → 1/10 = 1/v + 1/20 → v = 20 cm. Image is real and same size at 20 cm."
-                },
-                {
-                  "id": "lens-h2",
-                  "difficulty": "hard",
-                  "question": "Derive the lens formula using geometry.",
-                  "answer": "Using ray diagrams and triangles formed by incident and refracted rays, one derives 1/f = 1/v - 1/u."
-                },
-                {
-                  "id": "lens-h3",
-                  "difficulty": "hard",
-                  "question": "A lens forms an image 15 cm from it of an object 30 cm away. Find its focal length.",
-                  "answer": "1/f = 1/v - 1/u = 1/15 - 1/30 = 1/30 ⇒ f = 30 cm."
-                },
-                {
-                  "id": "lens-h4",
-                  "difficulty": "hard",
-                  "question": "If the magnification is -2, what does it tell you about the image?",
-                  "answer": "It is real, inverted, and magnified 2 times."
-                },
-                {
-                  "id": "lens-h5",
-                  "difficulty": "hard",
-                  "question": "How does a lens produce a virtual image?",
-                  "answer": "When the object is placed between the optical center and the focus."
-                },
-                {
-                  "id": "lens-h6",
-                  "difficulty": "hard",
-                  "question": "Calculate the power of a lens with focal length -25 cm.",
-                  "answer": "P = 100/f = 100/(-25) = -4D"
-                },
-                {
-                  "id": "lens-h7",
-                  "difficulty": "hard",
-                  "question": "Why is a convex lens used in projectors?",
-                  "answer": "Because it forms real, inverted, and magnified images."
-                },
-                {
-                  "id": "lens-h8",
-                  "difficulty": "hard",
-                  "question": "Name a device where a concave lens is used and explain why.",
-                  "answer": "Used in spectacles for myopia to diverge light rays before they enter the eye."
-                },
-                {
-                  "id": "lens-h9",
-                  "difficulty": "hard",
-                  "question": "What is the formula for magnification in terms of object and image distance?",
-                  "answer": "Magnification = v / u"
-                },
-                {
-                  "id": "lens-h10",
-                  "difficulty": "hard",
-                  "question": "Two lenses of focal lengths 20 cm and 30 cm are placed in contact. What is their combined power?",
-                  "answer": "1/F = 1/20 + 1/30 = 1/12 ⇒ P = 100/12 ≈ 8.33 D"
+                  "question": "Does light change its speed or direction during refraction?",
+                  "options": [
+                    "It changes both speed and direction.",
+                    "It changes only speed.",
+                    "It changes only direction.",
+                    "It does not change either."
+                  ],
+                  "answer": "It changes both speed and direction."
                 }
               ]
             }
           },
+
           {
             "id": "electromagnetic-spectrum-10-icse",
             "title": "The Electromagnetic Spectrum",
             "flashcards": {
               "beginner": [
                 {
-                  "id": "ems-b1",
-                  "difficulty": "beginner",
-                  "question": "What is the electromagnetic spectrum?",
-                  "answer": "It is the range of all types of electromagnetic radiation arranged by wavelength or frequency."
+                  id: "ems-b1",
+                  difficulty: "beginner",
+                  question: "What is the electromagnetic spectrum?",
+                  options: [
+                    "A range of mechanical waves",
+                    "A range of sound waves",
+                    "A range of electromagnetic waves arranged by frequency or wavelength",
+                    "A range of visible light only"
+                  ],
+                  answer: "A range of electromagnetic waves arranged by frequency or wavelength"
                 },
                 {
-                  "id": "ems-b2",
-                  "difficulty": "beginner",
-                  "question": "What is electromagnetic radiation?",
-                  "answer": "Waves of electric and magnetic fields that travel through space at the speed of light."
+                  id: "ems-b2",
+                  difficulty: "beginner",
+                  question: "Which wave has the longest wavelength in the electromagnetic spectrum?",
+                  options: ["X-rays", "Gamma rays", "Radio waves", "Ultraviolet rays"],
+                  answer: "Radio waves"
                 },
                 {
-                  "id": "ems-b3",
-                  "difficulty": "beginner",
-                  "question": "What is the speed of electromagnetic waves in a vacuum?",
-                  "answer": "Approximately 3 × 10⁸ m/s."
+                  id: "ems-b3",
+                  difficulty: "beginner",
+                  question: "Which wave in the electromagnetic spectrum is visible to the human eye?",
+                  options: ["Microwaves", "Infrared", "Visible light", "X-rays"],
+                  answer: "Visible light"
                 },
                 {
-                  "id": "ems-b4",
-                  "difficulty": "beginner",
-                  "question": "Name the components of the electromagnetic spectrum in order of increasing frequency.",
-                  "answer": "Radio waves, microwaves, infrared, visible light, ultraviolet, X-rays, gamma rays."
+                  id: "ems-b4",
+                  difficulty: "beginner",
+                  question: "What type of EM wave is used for television and radio broadcasting?",
+                  options: ["X-rays", "Gamma rays", "Radio waves", "Infrared rays"],
+                  answer: "Radio waves"
                 },
                 {
-                  "id": "ems-b5",
-                  "difficulty": "beginner",
-                  "question": "Which part of the spectrum can humans see?",
-                  "answer": "Visible light."
+                  id: "ems-b5",
+                  difficulty: "beginner",
+                  question: "What type of electromagnetic wave is used in microwave ovens?",
+                  options: ["Infrared", "Radio waves", "Microwaves", "Ultraviolet"],
+                  answer: "Microwaves"
                 },
                 {
-                  "id": "ems-b6",
-                  "difficulty": "beginner",
-                  "question": "Which electromagnetic wave has the longest wavelength?",
-                  "answer": "Radio waves."
+                  id: "ems-b6",
+                  difficulty: "beginner",
+                  question: "Which EM wave is responsible for causing sunburns?",
+                  options: ["Infrared", "Visible light", "Ultraviolet rays", "Microwaves"],
+                  answer: "Ultraviolet rays"
                 },
                 {
-                  "id": "ems-b7",
-                  "difficulty": "beginner",
-                  "question": "Which wave has the shortest wavelength?",
-                  "answer": "Gamma rays."
+                  id: "ems-b7",
+                  difficulty: "beginner",
+                  question: "Which part of the EM spectrum is used in night vision equipment?",
+                  options: ["X-rays", "Infrared", "Gamma rays", "Ultraviolet"],
+                  answer: "Infrared"
                 },
                 {
-                  "id": "ems-b8",
-                  "difficulty": "beginner",
-                  "question": "What is the source of electromagnetic waves?",
-                  "answer": "Oscillating electric charges."
+                  id: "ems-b8",
+                  difficulty: "beginner",
+                  question: "What is the speed of all electromagnetic waves in a vacuum?",
+                  options: ["3 × 10⁸ m/s", "1.5 × 10⁸ m/s", "3 × 10⁶ m/s", "3 × 10⁵ m/s"],
+                  answer: "3 × 10⁸ m/s"
                 },
                 {
-                  "id": "ems-b9",
-                  "difficulty": "beginner",
-                  "question": "Do electromagnetic waves require a medium to travel?",
-                  "answer": "No, they can travel through a vacuum."
+                  id: "ems-b9",
+                  difficulty: "beginner",
+                  question: "Which wave has more energy: ultraviolet or infrared?",
+                  options: ["Infrared", "Both have equal energy", "Ultraviolet", "Depends on speed"],
+                  answer: "Ultraviolet"
                 },
                 {
-                  "id": "ems-b10",
-                  "difficulty": "beginner",
-                  "question": "What is the basic difference between different types of EM waves?",
-                  "answer": "Their wavelength and frequency."
+                  id: "ems-b10",
+                  difficulty: "beginner",
+                  question: "Which electromagnetic wave is used in medical imaging (X-ray scans)?",
+                  options: ["Infrared", "Ultraviolet", "X-rays", "Microwaves"],
+                  answer: "X-rays"
                 }
               ],
               "intermediate": [
                 {
-                  "id": "ems-i1",
-                  "difficulty": "intermediate",
-                  "question": "What is the wavelength range of visible light?",
-                  "answer": "Approximately 400 nm to 700 nm."
+                  id: "ems-i1",
+                  difficulty: "intermediate",
+                  question: "Which electromagnetic waves have the shortest wavelength and highest frequency?",
+                  options: ["X-rays", "Ultraviolet rays", "Gamma rays", "Radio waves"],
+                  answer: "Gamma rays"
                 },
                 {
-                  "id": "ems-i2",
-                  "difficulty": "intermediate",
-                  "question": "What is the frequency range of radio waves?",
-                  "answer": "About 3 Hz to 300 GHz."
+                  id: "ems-i2",
+                  difficulty: "intermediate",
+                  question: "Which electromagnetic wave is commonly used in remote control devices?",
+                  options: ["Ultraviolet rays", "Infrared rays", "Microwaves", "Radio waves"],
+                  answer: "Infrared rays"
                 },
                 {
-                  "id": "ems-i3",
-                  "difficulty": "intermediate",
-                  "question": "Which EM wave is used for cooking in microwave ovens?",
-                  "answer": "Microwaves."
+                  id: "ems-i3",
+                  difficulty: "intermediate",
+                  question: "Which property of electromagnetic waves determines their energy?",
+                  options: ["Speed", "Amplitude", "Frequency", "Wavelength"],
+                  answer: "Frequency"
                 },
                 {
-                  "id": "ems-i4",
-                  "difficulty": "intermediate",
-                  "question": "Which EM wave is responsible for sunburn?",
-                  "answer": "Ultraviolet rays."
+                  id: "ems-i4",
+                  difficulty: "intermediate",
+                  question: "Which EM waves are used for sterilizing medical instruments?",
+                  options: ["Infrared rays", "Radio waves", "Ultraviolet rays", "Microwaves"],
+                  answer: "Ultraviolet rays"
                 },
                 {
-                  "id": "ems-i5",
-                  "difficulty": "intermediate",
-                  "question": "What are X-rays used for?",
-                  "answer": "Medical imaging and security scanning."
+                  id: "ems-i5",
+                  difficulty: "intermediate",
+                  question: "Which of the following is a correct order of EM waves in increasing frequency?",
+                  options: [
+                    "Radio < Infrared < X-rays < Gamma rays",
+                    "Infrared < Radio < Gamma rays < X-rays",
+                    "Gamma rays < X-rays < Visible < Radio",
+                    "Ultraviolet < Visible < Radio < Microwaves"
+                  ],
+                  answer: "Radio < Infrared < X-rays < Gamma rays"
                 },
                 {
-                  "id": "ems-i6",
-                  "difficulty": "intermediate",
-                  "question": "Which EM wave is used in TV and radio broadcasting?",
-                  "answer": "Radio waves."
+                  id: "ems-i6",
+                  difficulty: "intermediate",
+                  question: "What part of the EM spectrum does a thermal imaging camera detect?",
+                  options: ["Gamma rays", "Infrared rays", "Visible light", "X-rays"],
+                  answer: "Infrared rays"
                 },
                 {
-                  "id": "ems-i7",
-                  "difficulty": "intermediate",
-                  "question": "What does UV stand for?",
-                  "answer": "Ultraviolet."
+                  id: "ems-i7",
+                  difficulty: "intermediate",
+                  question: "What is the typical wavelength range of visible light?",
+                  options: [
+                    "700–1000 nm",
+                    "400–700 nm",
+                    "100–400 nm",
+                    "10–100 nm"
+                  ],
+                  answer: "400–700 nm"
                 },
                 {
-                  "id": "ems-i8",
-                  "difficulty": "intermediate",
-                  "question": "Which EM waves are used in night vision devices?",
-                  "answer": "Infrared rays."
+                  id: "ems-i8",
+                  difficulty: "intermediate",
+                  question: "Which electromagnetic wave is used in radar systems?",
+                  options: ["Gamma rays", "Microwaves", "Infrared", "Ultraviolet"],
+                  answer: "Microwaves"
                 },
                 {
-                  "id": "ems-i9",
-                  "difficulty": "intermediate",
-                  "question": "How are EM waves arranged in the spectrum?",
-                  "answer": "By increasing frequency and decreasing wavelength."
+                  id: "ems-i9",
+                  difficulty: "intermediate",
+                  question: "Which EM wave has a frequency just higher than visible light?",
+                  options: ["Infrared", "Ultraviolet", "Microwaves", "Radio waves"],
+                  answer: "Ultraviolet"
                 },
                 {
-                  "id": "ems-i10",
-                  "difficulty": "intermediate",
-                  "question": "Which EM wave has more energy: UV or infrared?",
-                  "answer": "Ultraviolet, because it has a higher frequency."
+                  id: "ems-i10",
+                  difficulty: "intermediate",
+                  question: "How does the frequency of an EM wave relate to its wavelength?",
+                  options: [
+                    "They are directly proportional",
+                    "They are unrelated",
+                    "They are inversely proportional",
+                    "They both remain constant"
+                  ],
+                  answer: "They are inversely proportional"
                 }
               ],
               "hard": [
                 {
-                  "id": "ems-h1",
-                  "difficulty": "hard",
-                  "question": "What is the relationship between wavelength, frequency, and speed of EM waves?",
-                  "answer": "Speed = Wavelength × Frequency (c = λ × f)."
+                  id: "ems-h1",
+                  difficulty: "hard",
+                  question: "Which electromagnetic wave is most suitable for satellite communication due to its ability to penetrate the atmosphere?",
+                  options: ["Gamma rays", "X-rays", "Microwaves", "Ultraviolet rays"],
+                  answer: "Microwaves"
                 },
                 {
-                  "id": "ems-h2",
-                  "difficulty": "hard",
-                  "question": "Explain how EM waves are produced.",
-                  "answer": "They are produced by accelerating or oscillating electric charges."
+                  id: "ems-h2",
+                  difficulty: "hard",
+                  question: "What is the speed of all electromagnetic waves in a vacuum?",
+                  options: ["3 × 10^6 m/s", "3 × 10^8 m/s", "3 × 10^10 m/s", "3 × 10^5 km/s"],
+                  answer: "3 × 10^8 m/s"
                 },
                 {
-                  "id": "ems-h3",
-                  "difficulty": "hard",
-                  "question": "What is the typical frequency range of gamma rays?",
-                  "answer": "Greater than 10¹⁹ Hz."
+                  id: "ems-h3",
+                  difficulty: "hard",
+                  question: "Which of the following EM waves can ionize atoms and are thus hazardous to health?",
+                  options: ["Microwaves and Infrared", "X-rays and Gamma rays", "Visible light and UV", "Radio waves and Microwaves"],
+                  answer: "X-rays and Gamma rays"
                 },
                 {
-                  "id": "ems-h4",
-                  "difficulty": "hard",
-                  "question": "Why can X-rays penetrate soft tissue but not bones?",
-                  "answer": "Because bones absorb X-rays more due to their higher density."
+                  id: "ems-h4",
+                  difficulty: "hard",
+                  question: "What factor determines whether an EM wave is reflected or absorbed when it hits a surface?",
+                  options: ["Only its speed", "Frequency and material properties", "Only its amplitude", "Wavelength and humidity"],
+                  answer: "Frequency and material properties"
                 },
                 {
-                  "id": "ems-h5",
-                  "difficulty": "hard",
-                  "question": "How does the energy of EM waves vary across the spectrum?",
-                  "answer": "Energy increases with frequency and decreases with wavelength."
+                  id: "ems-h5",
+                  difficulty: "hard",
+                  question: "Which wave property changes when an EM wave enters a different medium at an angle?",
+                  options: ["Amplitude only", "Speed and wavelength", "Frequency and energy", "Frequency and speed"],
+                  answer: "Speed and wavelength"
                 },
                 {
-                  "id": "ems-h6",
-                  "difficulty": "hard",
-                  "question": "State one medical application of gamma rays.",
-                  "answer": "They are used for cancer treatment (radiotherapy)."
+                  id: "ems-h6",
+                  difficulty: "hard",
+                  question: "Why can X-rays pass through the human body but not through dense bones?",
+                  options: [
+                    "Bones reflect EM waves",
+                    "X-rays have insufficient energy",
+                    "Bones have higher atomic number and density",
+                    "X-rays are absorbed by blood"
+                  ],
+                  answer: "Bones have higher atomic number and density"
                 },
                 {
-                  "id": "ems-h7",
-                  "difficulty": "hard",
-                  "question": "Why is infrared radiation used in thermal imaging?",
-                  "answer": "Because it detects heat emitted by objects."
+                  id: "ems-h7",
+                  difficulty: "hard",
+                  question: "Which of the following best describes the dual nature of electromagnetic waves?",
+                  options: [
+                    "They behave only like waves",
+                    "They have magnetic properties only",
+                    "They exhibit both wave and particle nature",
+                    "They are purely longitudinal waves"
+                  ],
+                  answer: "They exhibit both wave and particle nature"
                 },
                 {
-                  "id": "ems-h8",
-                  "difficulty": "hard",
-                  "question": "What part of the EM spectrum is used in satellite communication?",
-                  "answer": "Microwaves."
+                  id: "ems-h8",
+                  difficulty: "hard",
+                  question: "What causes the ionosphere to reflect radio waves back to Earth?",
+                  options: [
+                    "Low temperature",
+                    "High density of water vapor",
+                    "Presence of free electrons and ions",
+                    "Cloud cover"
+                  ],
+                  answer: "Presence of free electrons and ions"
                 },
                 {
-                  "id": "ems-h9",
-                  "difficulty": "hard",
-                  "question": "Which EM waves can ionize atoms?",
-                  "answer": "Ultraviolet, X-rays, and gamma rays."
+                  id: "ems-h9",
+                  difficulty: "hard",
+                  question: "Which EM wave is most suitable for night vision technology?",
+                  options: ["Ultraviolet", "Infrared", "Visible", "Microwave"],
+                  answer: "Infrared"
                 },
                 {
-                  "id": "ems-h10",
-                  "difficulty": "hard",
-                  "question": "Why are gamma rays dangerous to humans?",
-                  "answer": "They are highly penetrating and can damage living cells and DNA."
+                  id: "ems-h10",
+                  difficulty: "hard",
+                  question: "Which part of the EM spectrum is used in cancer radiotherapy?",
+                  options: ["Ultraviolet", "X-rays", "Microwaves", "Gamma rays"],
+                  answer: "Gamma rays"
                 }
               ]
             }
@@ -1148,188 +1722,368 @@ export const courseData = [
             "flashcards": {
               "beginner": [
                 {
-                  "id": "sound-b1",
-                  "difficulty": "beginner",
-                  "question": "What is sound?",
-                  "answer": "Sound is a form of energy produced by vibrating objects."
+                  id: "sound-b1",
+                  difficulty: "beginner",
+                  question: "Which type of wave is a sound wave in air?",
+                  options: [
+                    "Transverse",
+                    "Longitudinal",
+                    "Electromagnetic",
+                    "Radio"
+                  ],
+                  answer: "Longitudinal"
                 },
                 {
-                  "id": "sound-b2",
-                  "difficulty": "beginner",
-                  "question": "What type of wave is sound in air?",
-                  "answer": "It is a longitudinal wave."
+                  id: "sound-b2",
+                  difficulty: "beginner",
+                  question: "Which unit is used to measure sound frequency?",
+                  options: [
+                    "Joules",
+                    "Seconds",
+                    "Hertz",
+                    "Decibels"
+                  ],
+                  answer: "Hertz"
                 },
                 {
-                  "id": "sound-b3",
-                  "difficulty": "beginner",
-                  "question": "What is the speed of sound in air at room temperature?",
-                  "answer": "Approximately 343 m/s."
+                  id: "sound-b3",
+                  difficulty: "beginner",
+                  question: "Which part of the ear detects sound vibrations?",
+                  options: [
+                    "Nose",
+                    "Tongue",
+                    "Eardrum",
+                    "Skull"
+                  ],
+                  answer: "Eardrum"
                 },
                 {
-                  "id": "sound-b4",
-                  "difficulty": "beginner",
-                  "question": "Does sound need a medium to travel?",
-                  "answer": "Yes, sound cannot travel through a vacuum."
+                  id: "sound-b4",
+                  difficulty: "beginner",
+                  question: "What is the speed of sound in air at room temperature?",
+                  options: [
+                    "300 m/s",
+                    "343 m/s",
+                    "1500 m/s",
+                    "5000 m/s"
+                  ],
+                  answer: "343 m/s"
                 },
                 {
-                  "id": "sound-b5",
-                  "difficulty": "beginner",
-                  "question": "What is the unit of frequency?",
-                  "answer": "Hertz (Hz)."
+                  id: "sound-b5",
+                  difficulty: "beginner",
+                  question: "What type of sound has a frequency below 20 Hz?",
+                  options: [
+                    "Ultrasonic",
+                    "Infrasonic",
+                    "Audible",
+                    "Supersonic"
+                  ],
+                  answer: "Infrasonic"
                 },
                 {
-                  "id": "sound-b6",
-                  "difficulty": "beginner",
-                  "question": "What is the audible range for humans?",
-                  "answer": "20 Hz to 20,000 Hz."
+                  id: "sound-b6",
+                  difficulty: "beginner",
+                  question: "Which of the following materials reflects sound the best?",
+                  options: [
+                    "Carpet",
+                    "Wood",
+                    "Foam",
+                    "Wall"
+                  ],
+                  answer: "Wall"
                 },
                 {
-                  "id": "sound-b7",
-                  "difficulty": "beginner",
-                  "question": "What is the amplitude of a wave?",
-                  "answer": "The maximum displacement of particles from their mean position."
+                  id: "sound-b7",
+                  difficulty: "beginner",
+                  question: "Which device is used to measure sound intensity?",
+                  options: [
+                    "Thermometer",
+                    "Ammeter",
+                    "Sound level meter",
+                    "Barometer"
+                  ],
+                  answer: "Sound level meter"
                 },
                 {
-                  "id": "sound-b8",
-                  "difficulty": "beginner",
-                  "question": "What is vibration?",
-                  "answer": "A back-and-forth motion of particles that produces sound."
+                  id: "sound-b8",
+                  difficulty: "beginner",
+                  question: "Which frequency range is audible to humans?",
+                  options: [
+                    "Below 20 Hz",
+                    "20 Hz – 20,000 Hz",
+                    "Above 20,000 Hz",
+                    "None of these"
+                  ],
+                  answer: "20 Hz – 20,000 Hz"
                 },
                 {
-                  "id": "sound-b9",
-                  "difficulty": "beginner",
-                  "question": "What is pitch?",
-                  "answer": "Pitch is how high or low a sound seems and is related to frequency."
+                  id: "sound-b9",
+                  difficulty: "beginner",
+                  question: "What happens when sound hits a soft surface?",
+                  options: [
+                    "It reflects",
+                    "It gets absorbed",
+                    "It increases in pitch",
+                    "It becomes visible"
+                  ],
+                  answer: "It gets absorbed"
                 },
                 {
-                  "id": "sound-b10",
-                  "difficulty": "beginner",
-                  "question": "What is loudness?",
-                  "answer": "Loudness is the perception of sound intensity by the ear."
+                  id: "sound-b10",
+                  difficulty: "beginner",
+                  question: "Which property of sound determines its loudness?",
+                  options: [
+                    "Frequency",
+                    "Amplitude",
+                    "Wavelength",
+                    "Speed"
+                  ],
+                  answer: "Amplitude"
                 }
               ],
               "intermediate": [
                 {
-                  "id": "sound-i1",
-                  "difficulty": "intermediate",
-                  "question": "What is the formula for wave speed?",
-                  "answer": "Wave speed = Frequency × Wavelength (v = f × λ)."
+                  id: "sound-i1",
+                  difficulty: "intermediate",
+                  question: "What is the relationship between frequency and pitch?",
+                  options: [
+                    "Higher frequency means lower pitch",
+                    "They are unrelated",
+                    "Higher frequency means higher pitch",
+                    "Pitch is always constant"
+                  ],
+                  answer: "Higher frequency means higher pitch"
                 },
                 {
-                  "id": "sound-i2",
-                  "difficulty": "intermediate",
-                  "question": "Why is sound faster in solids than in gases?",
-                  "answer": "Because particles are closer together in solids, allowing quicker vibration transfer."
+                  id: "sound-i2",
+                  difficulty: "intermediate",
+                  question: "Which of the following affects the speed of sound?",
+                  options: [
+                    "Color of medium",
+                    "Density and elasticity of medium",
+                    "Shape of the sound source",
+                    "Size of container"
+                  ],
+                  answer: "Density and elasticity of medium"
                 },
                 {
-                  "id": "sound-i3",
-                  "difficulty": "intermediate",
-                  "question": "What are ultrasonic sounds?",
-                  "answer": "Sounds with frequency above 20,000 Hz, inaudible to humans."
+                  id: "sound-i3",
+                  difficulty: "intermediate",
+                  question: "Which wave property changes when a sound wave enters a denser medium?",
+                  options: [
+                    "Frequency",
+                    "Amplitude",
+                    "Wavelength",
+                    "Wave type"
+                  ],
+                  answer: "Wavelength"
                 },
                 {
-                  "id": "sound-i4",
-                  "difficulty": "intermediate",
-                  "question": "What are infrasonic sounds?",
-                  "answer": "Sounds with frequency below 20 Hz."
+                  id: "sound-i4",
+                  difficulty: "intermediate",
+                  question: "What is the function of resonance in sound?",
+                  options: [
+                    "Reduces echo",
+                    "Increases amplitude when natural frequencies match",
+                    "Changes sound color",
+                    "Blocks sound waves"
+                  ],
+                  answer: "Increases amplitude when natural frequencies match"
                 },
                 {
-                  "id": "sound-i5",
-                  "difficulty": "intermediate",
-                  "question": "Define wavelength.",
-                  "answer": "It is the distance between two consecutive compressions or rarefactions."
+                  id: "sound-i5",
+                  difficulty: "intermediate",
+                  question: "Why does sound travel faster in solids than in gases?",
+                  options: [
+                    "Solids are lighter",
+                    "Particles are closer in solids",
+                    "Solids reflect more sound",
+                    "Sound cannot travel in solids"
+                  ],
+                  answer: "Particles are closer in solids"
                 },
                 {
-                  "id": "sound-i6",
-                  "difficulty": "intermediate",
-                  "question": "How is pitch related to frequency?",
-                  "answer": "Higher frequency means higher pitch."
+                  id: "sound-i6",
+                  difficulty: "intermediate",
+                  question: "What type of sound wave is produced by a tuning fork in air?",
+                  options: [
+                    "Transverse",
+                    "Electromagnetic",
+                    "Longitudinal",
+                    "Static"
+                  ],
+                  answer: "Longitudinal"
                 },
                 {
-                  "id": "sound-i7",
-                  "difficulty": "intermediate",
-                  "question": "What is resonance?",
-                  "answer": "Resonance is the increase in amplitude when the frequency of forced vibrations matches the natural frequency."
+                  id: "sound-i7",
+                  difficulty: "intermediate",
+                  question: "In which unit is sound intensity measured?",
+                  options: [
+                    "Decibel",
+                    "Hertz",
+                    "Newton",
+                    "Candela"
+                  ],
+                  answer: "Decibel"
                 },
                 {
-                  "id": "sound-i8",
-                  "difficulty": "intermediate",
-                  "question": "How does amplitude affect sound?",
-                  "answer": "Greater amplitude means louder sound."
+                  id: "sound-i8",
+                  difficulty: "intermediate",
+                  question: "What does a larger amplitude in a sound wave indicate?",
+                  options: [
+                    "Lower pitch",
+                    "Greater loudness",
+                    "Higher speed",
+                    "Deeper tone"
+                  ],
+                  answer: "Greater loudness"
                 },
                 {
-                  "id": "sound-i9",
-                  "difficulty": "intermediate",
-                  "question": "What is an echo?",
-                  "answer": "An echo is the reflection of sound that reaches the ear after a delay."
+                  id: "sound-i9",
+                  difficulty: "intermediate",
+                  question: "Which phenomenon explains sound reflection?",
+                  options: [
+                    "Diffusion",
+                    "Refraction",
+                    "Echo",
+                    "Absorption"
+                  ],
+                  answer: "Echo"
                 },
                 {
-                  "id": "sound-i10",
-                  "difficulty": "intermediate",
-                  "question": "What is the minimum distance needed for an echo to be heard?",
-                  "answer": "17.2 meters (when sound speed is 343 m/s and delay is 0.1s)."
+                  id: "sound-i10",
+                  difficulty: "intermediate",
+                  question: "Which of these has the highest speed of sound?",
+                  options: [
+                    "Vacuum",
+                    "Air",
+                    "Water",
+                    "Steel"
+                  ],
+                  answer: "Steel"
                 }
               ],
               "hard": [
                 {
-                  "id": "sound-h1",
-                  "difficulty": "hard",
-                  "question": "What is the equation for the speed of sound in a medium?",
-                  "answer": "v = √(elasticity/density) of the medium."
+                  id: "sound-h1",
+                  difficulty: "hard",
+                  question: "What is the correct formula for the speed of sound in a medium?",
+                  options: [
+                    "v = √(density × elasticity)",
+                    "v = elasticity / density",
+                    "v = √(elasticity / density)",
+                    "v = density / elasticity"
+                  ],
+                  answer: "v = √(elasticity / density)"
                 },
                 {
-                  "id": "sound-h2",
-                  "difficulty": "hard",
-                  "question": "Why do sound waves not travel in vacuum?",
-                  "answer": "Because there are no particles to carry the vibration."
+                  id: "sound-h2",
+                  difficulty: "hard",
+                  question: "Why can't sound travel through a vacuum?",
+                  options: [
+                    "Because it travels too fast",
+                    "There are no particles to carry the vibrations",
+                    "It requires light to propagate",
+                    "It reflects off vacuum walls"
+                  ],
+                  answer: "There are no particles to carry the vibrations"
                 },
                 {
-                  "id": "sound-h3",
-                  "difficulty": "hard",
-                  "question": "How does temperature affect the speed of sound in air?",
-                  "answer": "Speed increases with temperature because particles move faster."
+                  id: "sound-h3",
+                  difficulty: "hard",
+                  question: "How does an increase in air temperature affect sound speed?",
+                  options: [
+                    "Speed decreases due to lower density",
+                    "Speed remains constant",
+                    "Speed increases due to faster particle movement",
+                    "Speed decreases due to weaker vibrations"
+                  ],
+                  answer: "Speed increases due to faster particle movement"
                 },
                 {
-                  "id": "sound-h4",
-                  "difficulty": "hard",
-                  "question": "Explain the Doppler Effect.",
-                  "answer": "It is the change in frequency or pitch of sound due to relative motion between source and observer."
+                  id: "sound-h4",
+                  difficulty: "hard",
+                  question: "What does the Doppler Effect describe?",
+                  options: [
+                    "Change in wave amplitude with time",
+                    "Reflection of sound waves",
+                    "Change in frequency due to relative motion",
+                    "Transformation of sound into light"
+                  ],
+                  answer: "Change in frequency due to relative motion"
                 },
                 {
-                  "id": "sound-h5",
-                  "difficulty": "hard",
-                  "question": "What causes the sound of thunder to rumble?",
-                  "answer": "Different parts of the lightning strike reach the ear at different times due to varying distances."
+                  id: "sound-h5",
+                  difficulty: "hard",
+                  question: "Why does thunder often produce a rumbling sound?",
+                  options: [
+                    "The air molecules scatter sound",
+                    "Lightning emits different frequencies",
+                    "Sound reflects off clouds",
+                    "Different parts of the lightning reach the ear at different times"
+                  ],
+                  answer: "Different parts of the lightning reach the ear at different times"
                 },
                 {
-                  "id": "sound-h6",
-                  "difficulty": "hard",
-                  "question": "How does pressure affect the speed of sound in gases?",
-                  "answer": "At constant temperature, pressure has little effect since both pressure and density change proportionally."
+                  id: "sound-h6",
+                  difficulty: "hard",
+                  question: "How does pressure affect sound speed in gases at constant temperature?",
+                  options: [
+                    "It has little effect since pressure and density both change proportionally",
+                    "Speed decreases sharply",
+                    "Speed increases exponentially",
+                    "It stops the sound wave completely"
+                  ],
+                  answer: "It has little effect since pressure and density both change proportionally"
                 },
                 {
-                  "id": "sound-h7",
-                  "difficulty": "hard",
-                  "question": "What are overtones and harmonics?",
-                  "answer": "They are higher frequency waves produced along with the fundamental frequency in vibrating bodies."
+                  id: "sound-h7",
+                  difficulty: "hard",
+                  question: "What are overtones and harmonics?",
+                  options: [
+                    "Echoes of sound waves",
+                    "Vibrations of different amplitudes",
+                    "Higher frequency waves with the fundamental frequency",
+                    "Noise created by interference"
+                  ],
+                  answer: "Higher frequency waves with the fundamental frequency"
                 },
                 {
-                  "id": "sound-h8",
-                  "difficulty": "hard",
-                  "question": "Why do different musical instruments produce different sounds?",
-                  "answer": "Because of differences in waveform, overtones, and resonance characteristics."
+                  id: "sound-h8",
+                  difficulty: "hard",
+                  question: "Why do different musical instruments sound different even if playing the same note?",
+                  options: [
+                    "Because of differences in pitch",
+                    "Due to waveform, overtones, and resonance differences",
+                    "Because of tuning inaccuracies",
+                    "Because of different air pressure"
+                  ],
+                  answer: "Due to waveform, overtones, and resonance differences"
                 },
                 {
-                  "id": "sound-h9",
-                  "difficulty": "hard",
-                  "question": "What is the threshold of pain in sound intensity?",
-                  "answer": "About 120 decibels (dB)."
+                  id: "sound-h9",
+                  difficulty: "hard",
+                  question: "What is the approximate threshold of pain in sound intensity?",
+                  options: [
+                    "85 decibels",
+                    "100 decibels",
+                    "120 decibels",
+                    "150 decibels"
+                  ],
+                  answer: "120 decibels"
                 },
                 {
-                  "id": "sound-h10",
-                  "difficulty": "hard",
-                  "question": "How is sound used in sonar?",
-                  "answer": "By sending ultrasonic waves underwater and detecting their echo to measure distance or locate objects."
+                  id: "sound-h10",
+                  difficulty: "hard",
+                  question: "How does sonar detect underwater objects?",
+                  options: [
+                    "Using infrared waves",
+                    "Using lasers to detect light echoes",
+                    "By detecting electromagnetic signals",
+                    "By sending ultrasonic waves and measuring their echo"
+                  ],
+                  answer: "By sending ultrasonic waves and measuring their echo"
                 }
               ]
             }
@@ -1340,192 +2094,268 @@ export const courseData = [
             "flashcards": {
               "beginner": [
                 {
-                  "id": "electricity-b1",
-                  "difficulty": "beginner",
-                  "question": "What is electric current?",
-                  "answer": "Electric current is the flow of electric charge through a conductor."
-                },
-                {
-                  "id": "electricity-b2",
+                  "id": "current-b1",
                   "difficulty": "beginner",
                   "question": "What is the SI unit of electric current?",
-                  "answer": "Ampere (A)."
+                  "options": ["Ohm", "Coulomb", "Volt", "Ampere"],
+                  "answer": "Ampere"
                 },
                 {
-                  "id": "electricity-b3",
+                  "id": "current-b2",
                   "difficulty": "beginner",
-                  "question": "What instrument is used to measure electric current?",
-                  "answer": "An ammeter."
+                  "question": "What does a voltmeter measure?",
+                  "options": ["Current", "Resistance", "Voltage", "Power"],
+                  "answer": "Voltage"
                 },
                 {
-                  "id": "electricity-b4",
+                  "id": "current-b3",
                   "difficulty": "beginner",
-                  "question": "What is potential difference?",
-                  "answer": "It is the work done to move a unit charge from one point to another."
+                  "question": "What is used to measure electric current?",
+                  "options": ["Voltmeter", "Ammeter", "Thermometer", "Barometer"],
+                  "answer": "Ammeter"
                 },
                 {
-                  "id": "electricity-b5",
+                  "id": "current-b4",
                   "difficulty": "beginner",
-                  "question": "What is the unit of potential difference?",
-                  "answer": "Volt (V)."
+                  "question": "Which particle is responsible for electric current in a wire?",
+                  "options": ["Protons", "Neutrons", "Electrons", "Atoms"],
+                  "answer": "Electrons"
                 },
                 {
-                  "id": "electricity-b6",
+                  "id": "current-b5",
                   "difficulty": "beginner",
-                  "question": "What device is used to measure potential difference?",
-                  "answer": "A voltmeter."
+                  "question": "Which material is a good conductor of electricity?",
+                  "options": ["Wood", "Plastic", "Copper", "Rubber"],
+                  "answer": "Copper"
                 },
                 {
-                  "id": "electricity-b7",
+                  "id": "current-b6",
                   "difficulty": "beginner",
-                  "question": "What is a conductor?",
-                  "answer": "A material that allows electric current to pass through it."
+                  "question": "What is the symbol for resistance?",
+                  "options": ["Ω", "V", "A", "R"],
+                  "answer": "Ω"
                 },
                 {
-                  "id": "electricity-b8",
+                  "id": "current-b7",
                   "difficulty": "beginner",
-                  "question": "What is an insulator?",
-                  "answer": "A material that does not allow electric current to pass through it."
+                  "question": "What is Ohm’s law?",
+                  "options": [
+                    "V = IR",
+                    "V = I + R",
+                    "V = R/I",
+                    "V = I²R"
+                  ],
+                  "answer": "V = IR"
                 },
                 {
-                  "id": "electricity-b9",
+                  "id": "current-b8",
                   "difficulty": "beginner",
-                  "question": "Name one good conductor of electricity.",
-                  "answer": "Copper."
+                  "question": "What is the SI unit of resistance?",
+                  "options": ["Ampere", "Volt", "Ohm", "Watt"],
+                  "answer": "Ohm"
                 },
                 {
-                  "id": "electricity-b10",
+                  "id": "current-b9",
                   "difficulty": "beginner",
-                  "question": "Name one insulator.",
-                  "answer": "Plastic."
+                  "question": "Which device provides electric potential in a circuit?",
+                  "options": ["Resistor", "Voltmeter", "Battery", "Ammeter"],
+                  "answer": "Battery"
+                },
+                {
+                  "id": "current-b10",
+                  "difficulty": "beginner",
+                  "question": "In a conductor, current flows from:",
+                  "options": [
+                    "Low potential to high potential",
+                    "Negative to positive terminal",
+                    "High potential to low potential",
+                    "North pole to south pole"
+                  ],
+                  "answer": "High potential to low potential"
                 }
               ],
               "intermediate": [
                 {
-                  "id": "electricity-i1",
+                  "id": "current-i1",
                   "difficulty": "intermediate",
-                  "question": "State Ohm’s Law.",
-                  "answer": "The current through a conductor is directly proportional to the potential difference across it, provided the temperature remains constant."
+                  "question": "If a circuit has a voltage of 12V and resistance of 4Ω, what is the current?",
+                  "options": ["3 A", "8 A", "48 A", "0.33 A"],
+                  "answer": "3 A"
                 },
                 {
-                  "id": "electricity-i2",
+                  "id": "current-i2",
                   "difficulty": "intermediate",
-                  "question": "What is the formula given by Ohm’s law?",
-                  "answer": "V = I × R."
+                  "question": "What happens to current when resistance increases in a circuit with constant voltage?",
+                  "options": [
+                    "Current increases",
+                    "Current remains same",
+                    "Current decreases",
+                    "Current becomes zero"
+                  ],
+                  "answer": "Current decreases"
                 },
                 {
-                  "id": "electricity-i3",
+                  "id": "current-i3",
                   "difficulty": "intermediate",
-                  "question": "What is resistance?",
-                  "answer": "Resistance is the opposition offered by a conductor to the flow of current."
+                  "question": "What is the resistance if 2A current flows through a conductor with 10V potential difference?",
+                  "options": ["5 Ω", "20 Ω", "0.2 Ω", "8 Ω"],
+                  "answer": "5 Ω"
                 },
                 {
-                  "id": "electricity-i4",
+                  "id": "current-i4",
                   "difficulty": "intermediate",
-                  "question": "What is the unit of resistance?",
-                  "answer": "Ohm (Ω)."
+                  "question": "Which combination is true for resistors in series?",
+                  "options": [
+                    "Voltage is same across all",
+                    "Current is divided",
+                    "Total resistance is sum of individual resistances",
+                    "Power is constant"
+                  ],
+                  "answer": "Total resistance is sum of individual resistances"
                 },
                 {
-                  "id": "electricity-i5",
+                  "id": "current-i5",
                   "difficulty": "intermediate",
-                  "question": "What factors affect the resistance of a wire?",
-                  "answer": "Length, area of cross-section, material, and temperature."
+                  "question": "If R1 = 2Ω, R2 = 4Ω are in parallel, what is the equivalent resistance?",
+                  "options": ["6 Ω", "1.33 Ω", "2.66 Ω", "0.5 Ω"],
+                  "answer": "1.33 Ω"
                 },
                 {
-                  "id": "electricity-i6",
+                  "id": "current-i6",
                   "difficulty": "intermediate",
-                  "question": "What is a resistor?",
-                  "answer": "A component used to control the current in an electric circuit by providing resistance."
+                  "question": "A wire of resistance R is stretched to double its length. What is the new resistance?",
+                  "options": ["2R", "R/2", "4R", "R"],
+                  "answer": "4R"
                 },
                 {
-                  "id": "electricity-i7",
+                  "id": "current-i7",
                   "difficulty": "intermediate",
-                  "question": "What happens to the resistance if the length of the wire is doubled?",
-                  "answer": "Resistance doubles."
+                  "question": "What is the power dissipated in a resistor of 5Ω carrying 2A current?",
+                  "options": ["20 W", "10 W", "5 W", "2.5 W"],
+                  "answer": "20 W"
                 },
                 {
-                  "id": "electricity-i8",
+                  "id": "current-i8",
                   "difficulty": "intermediate",
-                  "question": "What happens to the resistance if the cross-sectional area is doubled?",
-                  "answer": "Resistance is halved."
+                  "question": "Which factor does NOT affect resistance of a wire?",
+                  "options": [
+                    "Length of the wire",
+                    "Material of the wire",
+                    "Temperature of the wire",
+                    "Color of the wire"
+                  ],
+                  "answer": "Color of the wire"
                 },
                 {
-                  "id": "electricity-i9",
+                  "id": "current-i9",
                   "difficulty": "intermediate",
-                  "question": "Define one volt.",
-                  "answer": "One volt is the potential difference when one joule of work is done to move one coulomb of charge."
+                  "question": "Which component reduces current in a circuit?",
+                  "options": ["Switch", "Battery", "Resistor", "Voltmeter"],
+                  "answer": "Resistor"
                 },
                 {
-                  "id": "electricity-i10",
+                  "id": "current-i10",
                   "difficulty": "intermediate",
-                  "question": "What is a rheostat?",
-                  "answer": "A device used to vary the resistance in a circuit."
+                  "question": "A battery supplies 3V and 2A current. What is the power output?",
+                  "options": ["1.5 W", "6 W", "3 W", "0.67 W"],
+                  "answer": "6 W"
                 }
               ],
               "hard": [
                 {
-                  "id": "electricity-h1",
+                  "id": "current-h1",
                   "difficulty": "hard",
-                  "question": "What is the relationship between resistance and resistivity?",
-                  "answer": "R = ρ × (L/A), where ρ is resistivity, L is length, and A is cross-sectional area."
+                  "question": "A wire of resistance 10Ω carries 3A current. Find heat produced in 2 minutes.",
+                  "options": ["1080 J", "3600 J", "900 J", "1800 J"],
+                  "answer": "1080 J"
                 },
                 {
-                  "id": "electricity-h2",
+                  "id": "current-h2",
+                  "difficulty": "hard",
+                  "question": "Define specific resistance (resistivity).",
+                  "options": [
+                    "Resistance per unit length",
+                    "Resistance of 1m cube of material",
+                    "Current per unit area",
+                    "Potential per unit length"
+                  ],
+                  "answer": "Resistance of 1m cube of material"
+                },
+                {
+                  "id": "current-h3",
+                  "difficulty": "hard",
+                  "question": "Which graph represents Ohm’s Law?",
+                  "options": [
+                    "Curved I-V graph",
+                    "Linear I-V graph through origin",
+                    "Constant V with varying I",
+                    "None of these"
+                  ],
+                  "answer": "Linear I-V graph through origin"
+                },
+                {
+                  "id": "current-h4",
                   "difficulty": "hard",
                   "question": "What is the SI unit of resistivity?",
-                  "answer": "Ohm-meter (Ω·m)."
+                  "options": ["Ohm", "Ohm-meter", "Volt", "Ampere"],
+                  "answer": "Ohm-meter"
                 },
                 {
-                  "id": "electricity-h3",
+                  "id": "current-h5",
                   "difficulty": "hard",
-                  "question": "What is the effect of temperature on resistance in a metal?",
-                  "answer": "Resistance increases with temperature."
+                  "question": "Two wires of same material and length but different cross-sectional areas are connected in parallel. Which has lower resistance?",
+                  "options": [
+                    "Thicker wire",
+                    "Thinner wire",
+                    "Both have equal resistance",
+                    "Depends on voltage"
+                  ],
+                  "answer": "Thicker wire"
                 },
                 {
-                  "id": "electricity-h4",
+                  "id": "current-h6",
                   "difficulty": "hard",
-                  "question": "How is resistance different from resistivity?",
-                  "answer": "Resistance depends on material, length, and area; resistivity depends only on the material."
+                  "question": "What is the effective resistance of three 3Ω resistors connected in parallel?",
+                  "options": ["1 Ω", "3 Ω", "9 Ω", "0.33 Ω"],
+                  "answer": "1 Ω"
                 },
                 {
-                  "id": "electricity-h5",
+                  "id": "current-h7",
                   "difficulty": "hard",
-                  "question": "Why does the filament of a bulb have high resistance?",
-                  "answer": "To convert more electrical energy into heat and light."
+                  "question": "A 60W bulb is used for 2 hours. How much energy is consumed?",
+                  "options": ["120 Wh", "60 J", "1200 Wh", "7200 J"],
+                  "answer": "120 Wh"
                 },
                 {
-                  "id": "electricity-h6",
+                  "id": "current-h8",
                   "difficulty": "hard",
-                  "question": "Why is copper preferred in electrical wiring?",
-                  "answer": "Because it has low resistivity and high conductivity."
+                  "question": "Why is tungsten used in filament of bulbs?",
+                  "options": [
+                    "It is cheap",
+                    "It has low melting point",
+                    "It glows at high temperatures and has high melting point",
+                    "It is a good conductor"
+                  ],
+                  "answer": "It glows at high temperatures and has high melting point"
                 },
                 {
-                  "id": "electricity-h7",
+                  "id": "current-h9",
                   "difficulty": "hard",
-                  "question": "What is the formula to calculate electric power using resistance?",
-                  "answer": "P = V² / R or P = I² × R."
+                  "question": "What is the potential difference if 50 J of work is done in moving 5 C charge?",
+                  "options": ["5 V", "10 V", "15 V", "25 V"],
+                  "answer": "10 V"
                 },
                 {
-                  "id": "electricity-h8",
+                  "id": "current-h10",
                   "difficulty": "hard",
-                  "question": "Explain why the resistance of a wire increases with temperature.",
-                  "answer": "As temperature increases, atoms vibrate more, causing more collisions with electrons."
-                },
-                {
-                  "id": "electricity-h9",
-                  "difficulty": "hard",
-                  "question": "What is the principle of a potentiometer?",
-                  "answer": "It works on the principle that potential difference is directly proportional to the length of the wire."
-                },
-                {
-                  "id": "electricity-h10",
-                  "difficulty": "hard",
-                  "question": "Why does resistance not depend on current or voltage?",
-                  "answer": "Because it is an intrinsic property of the material, based on dimensions and nature of the conductor."
+                  "question": "What is the formula for power using current and resistance?",
+                  "options": ["P = IV", "P = I²R", "P = V/R", "P = IR²"],
+                  "answer": "P = I²R"
                 }
               ]
             }
           },
+
           {
             "id": "household-circuits-10-icse",
             "title": "Household Circuits",
@@ -1534,190 +2364,276 @@ export const courseData = [
                 {
                   "id": "household-b1",
                   "difficulty": "beginner",
-                  "question": "What is a household circuit?",
-                  "answer": "It is the circuit used to distribute electricity in homes for daily use."
+                  "question": "What is the standard voltage of electricity supplied to Indian homes?",
+                  "options": ["110V", "220V", "440V", "12V"],
+                  "answer": "220V"
                 },
                 {
                   "id": "household-b2",
                   "difficulty": "beginner",
-                  "question": "What is the standard voltage supplied to homes in India?",
-                  "answer": "230 volts."
+                  "question": "Which device is used to protect circuits from overloading?",
+                  "options": ["Switch", "MCB", "Resistor", "Transformer"],
+                  "answer": "MCB"
                 },
                 {
                   "id": "household-b3",
                   "difficulty": "beginner",
-                  "question": "What is the frequency of AC supply in India?",
-                  "answer": "50 Hz."
+                  "question": "What color wire is generally used for earthing?",
+                  "options": ["Red", "Black", "Green", "Blue"],
+                  "answer": "Green"
                 },
                 {
                   "id": "household-b4",
                   "difficulty": "beginner",
-                  "question": "What are the three wires in a household circuit?",
-                  "answer": "Live wire, neutral wire, and earth wire."
+                  "question": "Which wire carries current to the appliance?",
+                  "options": ["Neutral wire", "Live wire", "Earth wire", "Insulated wire"],
+                  "answer": "Live wire"
                 },
                 {
                   "id": "household-b5",
                   "difficulty": "beginner",
-                  "question": "What is the color of the live wire?",
-                  "answer": "Red (or brown in new coding)."
+                  "question": "Which wire returns current from the appliance?",
+                  "options": ["Neutral wire", "Live wire", "Earth wire", "Positive wire"],
+                  "answer": "Neutral wire"
                 },
                 {
                   "id": "household-b6",
                   "difficulty": "beginner",
-                  "question": "What is the color of the neutral wire?",
-                  "answer": "Black (or blue in new coding)."
+                  "question": "What does a fuse do in a circuit?",
+                  "options": ["Increases voltage", "Prevents current", "Breaks circuit during overload", "Stores charge"],
+                  "answer": "Breaks circuit during overload"
                 },
                 {
                   "id": "household-b7",
                   "difficulty": "beginner",
-                  "question": "What is the color of the earth wire?",
-                  "answer": "Green or green-yellow."
+                  "question": "What is the function of the earth wire?",
+                  "options": ["Provides backup power", "Supplies voltage", "Prevents shock", "Reduces resistance"],
+                  "answer": "Prevents shock"
                 },
                 {
                   "id": "household-b8",
                   "difficulty": "beginner",
-                  "question": "What is the purpose of the earth wire?",
-                  "answer": "To prevent electric shocks by directing excess current to the ground."
+                  "question": "Which wire is at zero potential?",
+                  "options": ["Live wire", "Neutral wire", "Earth wire", "None"],
+                  "answer": "Neutral wire"
                 },
                 {
                   "id": "household-b9",
                   "difficulty": "beginner",
-                  "question": "What is a fuse?",
-                  "answer": "A safety device that melts and breaks the circuit when too much current flows."
+                  "question": "What is the function of a switch in a circuit?",
+                  "options": ["Store charge", "Convert AC to DC", "Open or close circuit", "Measure resistance"],
+                  "answer": "Open or close circuit"
                 },
                 {
                   "id": "household-b10",
                   "difficulty": "beginner",
-                  "question": "What does MCB stand for?",
-                  "answer": "Miniature Circuit Breaker."
+                  "question": "Why is earthing important in homes?",
+                  "options": ["To reduce bills", "To prevent electric shock", "To power appliances", "To increase brightness"],
+                  "answer": "To prevent electric shock"
                 }
               ],
               "intermediate": [
                 {
                   "id": "household-i1",
                   "difficulty": "intermediate",
-                  "question": "What is the function of the MCB in a household circuit?",
-                  "answer": "It automatically switches off the circuit when excessive current flows."
+                  "question": "Why are appliances connected in parallel in household circuits?",
+                  "options": [
+                    "To reduce resistance",
+                    "To allow independent operation",
+                    "To save energy",
+                    "To increase voltage"
+                  ],
+                  "answer": "To allow independent operation"
                 },
                 {
                   "id": "household-i2",
                   "difficulty": "intermediate",
-                  "question": "Why are appliances in homes connected in parallel?",
-                  "answer": "So that each appliance gets the same voltage and can work independently."
+                  "question": "What happens when the live wire touches a metal appliance with no earthing?",
+                  "options": ["Nothing", "Appliance gets damaged", "User may get an electric shock", "Fuse blows automatically"],
+                  "answer": "User may get an electric shock"
                 },
                 {
                   "id": "household-i3",
                   "difficulty": "intermediate",
-                  "question": "What is the danger of connecting appliances in series?",
-                  "answer": "If one appliance fails, all others stop working, and voltage is shared unevenly."
+                  "question": "What is the typical rating of a household fuse?",
+                  "options": ["0.1 A", "5 A to 15 A", "50 A", "100 A"],
+                  "answer": "5 A to 15 A"
                 },
                 {
                   "id": "household-i4",
                   "difficulty": "intermediate",
-                  "question": "What is the function of the main switch?",
-                  "answer": "To switch off the entire power supply to the house."
+                  "question": "Why are wires in household circuits insulated?",
+                  "options": ["To look neat", "To conduct electricity better", "To prevent electric shocks", "To reduce weight"],
+                  "answer": "To prevent electric shocks"
                 },
                 {
                   "id": "household-i5",
                   "difficulty": "intermediate",
-                  "question": "Where is the main fuse connected?",
-                  "answer": "It is connected to the live wire before the energy meter."
+                  "question": "Which wire is connected to the fuse in the distribution box?",
+                  "options": ["Live wire", "Neutral wire", "Earth wire", "All wires"],
+                  "answer": "Live wire"
                 },
                 {
                   "id": "household-i6",
                   "difficulty": "intermediate",
-                  "question": "Why is earthing essential in homes?",
-                  "answer": "To prevent electric shocks by providing a path for leakage current."
+                  "question": "What is the function of a distribution box?",
+                  "options": [
+                    "To generate electricity",
+                    "To distribute power evenly and protect circuits",
+                    "To cool circuits",
+                    "To increase current"
+                  ],
+                  "answer": "To distribute power evenly and protect circuits"
                 },
                 {
                   "id": "household-i7",
                   "difficulty": "intermediate",
-                  "question": "How does an electric meter help the consumer?",
-                  "answer": "It records the amount of electrical energy consumed in kilowatt-hours."
+                  "question": "Which type of current is used in Indian households?",
+                  "options": ["AC", "DC", "Pulsed DC", "None"],
+                  "answer": "AC"
                 },
                 {
                   "id": "household-i8",
                   "difficulty": "intermediate",
-                  "question": "What are the two types of fuses used in homes?",
-                  "answer": "Cartridge fuse and rewireable fuse."
+                  "question": "How many wires are there in a typical three-pin plug?",
+                  "options": ["1", "2", "3", "4"],
+                  "answer": "3"
                 },
                 {
                   "id": "household-i9",
                   "difficulty": "intermediate",
-                  "question": "What is the unit of electric energy used in household billing?",
-                  "answer": "Kilowatt-hour (kWh)."
+                  "question": "What could be a result of faulty earthing?",
+                  "options": [
+                    "Better appliance performance",
+                    "Increased power supply",
+                    "Risk of electric shock",
+                    "Higher voltage output"
+                  ],
+                  "answer": "Risk of electric shock"
                 },
                 {
                   "id": "household-i10",
                   "difficulty": "intermediate",
-                  "question": "What is the role of insulation in wiring?",
-                  "answer": "To prevent electric shocks and short circuits by isolating wires."
+                  "question": "In household wiring, which terminal of a three-pin plug is the largest?",
+                  "options": ["Live", "Neutral", "Earth", "All same"],
+                  "answer": "Earth"
                 }
               ],
               "hard": [
                 {
                   "id": "household-h1",
                   "difficulty": "hard",
-                  "question": "Explain how a short circuit occurs in a household wiring system.",
-                  "answer": "It occurs when live and neutral wires touch, allowing current to bypass appliances and causing excessive current flow."
+                  "question": "What is the reason for power loss when high current flows through household wires?",
+                  "options": ["Magnetic loss", "Heat loss due to resistance", "Inductive reactance", "Capacitance leakage"],
+                  "answer": "Heat loss due to resistance"
                 },
                 {
                   "id": "household-h2",
                   "difficulty": "hard",
-                  "question": "How does earthing protect users from electric shock?",
-                  "answer": "It provides a low resistance path to ground, so any leakage current flows safely to the earth."
+                  "question": "A fuse wire melts at 10 A. What happens if 15 A current flows through it?",
+                  "options": [
+                    "It works normally",
+                    "It melts and breaks the circuit",
+                    "It increases current",
+                    "It trips the MCB"
+                  ],
+                  "answer": "It melts and breaks the circuit"
                 },
                 {
                   "id": "household-h3",
                   "difficulty": "hard",
-                  "question": "Why is it dangerous to touch a live wire?",
-                  "answer": "Because it carries high voltage, which can cause a fatal electric shock."
+                  "question": "Which material is ideal for fuse wires and why?",
+                  "options": [
+                    "Copper – low resistance",
+                    "Aluminum – strong conductor",
+                    "Lead-tin alloy – low melting point",
+                    "Iron – durable"
+                  ],
+                  "answer": "Lead-tin alloy – low melting point"
                 },
                 {
                   "id": "household-h4",
                   "difficulty": "hard",
-                  "question": "Differentiate between fuse and MCB.",
-                  "answer": "A fuse melts to break the circuit once, while MCB trips and can be reset."
+                  "question": "Why is the earthing wire thicker than the live and neutral wires?",
+                  "options": [
+                    "To carry higher current safely during a fault",
+                    "To conduct electricity faster",
+                    "To avoid rusting",
+                    "To balance the voltage"
+                  ],
+                  "answer": "To carry higher current safely during a fault"
                 },
                 {
                   "id": "household-h5",
                   "difficulty": "hard",
-                  "question": "What would happen if the earth wire is missing?",
-                  "answer": "Appliances with metal casing could become live, increasing shock risk."
+                  "question": "What is the role of MCB compared to traditional fuse?",
+                  "options": [
+                    "It stores charge",
+                    "It allows more current",
+                    "It trips and can be reset, unlike fuse",
+                    "It reduces voltage"
+                  ],
+                  "answer": "It trips and can be reset, unlike fuse"
                 },
                 {
                   "id": "household-h6",
                   "difficulty": "hard",
-                  "question": "Explain the working of a cartridge fuse.",
-                  "answer": "It contains a wire enclosed in a glass or ceramic tube, which melts when current exceeds the limit."
+                  "question": "In a short circuit, resistance becomes:",
+                  "options": ["Very high", "Zero or very low", "Equal to voltage", "Infinite"],
+                  "answer": "Zero or very low"
                 },
                 {
                   "id": "household-h7",
                   "difficulty": "hard",
-                  "question": "Why are separate circuits used for power and light circuits in homes?",
-                  "answer": "Because power circuits carry higher current for heavy appliances."
+                  "question": "In household circuits, high resistance in a wire could cause:",
+                  "options": [
+                    "Voltage increase",
+                    "Lower power usage",
+                    "Overheating and fire hazard",
+                    "Nothing significant"
+                  ],
+                  "answer": "Overheating and fire hazard"
                 },
                 {
                   "id": "household-h8",
                   "difficulty": "hard",
-                  "question": "How does resistance in wires cause energy loss in household wiring?",
-                  "answer": "Due to heating effect of current (I²R loss), which wastes energy as heat."
+                  "question": "Why must fuses be connected to the live wire and not neutral?",
+                  "options": [
+                    "To save cost",
+                    "To protect appliance from live current",
+                    "It’s easier to wire",
+                    "Neutral is more dangerous"
+                  ],
+                  "answer": "To protect appliance from live current"
                 },
                 {
                   "id": "household-h9",
                   "difficulty": "hard",
-                  "question": "What is the consequence of overloading a circuit?",
-                  "answer": "It can cause excessive heating, tripping of MCB, or even fire."
+                  "question": "Why are ring circuits used in modern homes?",
+                  "options": [
+                    "They save wire",
+                    "They allow stronger connections and current distribution",
+                    "They prevent overloads",
+                    "They boost voltage"
+                  ],
+                  "answer": "They allow stronger connections and current distribution"
                 },
                 {
                   "id": "household-h10",
                   "difficulty": "hard",
-                  "question": "Why is three-pin plug safer than a two-pin plug?",
-                  "answer": "It includes an earth pin which enhances safety by connecting appliance casing to earth."
+                  "question": "Why is it dangerous to use appliances with broken earth connections?",
+                  "options": [
+                    "Appliance won’t work",
+                    "It may damage appliance",
+                    "It can cause fatal electric shock",
+                    "It overloads the neutral"
+                  ],
+                  "answer": "It can cause fatal electric shock"
                 }
               ]
             }
           },
+
           {
             "id": "electromagnetism-10-icse",
             "title": "Electromagnetism",
@@ -1727,185 +2643,340 @@ export const courseData = [
                   "id": "electromagnetism-b1",
                   "difficulty": "beginner",
                   "question": "What is electromagnetism?",
-                  "answer": "It is the study of the relationship between electricity and magnetism."
+                  "options": [
+                    "Electricity from magnets",
+                    "The interaction of electric currents and magnetic fields",
+                    "Magnets producing light",
+                    "Heat from electricity"
+                  ],
+                  "answer": "The interaction of electric currents and magnetic fields"
                 },
                 {
                   "id": "electromagnetism-b2",
                   "difficulty": "beginner",
-                  "question": "What is an electromagnet?",
-                  "answer": "A temporary magnet formed by passing current through a coil wound around a soft iron core."
+                  "question": "What is the magnetic effect of current?",
+                  "options": [
+                    "Current destroys magnetic fields",
+                    "Current reduces magnetic poles",
+                    "Electric current produces a magnetic field",
+                    "Magnets stop electricity"
+                  ],
+                  "answer": "Electric current produces a magnetic field"
                 },
                 {
                   "id": "electromagnetism-b3",
                   "difficulty": "beginner",
-                  "question": "Who discovered the magnetic effect of electric current?",
-                  "answer": "Hans Christian Oersted."
+                  "question": "Who discovered the magnetic effect of current?",
+                  "options": [
+                    "Faraday",
+                    "Newton",
+                    "Oersted",
+                    "Ampere"
+                  ],
+                  "answer": "Oersted"
                 },
                 {
                   "id": "electromagnetism-b4",
                   "difficulty": "beginner",
-                  "question": "What material is commonly used as the core of an electromagnet?",
-                  "answer": "Soft iron."
+                  "question": "What device demonstrates the magnetic effect of current?",
+                  "options": [
+                    "Voltmeter",
+                    "Galvanometer",
+                    "Ammeter",
+                    "Magnetic needle and wire setup"
+                  ],
+                  "answer": "Magnetic needle and wire setup"
                 },
                 {
                   "id": "electromagnetism-b5",
                   "difficulty": "beginner",
-                  "question": "What happens when current is passed through a conductor?",
-                  "answer": "A magnetic field is produced around it."
+                  "question": "What is the shape of magnetic field lines around a straight conductor?",
+                  "options": [
+                    "Straight lines",
+                    "Elliptical lines",
+                    "Concentric circles",
+                    "Parallel lines"
+                  ],
+                  "answer": "Concentric circles"
                 },
                 {
                   "id": "electromagnetism-b6",
                   "difficulty": "beginner",
-                  "question": "Name the rule used to determine the direction of magnetic field around a current-carrying wire.",
-                  "answer": "Right-hand thumb rule."
+                  "question": "What rule is used to determine the direction of the magnetic field?",
+                  "options": [
+                    "Fleming’s Left-Hand Rule",
+                    "Cork-screw Rule",
+                    "Right-Hand Thumb Rule",
+                    "Ampere’s Rule"
+                  ],
+                  "answer": "Right-Hand Thumb Rule"
                 },
                 {
                   "id": "electromagnetism-b7",
                   "difficulty": "beginner",
-                  "question": "What is the shape of magnetic field lines around a straight conductor?",
-                  "answer": "Concentric circles."
+                  "question": "An electromagnet is made by:",
+                  "options": [
+                    "Using a bar magnet",
+                    "Using a permanent magnet",
+                    "Passing current through a coil of wire around a soft iron core",
+                    "Using an iron bar alone"
+                  ],
+                  "answer": "Passing current through a coil of wire around a soft iron core"
                 },
                 {
                   "id": "electromagnetism-b8",
                   "difficulty": "beginner",
-                  "question": "What is the role of a solenoid in electromagnetism?",
-                  "answer": "It produces a strong uniform magnetic field when current flows through it."
+                  "question": "What happens to an electromagnet when current stops?",
+                  "options": [
+                    "It becomes stronger",
+                    "It retains its magnetism",
+                    "It loses magnetism",
+                    "It changes polarity"
+                  ],
+                  "answer": "It loses magnetism"
                 },
                 {
                   "id": "electromagnetism-b9",
                   "difficulty": "beginner",
-                  "question": "What is the effect of increasing the number of turns in a solenoid?",
-                  "answer": "It increases the strength of the magnetic field."
+                  "question": "Which material is best for the core of an electromagnet?",
+                  "options": [
+                    "Steel",
+                    "Copper",
+                    "Aluminium",
+                    "Soft iron"
+                  ],
+                  "answer": "Soft iron"
                 },
                 {
                   "id": "electromagnetism-b10",
                   "difficulty": "beginner",
-                  "question": "What happens to an electromagnet when current is switched off?",
-                  "answer": "It loses its magnetic properties."
+                  "question": "Electromagnets are used in:",
+                  "options": [
+                    "Televisions only",
+                    "Loudspeakers, electric bells, and relays",
+                    "Water heaters",
+                    "Dry cells"
+                  ],
+                  "answer": "Loudspeakers, electric bells, and relays"
                 }
               ],
               "intermediate": [
                 {
                   "id": "electromagnetism-i1",
                   "difficulty": "intermediate",
-                  "question": "State Fleming’s left-hand rule.",
-                  "answer": "It gives the direction of force on a current-carrying conductor in a magnetic field."
+                  "question": "How can you increase the strength of an electromagnet?",
+                  "options": [
+                    "Use less current",
+                    "Use a longer wire",
+                    "Increase number of turns and current",
+                    "Use a plastic core"
+                  ],
+                  "answer": "Increase number of turns and current"
                 },
                 {
                   "id": "electromagnetism-i2",
                   "difficulty": "intermediate",
-                  "question": "What factors affect the strength of an electromagnet?",
-                  "answer": "Number of turns, current strength, core material."
+                  "question": "What is the principle of an electric bell?",
+                  "options": [
+                    "Heating effect of current",
+                    "Chemical effect of current",
+                    "Magnetic effect of current",
+                    "Photoelectric effect"
+                  ],
+                  "answer": "Magnetic effect of current"
                 },
                 {
                   "id": "electromagnetism-i3",
                   "difficulty": "intermediate",
-                  "question": "What is the use of an armature in an electric motor?",
-                  "answer": "It rotates when current passes, converting electrical energy to mechanical energy."
+                  "question": "Which rule helps in finding the direction of force on a current-carrying conductor in a magnetic field?",
+                  "options": [
+                    "Right-Hand Grip Rule",
+                    "Fleming’s Left-Hand Rule",
+                    "Lenz's Law",
+                    "Ohm's Law"
+                  ],
+                  "answer": "Fleming’s Left-Hand Rule"
                 },
                 {
                   "id": "electromagnetism-i4",
                   "difficulty": "intermediate",
-                  "question": "What happens if the direction of current is reversed in an electromagnet?",
-                  "answer": "The poles of the electromagnet are reversed."
+                  "question": "How does a relay work?",
+                  "options": [
+                    "It blocks current flow",
+                    "It allows alternating current only",
+                    "It uses an electromagnet to operate a switch",
+                    "It reduces voltage"
+                  ],
+                  "answer": "It uses an electromagnet to operate a switch"
                 },
                 {
                   "id": "electromagnetism-i5",
                   "difficulty": "intermediate",
-                  "question": "Why is a soft iron core preferred in electromagnets?",
-                  "answer": "Because it magnetizes and demagnetizes easily."
+                  "question": "What happens to the magnetic field if current direction is reversed?",
+                  "options": [
+                    "Field increases",
+                    "No change",
+                    "Field reverses direction",
+                    "Field disappears"
+                  ],
+                  "answer": "Field reverses direction"
                 },
                 {
                   "id": "electromagnetism-i6",
                   "difficulty": "intermediate",
-                  "question": "What is electromagnetic induction?",
-                  "answer": "The production of current in a coil due to changing magnetic field."
+                  "question": "Name a device that uses magnetic effect to measure small currents.",
+                  "options": [
+                    "Voltmeter",
+                    "Electrometer",
+                    "Galvanometer",
+                    "Wattmeter"
+                  ],
+                  "answer": "Galvanometer"
                 },
                 {
                   "id": "electromagnetism-i7",
                   "difficulty": "intermediate",
-                  "question": "How is an electric bell an example of electromagnetism?",
-                  "answer": "An electromagnet pulls the striker to hit the bell repeatedly."
+                  "question": "What type of current is used to create a continuously changing magnetic field in an electromagnet?",
+                  "options": [
+                    "Alternating Current",
+                    "Direct Current",
+                    "Static current",
+                    "Pulsed DC"
+                  ],
+                  "answer": "Alternating Current"
                 },
                 {
                   "id": "electromagnetism-i8",
                   "difficulty": "intermediate",
-                  "question": "What is a solenoid?",
-                  "answer": "A cylindrical coil of wire acting like a bar magnet when current passes through it."
+                  "question": "Why is steel not used as the core of an electromagnet?",
+                  "options": [
+                    "It is not a conductor",
+                    "It is too heavy",
+                    "It retains magnetism permanently",
+                    "It melts easily"
+                  ],
+                  "answer": "It retains magnetism permanently"
                 },
                 {
                   "id": "electromagnetism-i9",
                   "difficulty": "intermediate",
-                  "question": "What is the function of a split ring in an electric motor?",
-                  "answer": "It reverses the direction of current after each half rotation."
+                  "question": "The strength of the magnetic field inside a solenoid is:",
+                  "options": [
+                    "Zero",
+                    "Weak and uniform",
+                    "Strong and uniform",
+                    "Variable"
+                  ],
+                  "answer": "Strong and uniform"
                 },
                 {
                   "id": "electromagnetism-i10",
                   "difficulty": "intermediate",
-                  "question": "How can you increase the force on a conductor in a magnetic field?",
-                  "answer": "Increase current, magnetic field strength, or length of conductor."
+                  "question": "Which of the following increases the magnetic effect of a solenoid?",
+                  "options": [
+                    "Using an aluminium core",
+                    "Using fewer turns",
+                    "Using soft iron core",
+                    "Decreasing current"
+                  ],
+                  "answer": "Using soft iron core"
                 }
               ],
               "hard": [
                 {
                   "id": "electromagnetism-h1",
                   "difficulty": "hard",
-                  "question": "Explain the working principle of an electric motor.",
-                  "answer": "It works on the principle that a current-carrying conductor in a magnetic field experiences a force."
+                  "question": "A solenoid of 200 turns carries 2 A current. What is the magnetic field at its center if its length is 50 cm?",
+                  "options": ["1.6 × 10⁻² T", "2.5 × 10⁻² T", "4.8 × 10⁻² T", "5.0 × 10⁻² T"],
+                  "answer": "5.0 × 10⁻² T"
                 },
                 {
                   "id": "electromagnetism-h2",
                   "difficulty": "hard",
-                  "question": "What is mutual induction?",
-                  "answer": "Inducing current in one coil due to changing current in a nearby coil."
+                  "question": "A wire of length 0.5 m carrying 3 A current is placed at right angles to a magnetic field of strength 0.4 T. What is the force on the wire?",
+                  "options": ["0.6 N", "1.2 N", "2.0 N", "0.2 N"],
+                  "answer": "0.6 N"
                 },
                 {
                   "id": "electromagnetism-h3",
                   "difficulty": "hard",
-                  "question": "State Lenz’s Law.",
-                  "answer": "The induced current opposes the change that causes it."
+                  "question": "Which rule is used to determine the direction of force on a current-carrying conductor in a magnetic field?",
+                  "options": ["Right-hand rule", "Ampere’s rule", "Fleming’s Left-Hand Rule", "Corkscrew rule"],
+                  "answer": "Fleming’s Left-Hand Rule"
                 },
                 {
                   "id": "electromagnetism-h4",
                   "difficulty": "hard",
-                  "question": "What is back EMF in motors?",
-                  "answer": "An EMF generated opposing the applied voltage due to rotation of the coil."
+                  "question": "A coil has 500 turns and the magnetic flux linked with it changes from 0.2 Wb to 0 in 0.1 s. What is the average induced emf?",
+                  "options": ["1000 V", "500 V", "200 V", "0 V"],
+                  "answer": "1000 V"
                 },
                 {
                   "id": "electromagnetism-h5",
                   "difficulty": "hard",
-                  "question": "Why is copper used in making solenoids?",
-                  "answer": "It has low resistance and allows large current flow with minimal energy loss."
+                  "question": "Why does a soft iron core increase the strength of an electromagnet?",
+                  "options": [
+                    "It reduces resistance",
+                    "It provides cooling",
+                    "It concentrates magnetic lines of force",
+                    "It reduces eddy currents"
+                  ],
+                  "answer": "It concentrates magnetic lines of force"
                 },
                 {
                   "id": "electromagnetism-h6",
                   "difficulty": "hard",
-                  "question": "Compare permanent magnets and electromagnets.",
-                  "answer": "Electromagnets can be controlled and are stronger; permanent magnets are constant and weaker."
+                  "question": "Which of the following factors does NOT affect the magnitude of the induced emf in a coil?",
+                  "options": [
+                    "Number of turns in the coil",
+                    "Speed of magnetic field change",
+                    "Shape of coil",
+                    "Strength of the magnetic field"
+                  ],
+                  "answer": "Shape of coil"
                 },
                 {
                   "id": "electromagnetism-h7",
                   "difficulty": "hard",
-                  "question": "How does an electric relay use electromagnetism?",
-                  "answer": "An electromagnet activates a switch in another circuit for automation."
+                  "question": "If the magnetic field through a loop changes direction, what happens to the direction of the induced current?",
+                  "options": [
+                    "It becomes zero",
+                    "It reverses",
+                    "It remains unchanged",
+                    "It alternates continuously"
+                  ],
+                  "answer": "It reverses"
                 },
                 {
                   "id": "electromagnetism-h8",
                   "difficulty": "hard",
-                  "question": "What causes the rotation of the coil in a motor?",
-                  "answer": "Forces acting on the arms of the coil in opposite directions create torque."
+                  "question": "In an electric motor, why is the current reversed after each half turn?",
+                  "options": [
+                    "To increase resistance",
+                    "To maintain torque in the same direction",
+                    "To reduce heating",
+                    "To prevent sparking"
+                  ],
+                  "answer": "To maintain torque in the same direction"
                 },
                 {
                   "id": "electromagnetism-h9",
                   "difficulty": "hard",
-                  "question": "Why is insulation important in electromagnets?",
-                  "answer": "To prevent short circuits between coil turns and ensure proper field generation."
+                  "question": "Which material is best suited as a core in an electromagnet used for fast switching circuits?",
+                  "options": ["Soft iron", "Steel", "Aluminum", "Copper"],
+                  "answer": "Soft iron"
                 },
                 {
                   "id": "electromagnetism-h10",
                   "difficulty": "hard",
-                  "question": "What would happen if a steel core is used in an electromagnet?",
-                  "answer": "It would retain magnetism and not demagnetize easily, affecting switch-based operations."
+                  "question": "What is the function of brushes in a D.C. motor?",
+                  "options": [
+                    "To reduce resistance",
+                    "To reverse current direction in the coil",
+                    "To insulate the coil",
+                    "To prevent short-circuit"
+                  ],
+                  "answer": "To reverse current direction in the coil"
                 }
               ]
             }
@@ -1918,190 +2989,276 @@ export const courseData = [
                 {
                   "id": "heat-b1",
                   "difficulty": "beginner",
-                  "question": "What is heat?",
-                  "answer": "Heat is a form of energy that flows from a hotter object to a colder one."
+                  "question": "Which unit is used to measure heat energy?",
+                  "options": ["Joule", "Newton", "Pascal", "Watt"],
+                  "answer": "Joule"
                 },
                 {
                   "id": "heat-b2",
                   "difficulty": "beginner",
-                  "question": "What is the SI unit of heat?",
-                  "answer": "The SI unit of heat is joule (J)."
+                  "question": "Which device measures temperature?",
+                  "options": ["Thermometer", "Barometer", "Hygrometer", "Ammeter"],
+                  "answer": "Thermometer"
                 },
                 {
                   "id": "heat-b3",
                   "difficulty": "beginner",
-                  "question": "What is temperature?",
-                  "answer": "Temperature is the measure of the degree of hotness or coldness of a body."
+                  "question": "What is the freezing point of pure water in Celsius?",
+                  "options": ["0°C", "100°C", "4°C", "32°C"],
+                  "answer": "0°C"
                 },
                 {
                   "id": "heat-b4",
                   "difficulty": "beginner",
-                  "question": "Name three methods of heat transfer.",
-                  "answer": "Conduction, convection, and radiation."
+                  "question": "What is the boiling point of water at normal pressure?",
+                  "options": ["100°C", "0°C", "37°C", "212°C"],
+                  "answer": "100°C"
                 },
                 {
                   "id": "heat-b5",
                   "difficulty": "beginner",
-                  "question": "Which material is a good conductor of heat?",
-                  "answer": "Metals like copper and aluminum."
+                  "question": "Which metal is commonly used in a thermometer?",
+                  "options": ["Mercury", "Copper", "Zinc", "Lead"],
+                  "answer": "Mercury"
                 },
                 {
                   "id": "heat-b6",
                   "difficulty": "beginner",
-                  "question": "What is specific heat capacity?",
-                  "answer": "It is the amount of heat required to raise the temperature of 1 kg of a substance by 1°C."
+                  "question": "Which process involves direct contact for heat transfer?",
+                  "options": ["Conduction", "Radiation", "Convection", "Evaporation"],
+                  "answer": "Conduction"
                 },
                 {
                   "id": "heat-b7",
                   "difficulty": "beginner",
-                  "question": "Name a good insulator of heat.",
-                  "answer": "Wood, wool, or air."
+                  "question": "Which color is the best absorber of heat?",
+                  "options": ["Black", "White", "Silver", "Yellow"],
+                  "answer": "Black"
                 },
                 {
                   "id": "heat-b8",
                   "difficulty": "beginner",
-                  "question": "Which thermometer is used to measure high temperatures?",
-                  "answer": "A pyrometer."
+                  "question": "What is the SI unit of temperature?",
+                  "options": ["Kelvin", "Celsius", "Fahrenheit", "Rankine"],
+                  "answer": "Kelvin"
                 },
                 {
                   "id": "heat-b9",
                   "difficulty": "beginner",
-                  "question": "What is the freezing point of water in Celsius?",
-                  "answer": "0°C."
+                  "question": "Which process does not require a medium for heat transfer?",
+                  "options": ["Radiation", "Conduction", "Convection", "All require medium"],
+                  "answer": "Radiation"
                 },
                 {
                   "id": "heat-b10",
                   "difficulty": "beginner",
-                  "question": "What is the boiling point of water in Celsius?",
-                  "answer": "100°C."
+                  "question": "Which of the following is a poor conductor of heat?",
+                  "options": ["Wood", "Copper", "Iron", "Aluminum"],
+                  "answer": "Wood"
                 }
               ],
               "intermediate": [
                 {
                   "id": "heat-i1",
                   "difficulty": "intermediate",
-                  "question": "State the principle of calorimetry.",
-                  "answer": "Heat lost by hot body = Heat gained by cold body (if no heat is lost to surroundings)."
+                  "question": "Which principle explains heat flow from hot to cold body?",
+                  "options": [
+                    "Second Law of Thermodynamics",
+                    "Newton’s Law of Cooling",
+                    "Law of Reflection",
+                    "Boyle’s Law"
+                  ],
+                  "answer": "Second Law of Thermodynamics"
                 },
                 {
                   "id": "heat-i2",
                   "difficulty": "intermediate",
-                  "question": "What is latent heat?",
-                  "answer": "Heat required to change the state of a substance without changing its temperature."
+                  "question": "Which form of heat transfer occurs in fluids due to density changes?",
+                  "options": ["Convection", "Conduction", "Radiation", "Refraction"],
+                  "answer": "Convection"
                 },
                 {
                   "id": "heat-i3",
                   "difficulty": "intermediate",
-                  "question": "Differentiate between heat and temperature.",
-                  "answer": "Heat is energy; temperature is a measure of heat intensity."
+                  "question": "What happens to mercury in a thermometer when it is heated?",
+                  "options": ["It expands", "It contracts", "It solidifies", "It evaporates"],
+                  "answer": "It expands"
                 },
                 {
                   "id": "heat-i4",
                   "difficulty": "intermediate",
-                  "question": "What is the SI unit of specific heat capacity?",
-                  "answer": "J/kg·K"
+                  "question": "What is the specific heat capacity of water?",
+                  "options": ["4200 J/kg°C", "1000 J/kg°C", "800 J/kg°C", "2100 J/kg°C"],
+                  "answer": "4200 J/kg°C"
                 },
                 {
                   "id": "heat-i5",
                   "difficulty": "intermediate",
-                  "question": "Define thermal equilibrium.",
-                  "answer": "It is the state in which two bodies in contact no longer transfer heat between them."
+                  "question": "Which material is used to reduce heat transfer in thermos flasks?",
+                  "options": ["Vacuum", "Metal", "Water", "Plastic"],
+                  "answer": "Vacuum"
                 },
                 {
                   "id": "heat-i6",
                   "difficulty": "intermediate",
-                  "question": "What is thermal expansion?",
-                  "answer": "The increase in volume or length of a substance due to heat."
+                  "question": "Which surface emits the most radiation at the same temperature?",
+                  "options": ["Black and rough", "White and smooth", "Silver and shiny", "Transparent"],
+                  "answer": "Black and rough"
                 },
                 {
                   "id": "heat-i7",
                   "difficulty": "intermediate",
-                  "question": "Name the type of heat transfer that can occur in a vacuum.",
-                  "answer": "Radiation."
+                  "question": "Latent heat of fusion refers to the heat required to:",
+                  "options": [
+                    "Change solid to liquid at constant temperature",
+                    "Raise temperature of solid",
+                    "Change gas to liquid",
+                    "Increase volume of solid"
+                  ],
+                  "answer": "Change solid to liquid at constant temperature"
                 },
                 {
                   "id": "heat-i8",
                   "difficulty": "intermediate",
-                  "question": "What is the effect of pressure on boiling point?",
-                  "answer": "Boiling point increases with pressure."
+                  "question": "Which of these is not a unit of heat?",
+                  "options": ["Watt", "Joule", "Calorie", "kWh"],
+                  "answer": "Watt"
                 },
                 {
                   "id": "heat-i9",
                   "difficulty": "intermediate",
-                  "question": "Why are cooking utensils made of metal but have plastic handles?",
-                  "answer": "Metal conducts heat; plastic insulates and prevents burns."
+                  "question": "What is thermal equilibrium?",
+                  "options": [
+                    "When two bodies have same temperature",
+                    "When heat is continuously flowing",
+                    "When body becomes cold",
+                    "When temperature changes constantly"
+                  ],
+                  "answer": "When two bodies have same temperature"
                 },
                 {
                   "id": "heat-i10",
                   "difficulty": "intermediate",
-                  "question": "Why does black clothing absorb more heat?",
-                  "answer": "Black surfaces absorb more heat due to better radiation absorption."
+                  "question": "What happens to a substance’s temperature during change of state?",
+                  "options": [
+                    "Remains constant",
+                    "Increases rapidly",
+                    "Decreases rapidly",
+                    "Becomes zero"
+                  ],
+                  "answer": "Remains constant"
                 }
               ],
               "hard": [
                 {
                   "id": "heat-h1",
                   "difficulty": "hard",
-                  "question": "What is the formula to calculate heat using specific heat capacity?",
-                  "answer": "Q = mcΔT, where m = mass, c = specific heat, ΔT = change in temperature."
+                  "question": "How much heat is required to raise temperature of 2 kg water by 10°C? (Specific heat = 4200 J/kg°C)",
+                  "options": ["84000 J", "42000 J", "21000 J", "126000 J"],
+                  "answer": "84000 J"
                 },
                 {
                   "id": "heat-h2",
                   "difficulty": "hard",
-                  "question": "Define latent heat of fusion.",
-                  "answer": "It is the amount of heat required to convert 1 kg of solid into liquid at its melting point without temperature change."
+                  "question": "Why is mercury preferred in thermometers over water?",
+                  "options": [
+                    "It expands uniformly and is visible",
+                    "It is cheap",
+                    "It has a lower freezing point",
+                    "It evaporates quickly"
+                  ],
+                  "answer": "It expands uniformly and is visible"
                 },
                 {
                   "id": "heat-h3",
                   "difficulty": "hard",
-                  "question": "Define latent heat of vaporization.",
-                  "answer": "It is the amount of heat required to convert 1 kg of liquid into vapor at its boiling point without temperature change."
+                  "question": "Which law relates heat energy to mass, specific heat and temperature change?",
+                  "options": [
+                    "Q = mcΔT",
+                    "E = mc²",
+                    "V = IR",
+                    "P = F/A"
+                  ],
+                  "answer": "Q = mcΔT"
                 },
                 {
                   "id": "heat-h4",
                   "difficulty": "hard",
-                  "question": "What is Newton’s law of cooling?",
-                  "answer": "The rate of heat loss of a body is proportional to the difference in temperature between the body and surroundings."
+                  "question": "Which of the following best describes latent heat?",
+                  "options": [
+                    "Heat absorbed/released without temperature change",
+                    "Heat causing temperature rise",
+                    "Heat loss due to radiation",
+                    "Heat transfer through conduction"
+                  ],
+                  "answer": "Heat absorbed/released without temperature change"
                 },
                 {
                   "id": "heat-h5",
                   "difficulty": "hard",
-                  "question": "Why is water used as a coolant in car radiators?",
-                  "answer": "Because of its high specific heat capacity, it absorbs a lot of heat without a large temperature rise."
+                  "question": "A substance absorbs 1000 J to melt at its melting point without temperature change. What is this energy called?",
+                  "options": [
+                    "Latent heat of fusion",
+                    "Specific heat capacity",
+                    "Thermal capacity",
+                    "Calorific value"
+                  ],
+                  "answer": "Latent heat of fusion"
                 },
                 {
                   "id": "heat-h6",
                   "difficulty": "hard",
-                  "question": "Why is calorimetry conducted in a thermally insulated container?",
-                  "answer": "To prevent heat exchange with the environment and ensure accurate results."
+                  "question": "What is the role of silvering in a thermos flask?",
+                  "options": [
+                    "To reflect radiation",
+                    "To absorb heat",
+                    "To insulate by conduction",
+                    "To prevent leakage"
+                  ],
+                  "answer": "To reflect radiation"
                 },
                 {
                   "id": "heat-h7",
                   "difficulty": "hard",
-                  "question": "What happens to internal energy during phase change?",
-                  "answer": "Internal energy increases but temperature remains constant."
+                  "question": "What is the heat required to convert 1.5 kg of ice at 0°C to water at 0°C? (Latent heat of fusion of ice = 336,000 J/kg)",
+                  "options": ["504000 J", "336000 J", "672000 J", "100000 J"],
+                  "answer": "504000 J"
                 },
                 {
                   "id": "heat-h8",
                   "difficulty": "hard",
-                  "question": "How does thermal conductivity affect heat transfer?",
-                  "answer": "Higher thermal conductivity leads to faster heat transfer."
+                  "question": "How does a black body behave in terms of radiation?",
+                  "options": [
+                    "Perfect absorber and emitter",
+                    "Perfect reflector",
+                    "Partial absorber",
+                    "No emission at all"
+                  ],
+                  "answer": "Perfect absorber and emitter"
                 },
                 {
                   "id": "heat-h9",
                   "difficulty": "hard",
-                  "question": "Why does a metal plate feel colder than a wooden table at the same temperature?",
-                  "answer": "Because metal conducts heat away from your hand faster than wood."
+                  "question": "If 500 J of heat is supplied to 0.5 kg of a metal and its temperature rises by 25°C, what is its specific heat capacity?",
+                  "options": ["40 J/kg°C", "50 J/kg°C", "20 J/kg°C", "100 J/kg°C"],
+                  "answer": "40 J/kg°C"
                 },
                 {
                   "id": "heat-h10",
                   "difficulty": "hard",
-                  "question": "Explain why a black kettle is more efficient in boiling water than a white one.",
-                  "answer": "Black surfaces absorb and radiate heat more effectively, speeding up the boiling process."
+                  "question": "Why does land heat up faster than water during the day?",
+                  "options": [
+                    "Land has lower specific heat capacity",
+                    "Land reflects sunlight",
+                    "Water is transparent",
+                    "Water is a poor conductor"
+                  ],
+                  "answer": "Land has lower specific heat capacity"
                 }
               ]
             }
           },
+
           {
             "id": "modern-physics-10-icse",
             "title": "Modern Physics",
@@ -2110,190 +3267,241 @@ export const courseData = [
                 {
                   "id": "modern-b1",
                   "difficulty": "beginner",
-                  "question": "What is radioactivity?",
-                  "answer": "Radioactivity is the spontaneous emission of radiation from the nucleus of an unstable atom."
+                  "question": "Who discovered the photoelectric effect?",
+                  "options": ["Einstein", "Newton", "Bohr", "Faraday"],
+                  "answer": "Einstein"
                 },
                 {
                   "id": "modern-b2",
                   "difficulty": "beginner",
-                  "question": "What are the three types of radioactive radiation?",
-                  "answer": "Alpha (α), Beta (β), and Gamma (γ) rays."
+                  "question": "What is the charge of an electron?",
+                  "options": ["-1.6 × 10⁻¹⁹ C", "0", "1.6 × 10⁻¹⁹ C", "9.1 × 10⁻³¹ C"],
+                  "answer": "-1.6 × 10⁻¹⁹ C"
                 },
                 {
                   "id": "modern-b3",
                   "difficulty": "beginner",
-                  "question": "What is an alpha particle?",
-                  "answer": "An alpha particle is a helium nucleus containing 2 protons and 2 neutrons."
+                  "question": "Which device is used to detect radiation?",
+                  "options": ["Photodiode", "Voltmeter", "Geiger-Müller counter", "Micrometer"],
+                  "answer": "Geiger-Müller counter"
                 },
                 {
                   "id": "modern-b4",
                   "difficulty": "beginner",
-                  "question": "What is a beta particle?",
-                  "answer": "A beta particle is a high-speed electron emitted from the nucleus during radioactive decay."
+                  "question": "What is the unit of radioactivity?",
+                  "options": ["Becquerel", "Joule", "Newton", "Ohm"],
+                  "answer": "Becquerel"
                 },
                 {
                   "id": "modern-b5",
                   "difficulty": "beginner",
-                  "question": "What is a gamma ray?",
-                  "answer": "A gamma ray is a high-energy electromagnetic wave emitted from the nucleus."
+                  "question": "What is the half-life of a radioactive substance?",
+                  "options": [
+                    "Time to double its atoms",
+                    "Time to decay completely",
+                    "Time for half the atoms to decay",
+                    "Time to stabilize"
+                  ],
+                  "answer": "Time for half the atoms to decay"
                 },
                 {
                   "id": "modern-b6",
                   "difficulty": "beginner",
-                  "question": "Name a device used to detect radiation.",
-                  "answer": "A Geiger-Müller (GM) counter."
+                  "question": "Which particle is emitted in beta decay?",
+                  "options": ["Electron", "Proton", "Neutron", "Photon"],
+                  "answer": "Electron"
                 },
                 {
                   "id": "modern-b7",
                   "difficulty": "beginner",
-                  "question": "What is nuclear fission?",
-                  "answer": "It is the splitting of a heavy nucleus into two lighter nuclei with the release of energy."
+                  "question": "What type of radiation has the highest penetrating power?",
+                  "options": ["Gamma", "Beta", "Alpha", "Ultraviolet"],
+                  "answer": "Gamma"
                 },
                 {
                   "id": "modern-b8",
                   "difficulty": "beginner",
-                  "question": "What is nuclear fusion?",
-                  "answer": "It is the combining of two light nuclei to form a heavier nucleus with the release of energy."
+                  "question": "Which isotope is used in nuclear power plants?",
+                  "options": ["Uranium-235", "Carbon-14", "Hydrogen-2", "Oxygen-18"],
+                  "answer": "Uranium-235"
                 },
                 {
                   "id": "modern-b9",
                   "difficulty": "beginner",
-                  "question": "Which radioactive element is commonly used in nuclear power plants?",
-                  "answer": "Uranium-235."
+                  "question": "What does E = mc² relate to?",
+                  "options": [
+                    "Energy-mass equivalence",
+                    "Kinetic energy",
+                    "Friction",
+                    "Force and acceleration"
+                  ],
+                  "answer": "Energy-mass equivalence"
                 },
                 {
                   "id": "modern-b10",
                   "difficulty": "beginner",
-                  "question": "What is the unit of radioactivity?",
-                  "answer": "Becquerel (Bq)."
+                  "question": "Which radiation is deflected the least by a magnetic field?",
+                  "options": ["Gamma rays", "Alpha particles", "Beta particles", "Electrons"],
+                  "answer": "Gamma rays"
                 }
               ],
               "intermediate": [
                 {
                   "id": "modern-i1",
                   "difficulty": "intermediate",
-                  "question": "What is the difference between natural and artificial radioactivity?",
-                  "answer": "Natural radioactivity occurs spontaneously in nature, while artificial is induced in laboratories."
+                  "question": "Which of the following is NOT a feature of alpha particles?",
+                  "options": ["High mass", "High penetration", "Positive charge", "Helium nucleus"],
+                  "answer": "High penetration"
                 },
                 {
                   "id": "modern-i2",
                   "difficulty": "intermediate",
-                  "question": "State one use of radioactive isotopes in medicine.",
-                  "answer": "Radioactive isotopes are used in cancer treatment and medical imaging."
+                  "question": "Which radiation causes the most ionization?",
+                  "options": ["Alpha", "Beta", "Gamma", "X-rays"],
+                  "answer": "Alpha"
                 },
                 {
                   "id": "modern-i3",
                   "difficulty": "intermediate",
-                  "question": "Which radiation is most penetrating?",
-                  "answer": "Gamma rays are the most penetrating."
+                  "question": "In nuclear fusion, what is primarily released?",
+                  "options": ["Energy", "Protons", "Electrons", "Gamma rays"],
+                  "answer": "Energy"
                 },
                 {
                   "id": "modern-i4",
                   "difficulty": "intermediate",
-                  "question": "Which radiation is deflected the most in an electric field?",
-                  "answer": "Beta particles, as they are lighter and charged."
+                  "question": "The isotope C-14 is mainly used in:",
+                  "options": [
+                    "Carbon dating",
+                    "Medical imaging",
+                    "Radiotherapy",
+                    "Nuclear reactors"
+                  ],
+                  "answer": "Carbon dating"
                 },
                 {
                   "id": "modern-i5",
                   "difficulty": "intermediate",
-                  "question": "Which radiation is not deflected in a magnetic field?",
-                  "answer": "Gamma rays, as they are neutral."
+                  "question": "Which process splits a heavy nucleus?",
+                  "options": ["Fission", "Fusion", "Ionization", "Decay"],
+                  "answer": "Fission"
                 },
                 {
                   "id": "modern-i6",
                   "difficulty": "intermediate",
-                  "question": "What is half-life?",
-                  "answer": "The time taken for half the atoms in a radioactive substance to decay."
+                  "question": "Which force holds the nucleus together?",
+                  "options": ["Strong nuclear force", "Electromagnetic force", "Gravitational force", "Weak force"],
+                  "answer": "Strong nuclear force"
                 },
                 {
                   "id": "modern-i7",
                   "difficulty": "intermediate",
-                  "question": "Why is nuclear fusion not used in power plants?",
-                  "answer": "It requires extremely high temperatures and is difficult to control."
+                  "question": "The mass defect leads to the concept of:",
+                  "options": ["Binding energy", "Radiation", "Kinetic energy", "Electricity"],
+                  "answer": "Binding energy"
                 },
                 {
                   "id": "modern-i8",
                   "difficulty": "intermediate",
-                  "question": "Why is shielding necessary in nuclear reactors?",
-                  "answer": "To protect workers and the environment from harmful radiation."
+                  "question": "What is emitted during gamma decay?",
+                  "options": ["Electromagnetic radiation", "Electron", "Helium nucleus", "Neutron"],
+                  "answer": "Electromagnetic radiation"
                 },
                 {
                   "id": "modern-i9",
                   "difficulty": "intermediate",
-                  "question": "What is the role of a moderator in a nuclear reactor?",
-                  "answer": "It slows down neutrons to sustain the chain reaction."
+                  "question": "Which radiation has no mass and no charge?",
+                  "options": ["Gamma rays", "Alpha particles", "Beta particles", "Neutrons"],
+                  "answer": "Gamma rays"
                 },
                 {
                   "id": "modern-i10",
                   "difficulty": "intermediate",
-                  "question": "What is a chain reaction?",
-                  "answer": "A self-sustaining series of nuclear fissions releasing energy and more neutrons."
+                  "question": "What is the typical unit of half-life?",
+                  "options": ["Seconds", "Becquerel", "Amperes", "Hertz"],
+                  "answer": "Seconds"
                 }
               ],
               "hard": [
                 {
                   "id": "modern-h1",
                   "difficulty": "hard",
-                  "question": "Write the nuclear reaction for the alpha decay of Uranium-238.",
-                  "answer": "²³⁸U → ²³⁴Th + ⁴He"
+                  "question": "A radioactive substance has a half-life of 3 days. After 9 days, what fraction remains?",
+                  "options": ["1/8", "1/3", "1/4", "1/2"],
+                  "answer": "1/8"
                 },
                 {
                   "id": "modern-h2",
                   "difficulty": "hard",
-                  "question": "What is mass defect?",
-                  "answer": "The difference between the mass of a nucleus and the sum of the masses of its individual nucleons."
+                  "question": "If 16 grams of a substance becomes 2 grams in 20 mins, what is its half-life?",
+                  "options": ["5 mins", "10 mins", "20 mins", "40 mins"],
+                  "answer": "5 mins"
                 },
                 {
                   "id": "modern-h3",
                   "difficulty": "hard",
-                  "question": "What is binding energy?",
-                  "answer": "The energy required to split a nucleus into its component nucleons."
+                  "question": "Binding energy per nucleon is highest for which element?",
+                  "options": ["Iron", "Uranium", "Hydrogen", "Plutonium"],
+                  "answer": "Iron"
                 },
                 {
                   "id": "modern-h4",
                   "difficulty": "hard",
-                  "question": "How is binding energy calculated?",
-                  "answer": "Binding Energy = Mass defect × c² (Einstein’s equation)."
+                  "question": "In fusion, which particles combine to form helium?",
+                  "options": ["Hydrogen nuclei", "Neutrons", "Electrons", "Alpha particles"],
+                  "answer": "Hydrogen nuclei"
                 },
                 {
                   "id": "modern-h5",
                   "difficulty": "hard",
-                  "question": "What is critical mass?",
-                  "answer": "The minimum mass of fissile material needed to sustain a chain reaction."
+                  "question": "Which equation is used to calculate energy from mass defect?",
+                  "options": ["E = mc²", "F = ma", "P = VI", "E = hf"],
+                  "answer": "E = mc²"
                 },
                 {
                   "id": "modern-h6",
                   "difficulty": "hard",
-                  "question": "Describe the use of control rods in a nuclear reactor.",
-                  "answer": "Control rods absorb excess neutrons and regulate the chain reaction."
+                  "question": "What does the Geiger-Müller tube measure?",
+                  "options": ["Radiation counts", "Voltage", "Resistance", "Mass"],
+                  "answer": "Radiation counts"
                 },
                 {
                   "id": "modern-h7",
                   "difficulty": "hard",
-                  "question": "State Einstein’s mass-energy equivalence equation.",
-                  "answer": "E = mc²"
+                  "question": "What is the main product of U-235 fission?",
+                  "options": ["Smaller nuclei + neutrons + energy", "Hydrogen gas", "Alpha particles", "Electrons"],
+                  "answer": "Smaller nuclei + neutrons + energy"
                 },
                 {
                   "id": "modern-h8",
                   "difficulty": "hard",
-                  "question": "What is nuclear waste?",
-                  "answer": "Radioactive materials left after nuclear reactions that need safe disposal."
+                  "question": "Why is a moderator used in nuclear reactors?",
+                  "options": [
+                    "To slow down neutrons",
+                    "To absorb radiation",
+                    "To speed up electrons",
+                    "To cool the core"
+                  ],
+                  "answer": "To slow down neutrons"
                 },
                 {
                   "id": "modern-h9",
                   "difficulty": "hard",
-                  "question": "Why is fusion considered cleaner than fission?",
-                  "answer": "Fusion produces less radioactive waste and is safer."
+                  "question": "What happens to binding energy during fission?",
+                  "options": ["It is released", "It is absorbed", "It increases", "It disappears"],
+                  "answer": "It is released"
                 },
                 {
                   "id": "modern-h10",
                   "difficulty": "hard",
-                  "question": "What is the role of heavy water in nuclear reactors?",
-                  "answer": "Heavy water acts as a moderator to slow down neutrons."
+                  "question": "In beta minus decay, a neutron changes into what?",
+                  "options": ["Proton + electron + antineutrino", "Electron only", "Neutron only", "Photon only"],
+                  "answer": "Proton + electron + antineutrino"
                 }
               ]
             }
           },
+
         ]
       },
       {

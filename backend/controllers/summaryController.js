@@ -127,7 +127,7 @@ const subjectDetails = subjects.map(
     // ✅ Generate quiz using the summary
     const quizPrompt = `
       Create a ${difficulty} level quiz for Class ${userClass} (${userBoard}) whose level is ${subjectDetails}
-with ${noOfQuestions} multiple choice questions based on this summary:\n\n"${fullText}".
+with ${noOfQuestions} multiple choice questions based on this summary:\n\n"${fullText}".Ask questions only from the summary.
 
 Return as JSON:
 [
