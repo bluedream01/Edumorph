@@ -180,7 +180,7 @@ export default function QuizApp() {
           </div>
 
           <p className="text-sm text-gray-500 mt-6">
-            Quiz completed on {new Date().toLocaleDateString()}
+            Hello Quiz completed on {new Date().toLocaleDateString()}
           </p>
           <p className="text-xs text-gray-600">
             Want to improve? Review your study materials and try again!
