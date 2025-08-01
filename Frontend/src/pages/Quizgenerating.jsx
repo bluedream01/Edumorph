@@ -143,7 +143,7 @@ export default function QuizApp() {
             <Confetti
               width={cardSize.width}
               height={cardSize.height}
-              numberOfPieces={200}
+              numberOfPieces={300}
               gravity={0.3}
               recycle={false}
             />

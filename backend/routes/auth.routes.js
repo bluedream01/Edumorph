@@ -11,7 +11,7 @@ router.post("/login", controller.login);
 // ✅ GET profile details
 router.get("/profile", verifyToken, async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).select("username email profileImage xp");
+    const user = await User.findById(req.user._id).select("username email profileImage xp onboarding.levels");
     if (!user) return res.status(404).json({ message: "User not found" });
 
     res.status(200).json({
@@ -19,6 +19,7 @@ router.get("/profile", verifyToken, async (req, res) => {
       email: user.email,
       profileImage: user.profileImage || null,
       xp: user.xp,
+      levels: user.onboarding?.levels || {},
     });
   } catch (err) {
     res.status(500).json({ message: "Error fetching user", error: err.message });
@@ -92,6 +93,34 @@ router.post("/onboarding", verifyToken, async (req, res) => {
   } catch (err) {
     console.error("Failed to save onboarding:", err);
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+router.post("/update-xp", verifyToken, async (req, res) => {
+  try {
+    const { xp } = req.body;
+
+    if (typeof xp !== "number" || xp < 0) {
+      return res.status(400).json({ message: "Invalid XP value" });
+    }
+
+    await User.findByIdAndUpdate(
+      req.user._id,
+      { $inc: { xp } }
+    );
+
+    const updatedUser = await User.findById(req.user._id).select("xp");
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "XP updated successfully",
+      xp: updatedUser.xp,
+    });
+  } catch (err) {
+    console.error("Error updating XP:", err);
+    res.status(500).json({ message: "Failed to update XP", error: err.message });
   }
 });
 

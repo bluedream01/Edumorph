@@ -6,27 +6,22 @@ const cors = require('cors');
 const summaryRoutes = require('./routes/summaryRoutes');
 const authRoutes = require('./routes/auth.routes');
 const chatbotRoute = require('./routes/chatbot.route');
+const assessmentRoutes = require('./routes/quizAssessment.route');
+const contactDetailsRoute = require('./routes/contactDetails.route');
 
 const app = express();
-app.use(express.json());
 
+// Middleware
 app.use(cors({
   origin: 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
-
 app.use(express.json());
 
-// Logger middleware
+// Logger middleware (keep only once)
 app.use((req, res, next) => {
-  console.log(req.path, req.method);
-  next();
-});
-
-// Logger middleware
-app.use((req, res, next) => {
-  console.log(req.path, req.method);
+  console.log(`${req.method} ${req.path}`);
   next();
 });
 
@@ -34,8 +29,10 @@ app.use((req, res, next) => {
 app.use('/SummaryCall', summaryRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/chatbot', chatbotRoute);
+app.use('/api/assessment', assessmentRoutes);
+app.use('/api/contact-details', contactDetailsRoute);
 
-// 🔗 MongoDB Connection
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
