@@ -15,7 +15,6 @@ const UserDetailsForm = () => {
 
   const navigate = useNavigate();
 
-  // ✅ Redirect to login if no token
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token || token === 'undefined') {
@@ -32,19 +31,42 @@ const UserDetailsForm = () => {
         ...prev,
         onboarding: {
           ...prev.onboarding,
-          [name]: value,
+          [name]: value.trim(),
         },
       }));
     } else {
       setFormData((prev) => ({
         ...prev,
-        [name]: value,
+        [name]: value.trim(),
       }));
     }
   };
 
+  const validateForm = () => {
+    const { firstName, lastName, phoneNumber, onboarding } = formData;
+
+    if (!firstName || !lastName || !phoneNumber || !onboarding.class || !onboarding.board || !onboarding.subjects) {
+      alert('All fields are required.');
+      return false;
+    }
+
+    if (!/^\d{10}$/.test(phoneNumber)) {
+      alert('Phone number must be exactly 10 digits.');
+      return false;
+    }
+
+    if (!/^\d{1,2}$/.test(onboarding.class) || +onboarding.class < 1 || +onboarding.class > 12) {
+      alert('Class must be a number between 1 and 12.');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
 
     const token = localStorage.getItem('token');
     if (!token || token === 'undefined') {
@@ -52,26 +74,19 @@ const UserDetailsForm = () => {
       return;
     }
 
-    // Prepare API body payload
     const payload = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       phone: formData.phoneNumber,
-      onboarding: {
-        class: formData.onboarding.class,
-        board: formData.onboarding.board,
-        subjects: formData.onboarding.subjects,
-      },
+      onboarding: { ...formData.onboarding },
     };
-
-    console.log('Submitting data:', payload);
 
     try {
       const response = await fetch('http://localhost:4000/api/contact-details', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
       });
@@ -80,7 +95,6 @@ const UserDetailsForm = () => {
 
       if (response.ok) {
         alert(result.message || 'Details saved successfully!');
-        console.log('Success:', result);
         navigate('/profile');
       } else {
         console.error('Backend error:', result);
@@ -94,13 +108,8 @@ const UserDetailsForm = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0f172a] p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md bg-[#1e293b] p-6 rounded-lg shadow-md"
-      >
-        <h2 className="text-2xl font-semibold text-white mb-6 text-center">
-          Complete Your Profile
-        </h2>
+      <form onSubmit={handleSubmit} className="w-full max-w-md bg-[#1e293b] p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold text-white mb-6 text-center">Complete Your Profile</h2>
 
         <div className="mb-4">
           <input
@@ -130,7 +139,7 @@ const UserDetailsForm = () => {
           <input
             type="text"
             name="class"
-            placeholder="Class"
+            placeholder="Class (1–12)"
             value={formData.onboarding.class}
             onChange={handleChange}
             className="w-full p-2 bg-[#1c2230] border border-gray-600 rounded text-white"
@@ -142,7 +151,7 @@ const UserDetailsForm = () => {
           <input
             type="tel"
             name="phoneNumber"
-            placeholder="Phone Number"
+            placeholder="Phone Number (10 digits)"
             value={formData.phoneNumber}
             onChange={handleChange}
             className="w-full p-2 bg-[#1c2230] border border-gray-600 rounded text-white"
@@ -162,7 +171,6 @@ const UserDetailsForm = () => {
             <option value="CBSE">CBSE</option>
             <option value="ICSE">ICSE</option>
             <option value="State">State</option>
-            <option value="IB">IB</option>
           </select>
         </div>
 
