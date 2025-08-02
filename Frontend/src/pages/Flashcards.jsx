@@ -161,7 +161,7 @@ const Flashcards = () => {
         <div className="max-w-3xl mx-auto">
           {/* Flashcard Container */}
           <div
-            className="relative w-full h-80 mb-8 cursor-pointer perspective-1000"
+            className="relative w-full h-90 mb-8 cursor-pointer perspective-1000"
             onClick={flipCard}
           >
             <div
