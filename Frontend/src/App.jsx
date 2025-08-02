@@ -13,6 +13,7 @@ import Onboarding from './pages/Onboarding';
 import Mindmap from './pages/FlowchartGenius';
 import Loginpage from './pages/Components/Login';
 import Signuppage from './pages/Components/Signup';
+import StudentForm from './pages/Components/StudentDetailsForm';
 import Chatbot from './pages/Components/Chatbot';
 import TestPage from './pages/TestPage';
 import './index.css';
@@ -21,6 +22,7 @@ import FlashcardMatchGame from "./pages/FlashcardMatchGame";
 
 import PrivateRoute from './utils/PrivateRoute';
 import RedirectIfLoggedIn from './utils/RedirectIfLoggedIn';
+import OnboardingRoute from './utils/OnboardingRoute';
 
 function App() {
   return (
@@ -42,6 +44,7 @@ function App() {
          <Route path="/flashcards/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><Flashcards /></PrivateRoute>} />
         <Route path="/login" element={<RedirectIfLoggedIn><Loginpage /></RedirectIfLoggedIn>} />
         <Route path="/signup" element={<RedirectIfLoggedIn><Signuppage /></RedirectIfLoggedIn>} />
+        <Route path="/student-details" element={<PrivateRoute><StudentForm /></PrivateRoute>} />
         <Route path="/test/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><TestPage /></PrivateRoute>}/>
                   <Route
             path="/match/:class/:board/:subjectId/:chapterId"

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './signup.css';
 
 export default function Signup() {
@@ -9,28 +10,30 @@ export default function Signup() {
     password: '',
   });
 
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.type === 'checkbox' ? 'terms' : e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
 
     try {
       const response = await axios.post('http://localhost:4000/api/auth/register', formData);
-      console.log(response.data); // ✅ See backend response
+
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+
       alert('✅ Account created successfully!');
-      
+
+      // ✅ Redirect to student details form after signup
+      navigate('/student-details');
     } catch (err) {
       console.error("❌ SIGNUP ERROR:", err);
       alert(`❌ ${err.response?.data?.message || err.message || 'Something went wrong'}`);
     }
-
   };
 
   return (
