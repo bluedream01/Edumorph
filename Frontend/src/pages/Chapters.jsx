@@ -4,7 +4,6 @@ import { ArrowLeft, BookOpen } from "lucide-react";
 
 const Chapters = () => {
   const { class: selectedClass, board: selectedBoard, subjectId } = useParams();
-
   const courseData = getCourseData(selectedClass, selectedBoard);
   const subject = courseData?.subjects.find((s) => s.id === subjectId);
 
@@ -60,30 +59,31 @@ const Chapters = () => {
 
         {/* Chapters Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {subject.chapters.map((chapter, index) => (
-            <Link
-              key={chapter.id}
-              to={`/flashcards/${selectedClass}/${selectedBoard}/${subjectId}/${chapter.id}`}
-              className="group bg-white/8 border border-white/10 hover:border-blue-500 p-6 rounded-xl transition-all duration-300 cursor-pointer backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-blue-500/30"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="w-12 h-12 rounded-lg bg-blue-600 bg-opacity-20 p-3 mb-4 flex items-center justify-center group-hover:shadow-blue-500/50">
-                <BookOpen className="w-6 h-6 text-blue-300" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2 truncate">
-                {chapter.title}
-              </h3>
-              <p className="text-sm text-gray-400">
-                {
-                  Object.values(chapter.flashcards).reduce(
-                    (sum, level) => sum + level.length,
-                    0
-                  )
-                }{" "}
-                flashcards available
-              </p>
-            </Link>
-          ))}
+          {subject.chapters.map((chapter, index) => {
+            const allFlashcards = Object.values(chapter.flashcards || {}).flat();
+            const uniqueIds = new Set(allFlashcards.map((fc) => fc.id));
+            const totalFlashcards = uniqueIds.size;
+
+            return (
+              <Link
+                key={chapter.id}
+                to={`/flashcards/${selectedClass}/${selectedBoard}/${subjectId}/${chapter.id}`}
+                className="group bg-white/8 border border-white/10 hover:border-blue-500 p-6 rounded-xl transition-all duration-300 cursor-pointer backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-blue-500/30"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="w-12 h-12 rounded-lg bg-blue-600 bg-opacity-20 p-3 mb-4 flex items-center justify-center group-hover:shadow-blue-500/50">
+                  <BookOpen className="w-6 h-6 text-blue-300" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 truncate">
+                  {chapter.title}
+                </h3>
+                <p className="text-sm text-gray-400">
+                  10 flashcards available
+                </p>
+
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>

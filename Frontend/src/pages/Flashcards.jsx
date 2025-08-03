@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import axios from "axios";
 
+// ... imports remain unchanged
+
 const Flashcards = () => {
   const {
     class: selectedClass,
@@ -119,6 +121,12 @@ const Flashcards = () => {
           <p className="text-muted-foreground">
             {subject?.name} • Class {selectedClass} {selectedBoard}
           </p>
+
+          {/* ✅ Fixed Flashcard Count */}
+          <p className="text-sm text-gray-400 mt-2">
+            {allFlashcards.length} flashcards available
+          </p>
+
           <div className="mt-4">
             <span className="text-sm text-muted-foreground">
               Card {currentIndex + 1} of {allFlashcards.length}

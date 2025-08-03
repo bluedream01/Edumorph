@@ -957,378 +957,378 @@ export const courseData = [
               ]
             }
           },
-          {
-            id: "refraction-plane-surfaces-10-icse",
-            title: "Refraction of Light at Plane Surfaces",
-            flashcards: {
-              beginner: [
-                {
-                  id: "refraction-b1",
-                  difficulty: "beginner",
-                  question: "What is refraction?",
-                  options: [
-                    "The bending of light when it passes from one medium to another.",
-                    "The reflection of light from a surface.",
-                    "The absorption of light by an object.",
-                    "The scattering of light in different directions."
-                  ],
-                  answer: "The bending of light when it passes from one medium to another."
-                },
-                {
-                  id: "refraction-b2",
-                  difficulty: "beginner",
-                  question: "Why does refraction occur?",
-                  options: [
-                    "Because light's speed changes in different media.",
-                    "Because light is absorbed by different media.",
-                    "Because light reflects off surfaces.",
-                    "Because light is scattered randomly."
-                  ],
-                  answer: "Because light's speed changes in different media."
-                },
-                {
-                  id: "refraction-b3",
-                  difficulty: "beginner",
-                  question: "What is a medium in optics?",
-                  options: [
-                    "A material through which light travels, such as air, water, or glass.",
-                    "A device for measuring light.",
-                    "A lens used to focus light.",
-                    "An instrument that emits light."
-                  ],
-                  answer: "A material through which light travels, such as air, water, or glass."
-                },
-                {
-                  id: "refraction-b4",
-                  difficulty: "beginner",
-                  question: "What happens to the light ray when it enters a denser medium?",
-                  options: [
-                    "It bends towards the normal.",
-                    "It bends away from the normal.",
-                    "It slows down without bending.",
-                    "It speeds up and remains straight."
-                  ],
-                  answer: "It bends towards the normal."
-                },
-                {
-                  id: "refraction-b5",
-                  difficulty: "beginner",
-                  question: "What happens to the light ray when it enters a rarer medium?",
-                  options: [
-                    "It bends away from the normal.",
-                    "It bends towards the normal.",
-                    "It speeds up and continues straight.",
-                    "It stops bending."
-                  ],
-                  answer: "It bends away from the normal."
-                },
-                {
-                  id: "refraction-b6",
-                  difficulty: "beginner",
-                  question: "What is the incident ray?",
-                  options: [
-                    "The ray of light that strikes the surface before refraction.",
-                    "The ray of light that bounces off a surface.",
-                    "The ray of light that is absorbed by a surface.",
-                    "The ray of light that is emitted from a source."
-                  ],
-                  answer: "The ray of light that strikes the surface before refraction."
-                },
-                {
-                  id: "refraction-b7",
-                  difficulty: "beginner",
-                  question: "What is the refracted ray?",
-                  options: [
-                    "The ray of light that travels in the new medium after bending.",
-                    "The ray of light that is reflected.",
-                    "The ray of light that is absorbed.",
-                    "The ray of light that never changes direction."
-                  ],
-                  answer: "The ray of light that travels in the new medium after bending."
-                },
-                {
-                  id: "refraction-b8",
-                  difficulty: "beginner",
-                  question: "What is the normal in refraction?",
-                  options: [
-                    "A line drawn perpendicular to the surface at the point of incidence.",
-                    "The direction of the incident ray.",
-                    "A line parallel to the surface.",
-                    "The angle between the incident and refracted rays."
-                  ],
-                  answer: "A line drawn perpendicular to the surface at the point of incidence."
-                },
-                {
-                  id: "refraction-b9",
-                  difficulty: "beginner",
-                  question: "Give one real-life example of refraction.",
-                  options: [
-                    "A straw appearing bent in a glass of water.",
-                    "A bird flying in the sky.",
-                    "A ball bouncing off a wall.",
-                    "The sound of thunder."
-                  ],
-                  answer: "A straw appearing bent in a glass of water."
-                },
-                {
-                  id: "refraction-b10",
-                  difficulty: "beginner",
-                  question: "Does light change its speed or direction during refraction?",
-                  options: [
-                    "It changes both speed and direction.",
-                    "It changes only speed.",
-                    "It changes only direction.",
-                    "It does not change either."
-                  ],
-                  answer: "It changes both speed and direction."
-                }
-              ],
-              intermediate: [
-                {
-                  id: "refraction-i1",
-                  difficulty: "intermediate",
-                  question: "Define refractive index.",
-                  options: [
-                    "The ratio of the speed of light in vacuum to that in a medium.",
-                    "The measure of light's brightness.",
-                    "The ratio of the wavelength in vacuum to that in a medium.",
-                    "The distance light travels in a medium."
-                  ],
-                  answer: "The ratio of the speed of light in vacuum to that in a medium."
-                },
-                {
-                  id: "refraction-i2",
-                  difficulty: "intermediate",
-                  question: "What is Snell's Law?",
-                  options: [
-                    "n₁·sin(i) = n₂·sin(r), where n is the refractive index.",
-                    "n₁ + sin(i) = n₂ + sin(r)",
-                    "n₁/sin(i) = n₂/sin(r)",
-                    "n₁ - sin(i) = n₂ - sin(r)"
-                  ],
-                  answer: "n₁·sin(i) = n₂·sin(r), where n is the refractive index."
-                },
-                {
-                  id: "refraction-i3",
-                  difficulty: "intermediate",
-                  question: "What is the formula for refractive index using speed?",
-                  options: [
-                    "n = c / v",
-                    "n = v / c",
-                    "n = c * v",
-                    "n = c - v"
-                  ],
-                  answer: "n = c / v"
-                },
-                {
-                  id: "refraction-i4",
-                  difficulty: "intermediate",
-                  question: "What is lateral displacement?",
-                  options: [
-                    "The sideways shift in the path of a refracted ray through a rectangular glass slab.",
-                    "The bending of light towards the normal.",
-                    "The reflection of light within a medium.",
-                    "The absorption of light by a medium."
-                  ],
-                  answer: "The sideways shift in the path of a refracted ray through a rectangular glass slab."
-                },
-                {
-                  id: "refraction-i5",
-                  difficulty: "intermediate",
-                  question: "Name one device that uses refraction.",
-                  options: [
-                    "A magnifying glass.",
-                    "A microphone.",
-                    "A thermometer.",
-                    "A barometer."
-                  ],
-                  answer: "A magnifying glass."
-                },
-                {
-                  id: "refraction-i6",
-                  difficulty: "intermediate",
-                  question: "What is the angle of incidence?",
-                  options: [
-                    "The angle between the incident ray and the normal.",
-                    "The angle between the refracted ray and the surface.",
-                    "The angle between the incident and reflected rays.",
-                    "The angle of the refracted ray with the normal."
-                  ],
-                  answer: "The angle between the incident ray and the normal."
-                },
-                {
-                  id: "refraction-i7",
-                  difficulty: "intermediate",
-                  question: "What is the angle of refraction?",
-                  options: [
-                    "The angle between the refracted ray and the normal.",
-                    "The angle between the incident ray and the surface.",
-                    "The angle of reflection.",
-                    "The angle between the incident and refracted rays."
-                  ],
-                  answer: "The angle between the refracted ray and the normal."
-                },
-                {
-                  id: "refraction-i8",
-                  difficulty: "intermediate",
-                  question: "What happens when light enters perpendicularly into a new medium?",
-                  options: [
-                    "It does not bend but only changes speed.",
-                    "It bends away from the normal.",
-                    "It bends towards the normal.",
-                    "It gets absorbed."
-                  ],
-                  answer: "It does not bend but only changes speed."
-                },
-                {
-                  id: "refraction-i9",
-                  difficulty: "intermediate",
-                  question: "What is an optically denser medium?",
-                  options: [
-                    "A medium in which light travels slower, like glass compared to air.",
-                    "A medium with high transparency.",
-                    "A medium in which light travels faster.",
-                    "A medium that absorbs light."
-                  ],
-                  answer: "A medium in which light travels slower, like glass compared to air."
-                },
-                {
-                  id: "refraction-i10",
-                  difficulty: "intermediate",
-                  question: "Does refraction follow the laws of reflection?",
-                  options: [
-                    "No, it follows the laws of refraction like Snell’s Law.",
-                    "Yes, it follows the laws of reflection.",
-                    "It follows both laws equally.",
-                    "It follows neither law."
-                  ],
-                  answer: "No, it follows the laws of refraction like Snell’s Law."
-                }
-              ],
-              hard: [
-                {
-                  id: "refraction-h1",
-                  difficulty: "hard",
-                  question: "If the angle of incidence is 30° and the angle of refraction is 20°, find the refractive index.",
-                  options: [
-                    "Approximately 1.46",
-                    "Approximately 0.68",
-                    "Approximately 2.00",
-                    "Approximately 1.00"
-                  ],
-                  answer: "Approximately 1.46"
-                },
-                {
-                  id: "refraction-h2",
-                  difficulty: "hard",
-                  question: "Light enters from air (n=1) to glass (n=1.5). What is the ratio of speeds?",
-                  options: [
-                    "1.5",
-                    "0.67",
-                    "2.0",
-                    "1.0"
-                  ],
-                  answer: "1.5"
-                },
-                {
-                  id: "refraction-h3",
-                  difficulty: "hard",
-                  question: "Calculate the speed of light in glass if its refractive index is 1.5.",
-                  options: [
-                    "2×10⁸ m/s",
-                    "3×10⁸ m/s",
-                    "1.5×10⁸ m/s",
-                    "2.5×10⁸ m/s"
-                  ],
-                  answer: "2×10⁸ m/s"
-                },
-                {
-                  id: "refraction-h4",
-                  difficulty: "hard",
-                  question: "A ray of light passes through a parallel-sided glass slab. Describe its emergent ray.",
-                  options: [
-                    "The emergent ray is parallel to the incident ray but laterally displaced.",
-                    "It bends away from the normal.",
-                    "It becomes convergent.",
-                    "It becomes divergent."
-                  ],
-                  answer: "The emergent ray is parallel to the incident ray but laterally displaced."
-                },
-                {
-                  id: "refraction-h5",
-                  difficulty: "hard",
-                  question: "Derive the formula for refractive index using Snell's law.",
-                  options: [
-                    "n = sin(i)/sin(r)",
-                    "n = sin(r)/sin(i)",
-                    "n = tan(i)/tan(r)",
-                    "n = tan(r)/tan(i)"
-                  ],
-                  answer: "n = sin(i)/sin(r)"
-                },
-                {
-                  id: "refraction-h6",
-                  difficulty: "hard",
-                  question: "Why do objects appear raised in water?",
-                  options: [
-                    "Due to the bending of light, objects appear higher than they actually are.",
-                    "Due to reflection.",
-                    "Because water magnifies objects.",
-                    "Because water absorbs light."
-                  ],
-                  answer: "Due to the bending of light, objects appear higher than they actually are."
-                },
-                {
-                  id: "refraction-h7",
-                  difficulty: "hard",
-                  question: "A glass slab causes 1 cm lateral displacement. What factors affect this value?",
-                  options: [
-                    "Refractive index, thickness of the slab, and angle of incidence.",
-                    "Only thickness.",
-                    "Only refractive index.",
-                    "Only the angle of incidence."
-                  ],
-                  answer: "Refractive index, thickness of the slab, and angle of incidence."
-                },
-                {
-                  id: "refraction-h8",
-                  difficulty: "hard",
-                  question: "Why does a coin placed in water appear closer?",
-                  options: [
-                    "Due to the refraction at the water surface, the coin appears raised.",
-                    "Because water reflects the coin.",
-                    "Because of the absorption of light.",
-                    "Because of an optical illusion."
-                  ],
-                  answer: "Due to the refraction at the water surface, the coin appears raised."
-                },
-                {
-                  id: "refraction-h9",
-                  difficulty: "hard",
-                  question: "Which has a higher refractive index: diamond or glass?",
-                  options: [
-                    "Diamond",
-                    "Glass",
-                    "Both are the same.",
-                    "Depends on light wavelength."
-                  ],
-                  answer: "Diamond"
-                },
-                {
-                  id: "refraction-h10",
-                  difficulty: "hard",
-                  question: "Is the refractive index of a medium constant for all wavelengths?",
-                  options: [
-                    "No, it varies with wavelength due to dispersion.",
-                    "Yes, it is constant.",
-                    "It depends on the medium's color.",
-                    "It depends on temperature."
-                  ],
-                  answer: "No, it varies with wavelength due to dispersion."
-                }
-              ]
-            }
-          },
+          // {
+          //   id: "refraction-plane-surfaces-10-icse",
+          //   title: "Refraction of Light at Plane Surfaces",
+          //   flashcards: {
+          //     beginner: [
+          //       {
+          //         id: "refraction-b1",
+          //         difficulty: "beginner",
+          //         question: "What is refraction?",
+          //         options: [
+          //           "The bending of light when it passes from one medium to another.",
+          //           "The reflection of light from a surface.",
+          //           "The absorption of light by an object.",
+          //           "The scattering of light in different directions."
+          //         ],
+          //         answer: "The bending of light when it passes from one medium to another."
+          //       },
+          //       {
+          //         id: "refraction-b2",
+          //         difficulty: "beginner",
+          //         question: "Why does refraction occur?",
+          //         options: [
+          //           "Because light's speed changes in different media.",
+          //           "Because light is absorbed by different media.",
+          //           "Because light reflects off surfaces.",
+          //           "Because light is scattered randomly."
+          //         ],
+          //         answer: "Because light's speed changes in different media."
+          //       },
+          //       {
+          //         id: "refraction-b3",
+          //         difficulty: "beginner",
+          //         question: "What is a medium in optics?",
+          //         options: [
+          //           "A material through which light travels, such as air, water, or glass.",
+          //           "A device for measuring light.",
+          //           "A lens used to focus light.",
+          //           "An instrument that emits light."
+          //         ],
+          //         answer: "A material through which light travels, such as air, water, or glass."
+          //       },
+          //       {
+          //         id: "refraction-b4",
+          //         difficulty: "beginner",
+          //         question: "What happens to the light ray when it enters a denser medium?",
+          //         options: [
+          //           "It bends towards the normal.",
+          //           "It bends away from the normal.",
+          //           "It slows down without bending.",
+          //           "It speeds up and remains straight."
+          //         ],
+          //         answer: "It bends towards the normal."
+          //       },
+          //       {
+          //         id: "refraction-b5",
+          //         difficulty: "beginner",
+          //         question: "What happens to the light ray when it enters a rarer medium?",
+          //         options: [
+          //           "It bends away from the normal.",
+          //           "It bends towards the normal.",
+          //           "It speeds up and continues straight.",
+          //           "It stops bending."
+          //         ],
+          //         answer: "It bends away from the normal."
+          //       },
+          //       {
+          //         id: "refraction-b6",
+          //         difficulty: "beginner",
+          //         question: "What is the incident ray?",
+          //         options: [
+          //           "The ray of light that strikes the surface before refraction.",
+          //           "The ray of light that bounces off a surface.",
+          //           "The ray of light that is absorbed by a surface.",
+          //           "The ray of light that is emitted from a source."
+          //         ],
+          //         answer: "The ray of light that strikes the surface before refraction."
+          //       },
+          //       {
+          //         id: "refraction-b7",
+          //         difficulty: "beginner",
+          //         question: "What is the refracted ray?",
+          //         options: [
+          //           "The ray of light that travels in the new medium after bending.",
+          //           "The ray of light that is reflected.",
+          //           "The ray of light that is absorbed.",
+          //           "The ray of light that never changes direction."
+          //         ],
+          //         answer: "The ray of light that travels in the new medium after bending."
+          //       },
+          //       {
+          //         id: "refraction-b8",
+          //         difficulty: "beginner",
+          //         question: "What is the normal in refraction?",
+          //         options: [
+          //           "A line drawn perpendicular to the surface at the point of incidence.",
+          //           "The direction of the incident ray.",
+          //           "A line parallel to the surface.",
+          //           "The angle between the incident and refracted rays."
+          //         ],
+          //         answer: "A line drawn perpendicular to the surface at the point of incidence."
+          //       },
+          //       {
+          //         id: "refraction-b9",
+          //         difficulty: "beginner",
+          //         question: "Give one real-life example of refraction.",
+          //         options: [
+          //           "A straw appearing bent in a glass of water.",
+          //           "A bird flying in the sky.",
+          //           "A ball bouncing off a wall.",
+          //           "The sound of thunder."
+          //         ],
+          //         answer: "A straw appearing bent in a glass of water."
+          //       },
+          //       {
+          //         id: "refraction-b10",
+          //         difficulty: "beginner",
+          //         question: "Does light change its speed or direction during refraction?",
+          //         options: [
+          //           "It changes both speed and direction.",
+          //           "It changes only speed.",
+          //           "It changes only direction.",
+          //           "It does not change either."
+          //         ],
+          //         answer: "It changes both speed and direction."
+          //       }
+          //     ],
+          //     intermediate: [
+          //       {
+          //         id: "refraction-i1",
+          //         difficulty: "intermediate",
+          //         question: "Define refractive index.",
+          //         options: [
+          //           "The ratio of the speed of light in vacuum to that in a medium.",
+          //           "The measure of light's brightness.",
+          //           "The ratio of the wavelength in vacuum to that in a medium.",
+          //           "The distance light travels in a medium."
+          //         ],
+          //         answer: "The ratio of the speed of light in vacuum to that in a medium."
+          //       },
+          //       {
+          //         id: "refraction-i2",
+          //         difficulty: "intermediate",
+          //         question: "What is Snell's Law?",
+          //         options: [
+          //           "n₁·sin(i) = n₂·sin(r), where n is the refractive index.",
+          //           "n₁ + sin(i) = n₂ + sin(r)",
+          //           "n₁/sin(i) = n₂/sin(r)",
+          //           "n₁ - sin(i) = n₂ - sin(r)"
+          //         ],
+          //         answer: "n₁·sin(i) = n₂·sin(r), where n is the refractive index."
+          //       },
+          //       {
+          //         id: "refraction-i3",
+          //         difficulty: "intermediate",
+          //         question: "What is the formula for refractive index using speed?",
+          //         options: [
+          //           "n = c / v",
+          //           "n = v / c",
+          //           "n = c * v",
+          //           "n = c - v"
+          //         ],
+          //         answer: "n = c / v"
+          //       },
+          //       {
+          //         id: "refraction-i4",
+          //         difficulty: "intermediate",
+          //         question: "What is lateral displacement?",
+          //         options: [
+          //           "The sideways shift in the path of a refracted ray through a rectangular glass slab.",
+          //           "The bending of light towards the normal.",
+          //           "The reflection of light within a medium.",
+          //           "The absorption of light by a medium."
+          //         ],
+          //         answer: "The sideways shift in the path of a refracted ray through a rectangular glass slab."
+          //       },
+          //       {
+          //         id: "refraction-i5",
+          //         difficulty: "intermediate",
+          //         question: "Name one device that uses refraction.",
+          //         options: [
+          //           "A magnifying glass.",
+          //           "A microphone.",
+          //           "A thermometer.",
+          //           "A barometer."
+          //         ],
+          //         answer: "A magnifying glass."
+          //       },
+          //       {
+          //         id: "refraction-i6",
+          //         difficulty: "intermediate",
+          //         question: "What is the angle of incidence?",
+          //         options: [
+          //           "The angle between the incident ray and the normal.",
+          //           "The angle between the refracted ray and the surface.",
+          //           "The angle between the incident and reflected rays.",
+          //           "The angle of the refracted ray with the normal."
+          //         ],
+          //         answer: "The angle between the incident ray and the normal."
+          //       },
+          //       {
+          //         id: "refraction-i7",
+          //         difficulty: "intermediate",
+          //         question: "What is the angle of refraction?",
+          //         options: [
+          //           "The angle between the refracted ray and the normal.",
+          //           "The angle between the incident ray and the surface.",
+          //           "The angle of reflection.",
+          //           "The angle between the incident and refracted rays."
+          //         ],
+          //         answer: "The angle between the refracted ray and the normal."
+          //       },
+          //       {
+          //         id: "refraction-i8",
+          //         difficulty: "intermediate",
+          //         question: "What happens when light enters perpendicularly into a new medium?",
+          //         options: [
+          //           "It does not bend but only changes speed.",
+          //           "It bends away from the normal.",
+          //           "It bends towards the normal.",
+          //           "It gets absorbed."
+          //         ],
+          //         answer: "It does not bend but only changes speed."
+          //       },
+          //       {
+          //         id: "refraction-i9",
+          //         difficulty: "intermediate",
+          //         question: "What is an optically denser medium?",
+          //         options: [
+          //           "A medium in which light travels slower, like glass compared to air.",
+          //           "A medium with high transparency.",
+          //           "A medium in which light travels faster.",
+          //           "A medium that absorbs light."
+          //         ],
+          //         answer: "A medium in which light travels slower, like glass compared to air."
+          //       },
+          //       {
+          //         id: "refraction-i10",
+          //         difficulty: "intermediate",
+          //         question: "Does refraction follow the laws of reflection?",
+          //         options: [
+          //           "No, it follows the laws of refraction like Snell’s Law.",
+          //           "Yes, it follows the laws of reflection.",
+          //           "It follows both laws equally.",
+          //           "It follows neither law."
+          //         ],
+          //         answer: "No, it follows the laws of refraction like Snell’s Law."
+          //       }
+          //     ],
+          //     hard: [
+          //       {
+          //         id: "refraction-h1",
+          //         difficulty: "hard",
+          //         question: "If the angle of incidence is 30° and the angle of refraction is 20°, find the refractive index.",
+          //         options: [
+          //           "Approximately 1.46",
+          //           "Approximately 0.68",
+          //           "Approximately 2.00",
+          //           "Approximately 1.00"
+          //         ],
+          //         answer: "Approximately 1.46"
+          //       },
+          //       {
+          //         id: "refraction-h2",
+          //         difficulty: "hard",
+          //         question: "Light enters from air (n=1) to glass (n=1.5). What is the ratio of speeds?",
+          //         options: [
+          //           "1.5",
+          //           "0.67",
+          //           "2.0",
+          //           "1.0"
+          //         ],
+          //         answer: "1.5"
+          //       },
+          //       {
+          //         id: "refraction-h3",
+          //         difficulty: "hard",
+          //         question: "Calculate the speed of light in glass if its refractive index is 1.5.",
+          //         options: [
+          //           "2×10⁸ m/s",
+          //           "3×10⁸ m/s",
+          //           "1.5×10⁸ m/s",
+          //           "2.5×10⁸ m/s"
+          //         ],
+          //         answer: "2×10⁸ m/s"
+          //       },
+          //       {
+          //         id: "refraction-h4",
+          //         difficulty: "hard",
+          //         question: "A ray of light passes through a parallel-sided glass slab. Describe its emergent ray.",
+          //         options: [
+          //           "The emergent ray is parallel to the incident ray but laterally displaced.",
+          //           "It bends away from the normal.",
+          //           "It becomes convergent.",
+          //           "It becomes divergent."
+          //         ],
+          //         answer: "The emergent ray is parallel to the incident ray but laterally displaced."
+          //       },
+          //       {
+          //         id: "refraction-h5",
+          //         difficulty: "hard",
+          //         question: "Derive the formula for refractive index using Snell's law.",
+          //         options: [
+          //           "n = sin(i)/sin(r)",
+          //           "n = sin(r)/sin(i)",
+          //           "n = tan(i)/tan(r)",
+          //           "n = tan(r)/tan(i)"
+          //         ],
+          //         answer: "n = sin(i)/sin(r)"
+          //       },
+          //       {
+          //         id: "refraction-h6",
+          //         difficulty: "hard",
+          //         question: "Why do objects appear raised in water?",
+          //         options: [
+          //           "Due to the bending of light, objects appear higher than they actually are.",
+          //           "Due to reflection.",
+          //           "Because water magnifies objects.",
+          //           "Because water absorbs light."
+          //         ],
+          //         answer: "Due to the bending of light, objects appear higher than they actually are."
+          //       },
+          //       {
+          //         id: "refraction-h7",
+          //         difficulty: "hard",
+          //         question: "A glass slab causes 1 cm lateral displacement. What factors affect this value?",
+          //         options: [
+          //           "Refractive index, thickness of the slab, and angle of incidence.",
+          //           "Only thickness.",
+          //           "Only refractive index.",
+          //           "Only the angle of incidence."
+          //         ],
+          //         answer: "Refractive index, thickness of the slab, and angle of incidence."
+          //       },
+          //       {
+          //         id: "refraction-h8",
+          //         difficulty: "hard",
+          //         question: "Why does a coin placed in water appear closer?",
+          //         options: [
+          //           "Due to the refraction at the water surface, the coin appears raised.",
+          //           "Because water reflects the coin.",
+          //           "Because of the absorption of light.",
+          //           "Because of an optical illusion."
+          //         ],
+          //         answer: "Due to the refraction at the water surface, the coin appears raised."
+          //       },
+          //       {
+          //         id: "refraction-h9",
+          //         difficulty: "hard",
+          //         question: "Which has a higher refractive index: diamond or glass?",
+          //         options: [
+          //           "Diamond",
+          //           "Glass",
+          //           "Both are the same.",
+          //           "Depends on light wavelength."
+          //         ],
+          //         answer: "Diamond"
+          //       },
+          //       {
+          //         id: "refraction-h10",
+          //         difficulty: "hard",
+          //         question: "Is the refractive index of a medium constant for all wavelengths?",
+          //         options: [
+          //           "No, it varies with wavelength due to dispersion.",
+          //           "Yes, it is constant.",
+          //           "It depends on the medium's color.",
+          //           "It depends on temperature."
+          //         ],
+          //         answer: "No, it varies with wavelength due to dispersion."
+          //       }
+          //     ]
+          //   }
+          // },
 
           {
             "id": "refraction-plane-surfaces-10-icse",

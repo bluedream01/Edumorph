@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { RotateCcw, ArrowLeft, Clock, Trophy, Repeat } from "lucide-react";
 import { getCourseData } from "./data/courseData";
@@ -10,18 +10,20 @@ export default function MatchGame() {
   const [selectedTiles, setSelectedTiles] = useState([]);
   const [score, setScore] = useState(0);
   const [attempts, setAttempts] = useState(0);
-  const [startTime] = useState(Date.now());
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [subjectTitle, setSubjectTitle] = useState("Chapter");
+  const [chapterTitle, setChapterTitle] = useState("Chapter");
   const [gameWon, setGameWon] = useState(false);
   const [isRestarting, setIsRestarting] = useState(false);
+  const [mismatchedIds, setMismatchedIds] = useState([]);
 
-  useEffect(() => {
+  const timerRef = useRef(null);
+
+  const initializeGame = () => {
     const data = getCourseData(selectedClass, selectedBoard);
     const subject = data.subjects.find((s) => s.id === subjectId);
     const chapter = subject?.chapters.find((c) => c.id === chapterId);
 
-    setSubjectTitle(chapter?.name || "Chapter");
+    setChapterTitle(chapter?.title || chapter?.name || "Chapter");
 
     const all = [
       ...(chapter?.flashcards?.beginner || []),
@@ -41,14 +43,26 @@ export default function MatchGame() {
     setAttempts(0);
     setSelectedTiles([]);
     setGameWon(false);
+    setElapsedTime(0);
+    setMismatchedIds([]);
+  };
+
+  useEffect(() => {
+    initializeGame();
   }, [selectedClass, selectedBoard, subjectId, chapterId, isRestarting]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setElapsedTime(Math.floor((Date.now() - startTime) / 1000));
+    if (gameWon) {
+      clearInterval(timerRef.current);
+      return;
+    }
+
+    timerRef.current = setInterval(() => {
+      setElapsedTime((prev) => prev + 1);
     }, 1000);
-    return () => clearInterval(timer);
-  }, [startTime]);
+
+    return () => clearInterval(timerRef.current);
+  }, [gameWon]);
 
   useEffect(() => {
     const allMatched = tiles.length > 0 && tiles.every((tile) => tile.matched);
@@ -76,12 +90,17 @@ export default function MatchGame() {
           t.matchId === tile.matchId ? { ...t, matched: true, selected: false } : t
         );
         setTiles(matched);
-        setScore((prev) => prev + 1);
+        setScore((prev) => prev + 100);
       } else {
+        setMismatchedIds([first.id, tile.id]);
         setTimeout(() => {
           setTiles((prev) =>
-            prev.map((t) => ({ ...t, selected: false }))
+            prev.map((t) => ({
+              ...t,
+              selected: false,
+            }))
           );
+          setMismatchedIds([]);
         }, 700);
       }
 
@@ -90,14 +109,25 @@ export default function MatchGame() {
   };
 
   const restartGame = () => {
+    clearInterval(timerRef.current);
+    setElapsedTime(0);
     setIsRestarting(true);
-    setTimeout(() => setIsRestarting(false), 500);
+    setTimeout(() => {
+      setIsRestarting(false);
+    }, 500);
+  };
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
     <div
-      className={`min-h-screen bg-[#0B1120] text-white px-4 py-6 flex flex-col transition-opacity duration-500 ${isRestarting ? "opacity-0" : "opacity-100"
-        }`}
+      className={`min-h-screen bg-[#0B1120] text-white px-4 py-6 flex flex-col transition-opacity duration-500 ${
+        isRestarting ? "opacity-0" : "opacity-100"
+      }`}
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -121,7 +151,7 @@ export default function MatchGame() {
       {/* Title */}
       <div className="text-center mb-6">
         <h1 className="text-3xl font-semibold">
-          Match Game - <span className="text-blue-400">{subjectTitle}</span>
+          Match Game - <span className="text-blue-400">{chapterTitle}</span>
         </h1>
         <p className="text-gray-400 mt-1">Match questions with their correct answers</p>
       </div>
@@ -132,7 +162,7 @@ export default function MatchGame() {
           <Trophy className="w-4 h-4 text-blue-400" /> Score: {score}
         </div>
         <div className="flex items-center gap-2 px-4 py-2 border border-slate-600 rounded-lg text-sm">
-          <Clock className="w-4 h-4 text-blue-400" /> Time: {elapsedTime}s
+          <Clock className="w-4 h-4 text-blue-400" /> Time: {formatTime(elapsedTime)}
         </div>
         <div className="flex items-center gap-2 px-4 py-2 border border-slate-600 rounded-lg text-sm">
           <Repeat className="w-4 h-4 text-blue-400" /> Attempts: {attempts}
@@ -146,10 +176,13 @@ export default function MatchGame() {
             <div
               key={tile.id}
               onClick={() => handleClick(tile)}
-              className={`h-[160px] w-full max-w-[340px] px-4 py-3 rounded-xl text-white text-center text-base font-medium shadow-lg transition-transform duration-200 ease-in-out
-        ${tile.matched
-                  ? "bg-green-600/40 text-green-300 border border-green-300/30 cursor-default"
-                  : tile.selected
+              className={`h-[180px] w-full max-w-[420px] px-4 py-3 rounded-xl text-white text-center text-base font-medium shadow-lg transition-transform duration-200 ease-in-out
+                ${
+                  tile.matched
+                    ? "bg-green-600/40 text-green-300 border border-green-300/30 cursor-default"
+                    : mismatchedIds.includes(tile.id)
+                    ? "bg-red-600/50 text-red-200 border border-red-400/50"
+                    : tile.selected
                     ? "bg-blue-500/10 text-blue-200 border border-blue-300/40"
                     : "bg-[#1E2A48] border border-[#1c2c44] hover:border-blue-400/40 shadow-2xl shadow-black/30"
                 } cursor-pointer flex items-center justify-center`}
@@ -158,19 +191,10 @@ export default function MatchGame() {
             </div>
           ))}
         </div>
-
       </div>
 
-
       {/* Confetti */}
-      {gameWon && (
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          numberOfPieces={300}
-          recycle={false}
-        />
-      )}
+      {/* {gameWon && <Confetti width={window.innerWidth} height={window.innerHeight} />} */}
     </div>
   );
 }
