@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./Components/ui/button";
 import { Progress } from "./Components/ui/progress";
+import SubjectDiagnosticTest from "./SubjectDiagnosticTest";
+
 import {
   BookOpen,
   Clock,
@@ -54,6 +56,7 @@ const OnboardingForm = () => {
     setClassSelected(cls);
     nextStep();
   };
+  const [diagnosticStepIndex, setDiagnosticStepIndex] = useState(0);
 
   const selectBoard = (board) => {
     setBoardSelected(board);
@@ -243,72 +246,27 @@ const OnboardingForm = () => {
           </motion.div>
         )}
 
-        {step === 4 && (
-          <motion.div
-            key="step-4"
-            {...fadeMotionProps}
-            className="text-center w-full max-w-3xl mx-auto"
-          >
-            <div className="bg-[#0F1D37] rounded-2xl px-10 py-14 shadow-xl border border-blue-600/20">
-              <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-8">
-                How Confident Are You in Each Subject?
-              </h2>
+        {step === 4 && diagnosticStepIndex < selectedSubjects.length && (
+          <SubjectDiagnosticTest
+            key={selectedSubjects[diagnosticStepIndex]} // ✅ force re-mount
+            subject={selectedSubjects[diagnosticStepIndex]}
+            onLevelDetermined={(level) => {
+              const currentSubject = selectedSubjects[diagnosticStepIndex];
+              setSubjectLevels((prev) => ({
+                ...prev,
+                [currentSubject]: level,
+              }));
 
-              <div className="flex flex-col gap-4 mb-8">
-                {selectedSubjects.map((subject) => (
-                  <div
-                    key={subject}
-                    className="flex justify-between items-center bg-[#0D162A] border border-[#1C2942] px-5 py-3 rounded-xl text-white"
-                  >
-                    <span className="font-medium flex items-center gap-3">
-                      {subjects.find((s) => s.name === subject)?.icon}
-                      {subject}
-                    </span>
-                    <select
-                      value={subjectLevels[subject] || ""}
-                      onChange={(e) =>
-                        setSubjectLevels((prev) => ({
-                          ...prev,
-                          [subject]: e.target.value,
-                        }))
-                      }
-                      className="bg-[#1C2942] text-white px-4 py-2 rounded-md border border-[#2B3A55] focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                    >
-                      <option value="">Select level</option>
-                      <option value="Beginner">Beginner</option>
-                      <option value="Intermediate">Intermediate</option>
-                      <option value="Expert">Expert</option>
-                    </select>
-                  </div>
-                ))}
-              </div>
-
-              <Button
-                onClick={() => {
-                  const allSelected = selectedSubjects.every(
-                    (subj) => subjectLevels[subj]
-                  );
-                  if (!allSelected) {
-                    alert("Please select a level for each subject.");
-                    return;
-                  }
-                  nextStep();
-                }}
-                disabled={
-                  selectedSubjects.length === 0 ||
-                  !selectedSubjects.every((subj) => subjectLevels[subj])
+              // Delay to give UI a chance to update if needed
+              setTimeout(() => {
+                if (diagnosticStepIndex + 1 < selectedSubjects.length) {
+                  setDiagnosticStepIndex((prev) => prev + 1);
+                } else {
+                  nextStep(); // All done
                 }
-                className={`mt-6 px-15 py-2 font-medium rounded-lg transition duration-300 shadow-md ${
-                  selectedSubjects.length === 0 ||
-                  !selectedSubjects.every((subj) => subjectLevels[subj])
-                    ? "bg-gray-600 cursor-not-allowed"
-                    : "bg-blue-500 hover:bg-blue-600 text-white"
-                }`}
-              >
-                Next
-              </Button>
-            </div>
-          </motion.div>
+              }, 300);
+            }}
+          />
         )}
 
         {step === 5 && (
@@ -328,8 +286,10 @@ const OnboardingForm = () => {
               </p>
               <Button
                 className="mt-5 px-5 py-2 bg-transparent border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-md transition"
-                onClick={()=>{submitOnboarding();nextStep();}}
-                
+                onClick={() => {
+                  submitOnboarding();
+                  nextStep();
+                }}
               >
                 Start Learning
               </Button>
@@ -375,7 +335,6 @@ const OnboardingForm = () => {
                         <Button
                           size="sm"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 text-sm"
-                          
                         >
                           <span className="flex items-center gap-1">
                             <svg
@@ -442,7 +401,10 @@ const OnboardingForm = () => {
             </div>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white" onClick={submitOnboarding}>
+              <Button
+                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={submitOnboarding}
+              >
                 <Link to="/">Get Started</Link>
               </Button>
               <Button
