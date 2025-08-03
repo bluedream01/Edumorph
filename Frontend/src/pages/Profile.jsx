@@ -20,8 +20,9 @@ export default function Profile() {
 
   const [originalData, setOriginalData] = useState({ name: "", email: "" });
   const [profileData, setProfileData] = useState({
+    firstName: "",
+    lastName: "",
     name: "",
-    location: "Not Provided",
     email: "",
     xp: 0,
     levels: {},
@@ -46,13 +47,19 @@ export default function Profile() {
         const profile = {
           name: data.username || "Guest",
           email: data.email || "Not Available",
-          location: "Not Provided",
           xp: typeof data.xp !== "undefined" ? data.xp : 0,
           levels: data.levels || {},
+          firstName: data.firstName || "",
+          lastName: data.lastName || "",
         };
 
         setProfileData(profile);
-        setOriginalData({ name: profile.name, email: profile.email });
+        setOriginalData({
+          name: profile.name,
+          email: profile.email,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+        });
         setUserXp(profile.xp);
       } catch (err) {
         console.error("❌ Error fetching user data:", err.message);
@@ -109,6 +116,8 @@ export default function Profile() {
         body: JSON.stringify({
           username: profileData.name,
           email: profileData.email,
+          firstName: profileData.firstName,
+          lastName:profileData.lastName,
         }),
       });
 
@@ -234,12 +243,14 @@ export default function Profile() {
 
           {!isEditing ? (
             <>
-              <h2 className="text-2xl font-bold mt-4">{profileData.name}</h2>
-              <p className="text-sm text-gray-300">{profileData.location}</p>
+              <h2 className="text-2xl font-bold mt-4">
+                {profileData.firstName} {profileData.lastName}
+              </h2>
+
+              <h2 className="text-sm ">@{profileData.name}</h2>
               <p className="text-sm text-gray-400 mt-1">
                 Email: {profileData.email}
               </p>
-              <p className="text-sm text-gray-500">Joined in 2024</p>
 
               <div className="mt-4 text-yellow-400 flex justify-center items-center gap-2 text-sm font-medium">
                 <FaStar className="text-yellow-300" />
@@ -287,19 +298,27 @@ export default function Profile() {
               </div>
             </>
           ) : (
+            
             <div className="mt-4 flex flex-col gap-2">
               <input
                 className="bg-[#2c3e5a] text-white p-2 rounded"
                 type="text"
-                name="name"
-                value={profileData.name}
+                name="firstName"
+                value={profileData.firstName}
                 onChange={handleChange}
               />
               <input
                 className="bg-[#2c3e5a] text-white p-2 rounded"
                 type="text"
-                name="location"
-                value={profileData.location}
+                name="lastName"
+                value={profileData.lastName}
+                onChange={handleChange}
+              />
+              <input
+                className="bg-[#2c3e5a] text-white p-2 rounded"
+                type="text"
+                name="name"
+                value={profileData.name}
                 onChange={handleChange}
               />
               <input
@@ -347,7 +366,7 @@ export default function Profile() {
         {/* Tab Content */}
         {activeTab === "Overview" && (
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-[#152238] p-6 rounded-xl shadow-md md:col-span-2">
+            <div className="bg-[#152238] p-6 rounded-xl shadow-md md:col-span-2">
               <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
                 <FaUser /> Your Learning Levels
               </h3>
@@ -435,7 +454,6 @@ export default function Profile() {
               </div>
             </div>
             {/* Learning Levels */}
-      
           </div>
         )}
         {activeTab === "Badges" && (

@@ -11,29 +11,34 @@ router.post("/login", controller.login);
 // ✅ GET profile details
 router.get("/profile", verifyToken, async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).select("username email profileImage xp onboarding.levels");
+    const user = await User.findById(req.user._id).select(
+      "username email profileImage xp onboarding.levels firstName lastName"
+    );
     if (!user) return res.status(404).json({ message: "User not found" });
-
     res.status(200).json({
       username: user.username,
       email: user.email,
       profileImage: user.profileImage || null,
       xp: user.xp,
       levels: user.onboarding?.levels || {},
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
     });
   } catch (err) {
-    res.status(500).json({ message: "Error fetching user", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching user", error: err.message });
   }
 });
 
 // ✅ UPDATE profile info (name + email)
 router.put("/profile", verifyToken, async (req, res) => {
   try {
-    const { username, email } = req.body;
+    const { username, email,firstName,lastName } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
-      { username, email },
+      { username, email,firstName,lastName },
       { new: true }
     );
 
@@ -45,9 +50,13 @@ router.put("/profile", verifyToken, async (req, res) => {
       message: "Profile updated successfully",
       username: updatedUser.username,
       email: updatedUser.email,
+      firstName: updatedUser.firstName,
+      email: updatedUser.lastName,
     });
   } catch (err) {
-    res.status(500).json({ message: "Error updating profile", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error updating profile", error: err.message });
   }
 });
 
@@ -71,7 +80,9 @@ router.put("/profile-image", verifyToken, async (req, res) => {
       profileImage: user.profileImage,
     });
   } catch (err) {
-    res.status(500).json({ message: "Error updating image", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error updating image", error: err.message });
   }
 });
 // router.post("/api/user/onboarding", verifyToken, async (req, res) => {
@@ -103,10 +114,7 @@ router.post("/update-xp", verifyToken, async (req, res) => {
       return res.status(400).json({ message: "Invalid XP value" });
     }
 
-    await User.findByIdAndUpdate(
-      req.user._id,
-      { $inc: { xp } }
-    );
+    await User.findByIdAndUpdate(req.user._id, { $inc: { xp } });
 
     const updatedUser = await User.findById(req.user._id).select("xp");
 
@@ -120,10 +128,10 @@ router.post("/update-xp", verifyToken, async (req, res) => {
     });
   } catch (err) {
     console.error("Error updating XP:", err);
-    res.status(500).json({ message: "Failed to update XP", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Failed to update XP", error: err.message });
   }
 });
 
-
 module.exports = router;
-
