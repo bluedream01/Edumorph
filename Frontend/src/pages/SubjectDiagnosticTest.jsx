@@ -1,24 +1,115 @@
 // src/components/SubjectDiagnosticTest.jsx
 import React, { useState, useEffect } from "react";
 
+const questionBank = {
+  physics: [
+    {
+      question: "Which unit is used to measure force?",
+      options: ["Joule", "Pascal", "Newton", "Watt"],
+      answer: "Newton",
+    },
+    {
+      question: "If an object is in uniform motion, what can we say about the net external force acting on it?",
+      options: ["It is increasing", "It is zero", "It is negative", "It is constant"],
+      answer: "It is zero",
+    },
+    {
+      question: "Which of the following electromagnetic waves has the highest frequency?",
+      options: ["Microwaves", "Infrared", "Ultraviolet", "Gamma rays"],
+      answer: "Gamma rays",
+    },
+  ],
+  chemistry: [
+    {
+      question: "What is the chemical formula of water?",
+      options: ["CO₂", "H₂O", "O₂", "HCl"],
+      answer: "H₂O",
+    },
+    {
+      question: "Which of these is a noble gas?",
+      options: ["Oxygen", "Nitrogen", "Argon", "Hydrogen"],
+      answer: "Argon",
+    },
+    {
+      question: "Which of the following has the lowest pH?",
+      options: ["Vinegar", "Milk", "Water", "Soap"],
+      answer: "Vinegar",
+    },
+  ],
+  biology: [
+    {
+      question: "Which organ is responsible for pumping blood in the human body?",
+      options: ["Lungs", "Brain", "Heart", "Liver"],
+      answer: "Heart",
+    },
+    {
+      question: "What is the basic unit of life?",
+      options: ["Atom", "Organ", "Cell", "Tissue"],
+      answer: "Cell",
+    },
+    {
+      question: "Which of the following carries oxygen in the blood?",
+      options: ["White blood cells", "Platelets", "Red blood cells", "Plasma"],
+      answer: "Red blood cells",
+    },
+  ],
+  mathematics: [
+    {
+      question: "What is the square of 5?",
+      options: ["10", "15", "20", "25"],
+      answer: "25",
+    },
+    {
+      question: "Solve: 2x + 3 = 7. What is x?",
+      options: ["1", "2", "3", "4"],
+      answer: "2",
+    },
+    {
+      question: "What is the value of π (pi) approximately?",
+      options: ["2.14", "3.14", "4.14", "3.41"],
+      answer: "3.14",
+    },
+  ],
+  history: [
+    {
+      question: "Who was the first President of India?",
+      options: ["Jawaharlal Nehru", "Mahatma Gandhi", "Dr. Rajendra Prasad", "Sardar Patel"],
+      answer: "Dr. Rajendra Prasad",
+    },
+    {
+      question: "In which year did India gain independence?",
+      options: ["1942", "1945", "1947", "1950"],
+      answer: "1947",
+    },
+    {
+      question: "Which movement was led by Mahatma Gandhi against the British salt laws?",
+      options: ["Quit India Movement", "Swadeshi Movement", "Salt March", "Non-Cooperation Movement"],
+      answer: "Salt March",
+    },
+  ],
+  geography: [
+    {
+      question: "Which is the largest continent on Earth?",
+      options: ["Africa", "Asia", "Europe", "Antarctica"],
+      answer: "Asia",
+    },
+    {
+      question: "What type of climate does the Sahara Desert have?",
+      options: ["Tropical", "Polar", "Arid", "Temperate"],
+      answer: "Arid",
+    },
+    {
+      question: "Which river is the longest in the world?",
+      options: ["Amazon", "Yangtze", "Ganges", "Nile"],
+      answer: "Nile",
+    },
+  ],
+};
 
-const getDummyQuestions = (subject) => [
-  {
-    question: `What is 2 + 2 in ${subject}?`,
-    options: ["2", "3", "4", "5"],
-    answer: "4",
-  },
-  {
-    question: `Which is correct in ${subject}?`,
-    options: ["A", "B", "C", "D"],
-    answer: "C",
-  },
-  {
-    question: `Select the best answer for ${subject}.`,
-    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-    answer: "Option 3",
-  },
-];
+const getDummyQuestions = (subject) => {
+  const key = subject?.toLowerCase();
+  return questionBank[key] || [];
+};
 
 export default function SubjectDiagnosticTest({ subject, onLevelDetermined }) {
   const [questions, setQuestions] = useState([]);
@@ -26,7 +117,7 @@ export default function SubjectDiagnosticTest({ subject, onLevelDetermined }) {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    setQuestions(getDummyQuestions(subject)); // replace with fetch if needed
+    setQuestions(getDummyQuestions(subject));
   }, [subject]);
 
   const handleSelect = (qIndex, option) => {

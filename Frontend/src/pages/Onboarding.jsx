@@ -20,8 +20,10 @@ import { Link } from "react-router-dom";
 
 const subjects = [
   { name: "Mathematics", icon: <Book className="w-5 h-5 mb-1" /> },
-  { name: "Science", icon: <Microscope className="w-5 h-5 mb-1" /> },
-  { name: "English", icon: <BookOpen className="w-5 h-5 mb-1" /> },
+  { name: "Physics", icon: <Microscope className="w-5 h-5 mb-1" /> },
+   { name: "Chemistry", icon: <Microscope className="w-5 h-5 mb-1" /> },
+    { name: "Biology", icon: <Microscope className="w-5 h-5 mb-1" /> },
+  // { name: "English", icon: <BookOpen className="w-5 h-5 mb-1" /> },
   { name: "History", icon: <Clock className="w-5 h-5 mb-1" /> },
   { name: "Geography", icon: <Globe className="w-5 h-5 mb-1" /> },
   // { name: "Computer", icon: <Computer className="w-5 h-5 mb-1" /> },
