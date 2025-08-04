@@ -19,7 +19,7 @@ import TestPage from './pages/TestPage';
 import './index.css';
 import Navbar from './navbar';
 import FlashcardMatchGame from "./pages/FlashcardMatchGame";
-
+import Congratulations from "./pages/Congratulations";
 import PrivateRoute from './utils/PrivateRoute';
 import RedirectIfLoggedIn from './utils/RedirectIfLoggedIn';
 import OnboardingRoute from './utils/OnboardingRoute';
@@ -43,6 +43,7 @@ function App() {
         <Route path="/chapters/:class/:board/:subjectId" element={<PrivateRoute><Chapters /></PrivateRoute>} />
          <Route path="/flashcards/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><Flashcards /></PrivateRoute>} />
         <Route path="/login" element={<RedirectIfLoggedIn><Loginpage /></RedirectIfLoggedIn>} />
+        <Route path="/congratulations" element={<Congratulations />} />
         <Route path="/signup" element={<RedirectIfLoggedIn><Signuppage /></RedirectIfLoggedIn>} />
         <Route path="/student-details" element={<PrivateRoute><StudentForm /></PrivateRoute>} />
         <Route path="/test/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><TestPage /></PrivateRoute>}/>

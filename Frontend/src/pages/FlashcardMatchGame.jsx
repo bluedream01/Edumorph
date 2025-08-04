@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { RotateCcw, ArrowLeft, Clock, Trophy, Repeat } from "lucide-react";
 import { getCourseData } from "./data/courseData";
-import Confetti from "react-confetti";
 
 export default function MatchGame() {
   const { class: selectedClass, board: selectedBoard, subjectId, chapterId } = useParams();
+  const navigate = useNavigate();
+
   const [tiles, setTiles] = useState([]);
   const [selectedTiles, setSelectedTiles] = useState([]);
   const [score, setScore] = useState(0);
@@ -29,7 +30,7 @@ export default function MatchGame() {
       ...(chapter?.flashcards?.beginner || []),
       ...(chapter?.flashcards?.intermediate || []),
       ...(chapter?.flashcards?.hard || []),
-    ].slice(0, 6);
+    ].slice(0, 6); // use only first 6 cards
 
     const paired = [];
     all.forEach((card, index) => {
@@ -67,9 +68,18 @@ export default function MatchGame() {
   useEffect(() => {
     const allMatched = tiles.length > 0 && tiles.every((tile) => tile.matched);
     if (allMatched) {
-      setTimeout(() => setGameWon(true), 300);
+      setTimeout(() => {
+        setGameWon(true);
+        goToCongratulations();
+      }, 300);
     }
   }, [tiles]);
+
+  const goToCongratulations = () => {
+    navigate(
+      `/congratulations?score=${score}&time=${elapsedTime}&attempts=${attempts}&subject=${subjectId}&chapter=${chapterId}`
+    );
+  };
 
   const handleClick = (tile) => {
     if (tile.matched || tile.selected || selectedTiles.length === 2) return;
@@ -169,7 +179,7 @@ export default function MatchGame() {
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Game Grid */}
       <div className="flex-grow">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 max-w-6xl mx-auto min-h-[60vh]">
           {tiles.map((tile) => (
@@ -192,9 +202,6 @@ export default function MatchGame() {
           ))}
         </div>
       </div>
-
-      {/* Confetti */}
-      {/* {gameWon && <Confetti width={window.innerWidth} height={window.innerHeight} />} */}
     </div>
   );
 }
