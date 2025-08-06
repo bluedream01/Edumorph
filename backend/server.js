@@ -10,6 +10,9 @@ const assessmentRoutes = require('./routes/quizAssessment.route');
 const contactDetailsRoute = require('./routes/contactDetails.route');
 
 const app = express();
+const teacherRoutes = require('./routes/admin.routes');
+app.use('/api/teacher', teacherRoutes);
+
 
 // Middleware
 app.use(cors({

@@ -16,6 +16,7 @@ export const courseData = [
           {
             id: "force-10-icse",
             title: "Force and Laws of Motion",
+              videoUrl: "force-10-icse",
             flashcards: {
               beginner: [
                 {
