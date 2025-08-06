@@ -58,9 +58,10 @@ const Navbar = () => {
 
       <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
         <Link to="/" className="nav-link">Home</Link>
-        <Link to="/features" className="nav-link">Features</Link>
-        <Link to="/pricing" className="nav-link">Pricing</Link>
-        <Link to="/contact" className="nav-link">Contact</Link>
+        <Link to="/summary" className="nav-link">Summary</Link>
+        <Link to="/notes" className="nav-link">Notes</Link>
+        <Link to="/courses" className="nav-link">Courses</Link>
+        <Link to="/quizzes" className="nav-link">Quizzes</Link>
 
         {isLoggedIn ? (
           isProfilePage ? (

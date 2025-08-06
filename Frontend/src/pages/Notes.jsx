@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {FileText } from "lucide-react";
 import './notes.css';
+import axios from 'axios';
+
+import img1 from '../assets/notes-img-1.jpg';
+import img2 from '../assets/notes-img-2.jpg';
+import img3 from '../assets/notes-img-3.jpg';
+import img4 from '../assets/notes-img-4.jpg';
+import img5 from '../assets/notes-img-5.jpg';
+import img6 from '../assets/notes-img-6.jpg';
+
+const imageArray = [img1, img2, img3, img4, img5, img6];
 
 const Notes = () => {
   const [notes, setNotes] = useState([]);
@@ -13,29 +23,29 @@ const Notes = () => {
 
   const token = localStorage.getItem('token');
 
+
   useEffect(() => {
-    const fetchNotes = async () => {
-      if (!token) return;
-      try {
-        const res = await fetch('/SummaryCall/note', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-        if (res.ok) {
-          const enriched = data.map(note => ({
-            ...note,
-            image: `https://picsum.photos/seed/${note._id}/100/100`,
-          }));
-          setNotes(enriched);
-        }
-      } catch (err) {
-        console.error('Fetch error:', err);
-      }
-    };
-    fetchNotes();
-  }, [token]);
+  const fetchNotes = async () => {
+    const res = await fetch('/SummaryCall/note', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    if (!res.ok) return;
+
+    const enriched = data.map((note) => {
+      const randomImage = imageArray[Math.floor(Math.random() * imageArray.length)];
+      return {
+        ...note,
+        image: randomImage,
+      };
+    });
+
+    setNotes(enriched);
+  };
+
+  fetchNotes();
+}, [token]);
+
 
   const handleDraftChange = (e) => {
     const { name, value } = e.target;
@@ -64,7 +74,7 @@ const Notes = () => {
         setNotes(prev => [
           {
             ...newNote,
-            image: `https://picsum.photos/seed/${newNote._id}/100/100`,
+            image: imageArray[Math.floor(Math.random() * imageArray.length)],
             favorite: false,
           },
           ...prev,
@@ -138,13 +148,15 @@ const Notes = () => {
       });
       const updated = await res.json();
       if (res.ok) {
+        const randomImage = imageArray[Math.floor(Math.random() * imageArray.length)];
         setNotes(notes.map(note =>
           note._id === id
-            ? { ...updated, image: `https://picsum.photos/seed/${updated._id}/100/100` }
+            ? { ...updated, image: randomImage }
             : note
         ));
         setEditingNoteId(null);
-      }
+}
+
     } catch (err) {
       console.error('Save edit failed:', err);
     }
@@ -240,7 +252,9 @@ const Notes = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {filteredNotes.map(note => (
             <div key={note._id} className="bg-[#1e293b] p-4 rounded-lg shadow hover:shadow-lg transition">
-              <img src={note.image} alt="note" className="w-full h-40 object-cover rounded mb-3" />
+              <div className="w-full aspect-[3/2] overflow-hidden rounded-lg mb-3">
+                 <img src={note.image} alt="note" className="w-full h-full object-cover" />
+              </div>
               <h3 className="text-lg font-bold mb-1">{note.title}</h3>
               <p className="text-sm text-gray-400 mb-2">{note.subject}</p>
               <p className="text-sm text-gray-300 mb-3 line-clamp-3">{note.description}</p>

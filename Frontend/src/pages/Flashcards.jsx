@@ -107,10 +107,10 @@ const Flashcards = () => {
         <div className="mb-8">
           <Link
             to={`/chapters/${selectedClass}/${selectedBoard}/${subjectId}`}
-            className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg hover:scale-[1.03] transition-all duration-300 ease-in-out"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Chapters
+            Back
           </Link>
         </div>
 
@@ -205,7 +205,7 @@ const Flashcards = () => {
               variant="outline"
               onClick={prevCard}
               disabled={currentIndex === 0}
-              className="text-white border-gray-600 hover:bg-gray-800"
+              className="text-white border-gray-600 hover:bg-gray-800 hover:scale-105 hover:border-gray-400 transition-transform duration-300 ease-in-out px-5 py-2 rounded-lg flex items-center"
             >
               <ChevronLeft className="w-4 h-4 mr-2" />
               Previous
@@ -231,11 +231,12 @@ const Flashcards = () => {
               variant="outline"
               onClick={nextCard}
               disabled={currentIndex === allFlashcards.length - 1}
-              className="text-white border-gray-600 hover:bg-gray-800"
-            >
+              className="text-white border-gray-600 hover:bg-gray-800 hover:scale-105 hover:border-gray-400 transition-transform duration-300 ease-in-out px-5 py-2 rounded-lg flex items-center"
+             >            
               Next
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
+
           </div>
         </div>
       </div>

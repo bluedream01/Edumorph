@@ -32,14 +32,15 @@ const Subjects = () => {
         
         {/* Back Button */}
         <div className="mb-8">
-          <Link
-            to="/"
-            className="inline-flex items-center text-white-600 "
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Course Selection
-          </Link>
-        </div>
+  <Link
+    to="/"
+    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-full shadow hover:bg-gray-600 transition duration-200"
+  >
+    <ArrowLeft className="w-4 h-4" />
+    <span className="font-medium">Back to Home</span>
+  </Link>
+</div>
+
 
         {/* Title */}
         <div className="text-center mb-12">
