@@ -15,7 +15,7 @@ const Subjects = () => {
             The selected class and board combination is not available yet.
           </p>
           <Link
-            to="/courses"
+            to="/"
             className="text-blue-400 hover:underline hover:text-blue-500"
           >
             Back to Course Selection
@@ -33,7 +33,7 @@ const Subjects = () => {
         {/* Back Button */}
         <div className="mb-8">
           <Link
-            to="/courses"
+            to="/"
             className="inline-flex items-center text-white-600 "
           >
             <ArrowLeft className="w-4 h-4 mr-2" />

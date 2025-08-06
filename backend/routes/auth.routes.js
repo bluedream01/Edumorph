@@ -12,7 +12,7 @@ router.post("/login", controller.login);
 router.get("/profile", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select(
-      "username email profileImage xp onboarding.levels firstName lastName"
+      "username email profileImage xp onboarding.levels firstName lastName onboarding.class onboarding.board"
     );
     if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json({
@@ -23,6 +23,8 @@ router.get("/profile", verifyToken, async (req, res) => {
       levels: user.onboarding?.levels || {},
       firstName: user.firstName || "",
       lastName: user.lastName || "",
+      class: user.onboarding?.class || 0,
+      board: user.onboarding?.board || "General",
     });
   } catch (err) {
     res
@@ -34,11 +36,11 @@ router.get("/profile", verifyToken, async (req, res) => {
 // ✅ UPDATE profile info (name + email)
 router.put("/profile", verifyToken, async (req, res) => {
   try {
-    const { username, email,firstName,lastName } = req.body;
+    const { username, email, firstName, lastName } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
-      { username, email,firstName,lastName },
+      { username, email, firstName, lastName },
       { new: true }
     );
 

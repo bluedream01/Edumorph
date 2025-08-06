@@ -22,7 +22,7 @@ export default function Login() {
       localStorage.setItem('username', res.data.user.username);
       localStorage.setItem('email', res.data.user.email); // <-- Add this
 
-      alert(`✅ Welcome ${res.data.user.username}!`);
+      // alert(`✅ Welcome ${res.data.user.username}!`);
       navigate('/'); // Redirect to home page instead of dashboard
     } catch (err) {
       console.error("❌ Login Error:", err.response?.data || err.message);
@@ -52,7 +52,7 @@ export default function Login() {
             onChange={handleChange}
           />
 
-          <div className="form-options">
+          {/* <div className="form-options">
             <label className="checkbox-container">
               <input type="checkbox" required />
               <span className="checkmark"></span>
@@ -61,7 +61,7 @@ export default function Login() {
               <a href="#" className="link">Terms</a>
               <a href="#" className="forgot-password">Forgot Password?</a>
             </label>
-          </div>
+          </div> */}
 
           <button type="submit" className="login-btn">Login</button>
         </form>
