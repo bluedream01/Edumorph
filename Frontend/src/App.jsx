@@ -17,6 +17,7 @@ import StudentForm from './pages/Components/StudentDetailsForm';
 import Chatbot from './pages/Components/Chatbot';
 import TestPage from './pages/TestPage';
 import './index.css';
+import TeacherPanel from './pages/TeacherPanel';
 import Navbar from './navbar';
 import FlashcardMatchGame from "./pages/FlashcardMatchGame";
 import Congratulations from "./pages/Congratulations";
@@ -55,6 +56,8 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/teacher" element={<PrivateRoute><TeacherPanel /></PrivateRoute>} />
+
 
       </Routes>
     </Router>
