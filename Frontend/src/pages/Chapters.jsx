@@ -60,14 +60,10 @@ const Chapters = () => {
         {/* Chapters Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {subject.chapters.map((chapter, index) => {
-            const allFlashcards = Object.values(chapter.flashcards || {}).flat();
-            const uniqueIds = new Set(allFlashcards.map((fc) => fc.id));
-            const totalFlashcards = uniqueIds.size;
-
             return (
               <Link
                 key={chapter.id}
-                to={`/flashcards/${selectedClass}/${selectedBoard}/${subjectId}/${chapter.id}`}
+                to={`/chapter/${subjectId}/${chapter.id}`} // ✅ Route to AI video page
                 className="group bg-white/8 border border-white/10 hover:border-blue-500 p-6 rounded-xl transition-all duration-300 cursor-pointer backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-blue-500/30"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
@@ -80,7 +76,6 @@ const Chapters = () => {
                 <p className="text-sm text-gray-400">
                   10 flashcards available
                 </p>
-
               </Link>
             );
           })}
