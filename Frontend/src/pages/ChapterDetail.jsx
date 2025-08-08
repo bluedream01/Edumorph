@@ -17,20 +17,17 @@ const chapterContent = {
                     under the influence of forces. Newton’s three laws of motion are central to understanding
                     classical mechanics and the behavior of objects in various real-life situations.
                 </p>
-
                 <h3 className="font-semibold mb-2">Key Concepts:</h3>
                 <ul className="list-disc list-inside mb-4 space-y-1">
                     <li><strong>Force</strong>: A push or pull that changes or tends to change the state of motion of an object.</li>
                     <li><strong>SI Unit:</strong> Newton (N)</li>
                     <li><strong>Vector Quantity:</strong> Has both magnitude and direction</li>
                 </ul>
-
                 <h3 className="font-semibold mb-2">Balanced and Unbalanced Forces:</h3>
                 <ul className="list-disc list-inside mb-4 space-y-1">
                     <li>Balanced forces do not change the state of motion.</li>
                     <li>Unbalanced forces cause acceleration or change in velocity.</li>
                 </ul>
-
                 <h3 className="font-semibold mb-2">Newton’s Laws of Motion:</h3>
                 <ol className="list-decimal list-inside mb-4 space-y-2">
                     <li>
@@ -53,7 +50,6 @@ const chapterContent = {
                         Action and reaction forces act on different bodies.
                     </li>
                 </ol>
-
                 <h3 className="font-semibold mb-2">Important Points:</h3>
                 <ul className="list-disc list-inside mb-4 space-y-1">
                     <li>Heavier objects possess more inertia.</li>
@@ -63,7 +59,6 @@ const chapterContent = {
                     <li>Walking involves action-reaction pair: pushing backward and moving forward.</li>
                     <li><strong>Law of Conservation of Momentum</strong>: In an isolated system, the total momentum before and after a collision remains the same.</li>
                 </ul>
-
                 <h3 className="font-semibold mb-2">Formula Recap:</h3>
                 <ul className="list-disc list-inside mb-4 space-y-1">
                     <li>F = ma</li>
@@ -71,7 +66,6 @@ const chapterContent = {
                     <li>Impulse = Ft = Δp</li>
                     <li>a = (v - u)/t</li>
                 </ul>
-
                 <p>
                     This chapter builds a strong foundation for analyzing real-world physical phenomena like
                     motion, collisions, and mechanical interactions with logical and mathematical reasoning.
@@ -79,7 +73,6 @@ const chapterContent = {
             </>
         )
     },
-
     // Other dummy chapters
     "geometry-10-icse": {
         title: "Geometry",
@@ -121,10 +114,10 @@ const ChapterDetail = () => {
     return (
         <div className="min-h-screen bg-background">
             <div className="container mx-auto px-4 py-8">
-                {/* Back button */}
+                {/* ✅ Back to Chapters button */}
                 <div className="flex items-center mb-8">
                     <Link
-                        to={`/subject/${subjectId}`}
+                        to={`/chapters/10/ICSE/${subjectId}`}
                         className="flex items-center text-muted-foreground hover:text-foreground transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4 mr-2" />
@@ -132,7 +125,6 @@ const ChapterDetail = () => {
                     </Link>
                 </div>
 
-                {/* Chapter title */}
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-12">
                         <h1 className="text-4xl font-bold mb-4">{chapter.title}</h1>
@@ -141,9 +133,9 @@ const ChapterDetail = () => {
                         </p>
                     </div>
 
-                    {/* Buttons */}
+                    {/* Quiz + Game buttons */}
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                        <Link to={`/quiz?subject=${subjectId}&chapter=${chapterId}`}>
+                        <Link to={`/test/10/ICSE/${subjectId}/${chapterId}`}>
                             <Button
                                 size="lg"
                                 className="w-full sm:w-auto px-8 py-6 text-lg bg-blue-500 text-white hover:bg-blue-600 transition-all"
@@ -152,7 +144,7 @@ const ChapterDetail = () => {
                                 Take Quiz
                             </Button>
                         </Link>
-                        <Link to={`/match-game/${subjectId}/${chapterId}`}>
+                        <Link to={`/match/10/ICSE/${subjectId}/${chapterId}`}>
                             <Button
                                 variant="outline"
                                 size="lg"
@@ -161,15 +153,10 @@ const ChapterDetail = () => {
                                 <GamepadIcon className="w-5 h-5 mr-2" />
                                 Play Match Game
                             </Button>
-
                         </Link>
                     </div>
 
-
-
-
-
-                    {/* Video */}
+                    {/* Video section */}
                     <div className="mb-12">
                         <div className="flex items-center mb-6">
                             <FileVideo className="w-6 h-6 mr-3 text-primary" />
@@ -200,7 +187,7 @@ const ChapterDetail = () => {
                         </div>
                     </div>
 
-                    {/* Summary */}
+                    {/* Chapter Summary and Show Questions button */}
                     <div className="mb-12">
                         <h2 className="text-2xl font-bold mb-6 text-white">Chapter Summary</h2>
 
@@ -209,15 +196,13 @@ const ChapterDetail = () => {
                         </div>
 
                         <div className="flex justify-center mt-6">
-                            <Link to={`/flashcards/10/CBSE/${subjectId}/${chapterId}`}>
+                            <Link to={`/flashcards/10/ICSE/${subjectId}/${chapterId}`}>
                                 <Button
                                     size="lg"
                                     className="w-full sm:w-auto px-8 py-6 text-lg bg-blue-500 text-white hover:bg-blue-600 transition-all"
                                 >
                                     Show Questions
                                 </Button>
-
-
                             </Link>
                         </div>
                     </div>
