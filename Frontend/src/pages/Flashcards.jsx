@@ -107,10 +107,10 @@ const Flashcards = () => {
         <div className="mb-8">
           <Link
             to={`/chapters/${selectedClass}/${selectedBoard}/${subjectId}`}
-            className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg hover:scale-[1.03] transition-all duration-300 ease-in-out"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Chapters
+            Back
           </Link>
         </div>
 
@@ -166,6 +166,22 @@ const Flashcards = () => {
           )}
         </div>
 
+        {chapter.videoUrl && (
+          <div className="my-6">
+            <video
+              controls
+              className="w-full max-w-2xl mx-auto rounded-lg shadow-lg"
+              preload="metadata"
+            >
+              <source
+                src={`/assets/${chapter.videoUrl}.mp4`}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        )}
+
         <div className="max-w-3xl mx-auto">
           {/* Flashcard Container */}
           <div
@@ -173,7 +189,9 @@ const Flashcards = () => {
             onClick={flipCard}
           >
             <div
-              className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${isFlipped ? "rotate-y-180" : ""}`}
+              className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+                isFlipped ? "rotate-y-180" : ""
+              }`}
             >
               {/* Front Side */}
               <div className="absolute inset-0 w-full h-full backface-hidden">
@@ -182,7 +200,9 @@ const Flashcards = () => {
                   <p className="text-lg sm:text-xl font-semibold">
                     {currentFlashcard?.question}
                   </p>
-                  <p className="mt-6 text-sm text-gray-500 italic">Click to see answer</p>
+                  <p className="mt-6 text-sm text-gray-500 italic">
+                    Click to see answer
+                  </p>
                 </div>
               </div>
 
@@ -193,7 +213,9 @@ const Flashcards = () => {
                   <p className="text-lg sm:text-xl font-semibold">
                     {currentFlashcard?.answer}
                   </p>
-                  <p className="mt-6 text-sm text-gray-500 italic">Click to go back</p>
+                  <p className="mt-6 text-sm text-gray-500 italic">
+                    Click to go back
+                  </p>
                 </div>
               </div>
             </div>
@@ -205,7 +227,7 @@ const Flashcards = () => {
               variant="outline"
               onClick={prevCard}
               disabled={currentIndex === 0}
-              className="text-white border-gray-600 hover:bg-gray-800"
+              className="text-white border-gray-600 hover:bg-gray-800 hover:scale-105 hover:border-gray-400 transition-transform duration-300 ease-in-out px-5 py-2 rounded-lg flex items-center"
             >
               <ChevronLeft className="w-4 h-4 mr-2" />
               Previous
@@ -219,10 +241,11 @@ const Flashcards = () => {
                     setCurrentIndex(index);
                     setIsFlipped(false);
                   }}
-                  className={`w-3 h-3 rounded-full transition-colors ${index === currentIndex
-                    ? "bg-primary"
-                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                    }`}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    index === currentIndex
+                      ? "bg-primary"
+                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  }`}
                 />
               ))}
             </div>
@@ -231,11 +254,12 @@ const Flashcards = () => {
               variant="outline"
               onClick={nextCard}
               disabled={currentIndex === allFlashcards.length - 1}
-              className="text-white border-gray-600 hover:bg-gray-800"
-            >
+              className="text-white border-gray-600 hover:bg-gray-800 hover:scale-105 hover:border-gray-400 transition-transform duration-300 ease-in-out px-5 py-2 rounded-lg flex items-center"
+             >            
               Next
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
+
           </div>
         </div>
       </div>
