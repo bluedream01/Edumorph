@@ -26,6 +26,7 @@ import ChapterDetail from "./pages/ChapterDetail";
 import PrivateRoute from './utils/PrivateRoute';
 import RedirectIfLoggedIn from './utils/RedirectIfLoggedIn';
 import OnboardingRoute from './utils/OnboardingRoute';
+import AITest from './pages/AITest';
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
         } />
 
         <Route path="/congratulations" element={<Congratulations />} />
+        <Route path="/aitest" element={<PrivateRoute><AITest /></PrivateRoute>} />
       </Routes>
     </Router>
   );
