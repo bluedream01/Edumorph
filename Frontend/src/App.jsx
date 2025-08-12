@@ -27,6 +27,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import RedirectIfLoggedIn from './utils/RedirectIfLoggedIn';
 import OnboardingRoute from './utils/OnboardingRoute';
 import AITest from './pages/AITest';
+import Game from './pages/Gaming';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <Route path="/onboarding" element={<PrivateRoute><Onboarding /></PrivateRoute>} />
         <Route path="/courses" element={<PrivateRoute><Courses /></PrivateRoute>} />
         <Route path="/teacher" element={<PrivateRoute><TeacherPanel /></PrivateRoute>} />
+         <Route path="/Game" element={<PrivateRoute><Game/></PrivateRoute>} />
 
         {/* Subject & Chapter routes */}
         <Route path="/subjects/:class/:board" element={<PrivateRoute><Subjects /></PrivateRoute>} />
