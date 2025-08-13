@@ -75,7 +75,7 @@ const Subjects = () => {
         {/* Title */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-3 tracking-tight drop-shadow-md">
-            Class {selectedClass} — {selectedBoard}
+            Class {selectedClass}   {selectedBoard}
           </h1>
           <p className="text-lg text-gray-300">
             Choose a subject to explore chapters, flashcards & XP rewards

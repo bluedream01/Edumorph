@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Upload, Brain, FileText, ClipboardCheck, BookOpen } from "lucide-react";
+import { Upload, Brain, FileText, ClipboardCheck, BookOpen, Target, Star } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import heroImage from "../assets/hero-blue-dark.jpg";
 
@@ -23,168 +23,235 @@ export default function Home() {
   return (
     <div className="bg-[#0f172a] text-white font-sans">
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24 grid lg:grid-cols-2 items-center gap-12">
-        <div className="space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Maximize Your <span className="text-blue-400">Academic Performance</span> with AI
-          </h1>
-          <p className="text-lg text-gray-400">
-            Upload notes, ask questions, and generate summaries & quizzes instantly.
-            Transform your study experience with intelligent AI assistance.
-          </p>
+      <section className="bg-[#0f172a] py-16">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-          <div className="flex space-x-4">
-            <button
-              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg"
-              onClick={handleStart}
-            >
-              {isLoggedIn ? "Go to Dashboard" : "Get Started"}
-            </button>
-            <button className="px-5 py-2.5 border border-white hover:bg-white hover:text-[#0f172a] rounded-lg transition">
-              Watch Demo
-            </button>
+          {/* Left Content */}
+          <div>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+              Maximize Your <span className="text-blue-400">Academic Performance</span> with AI
+            </h1>
+            <p className="text-lg text-gray-400 mb-8">
+              Upload notes, ask questions, and generate summaries & quizzes instantly.
+              Transform your study experience with intelligent AI assistance.
+            </p>
+
+            <div className="flex items-center gap-4 mb-6">
+              <a
+                href="#dashboard"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-lg font-medium transition"
+              >
+                Go to Dashboard
+              </a>
+            </div>
+
+            {/* Feature tags */}
+            <div className="flex flex-wrap gap-4 text-gray-400 text-sm">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                Free to start
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                AI-powered
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                Instant results
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 pt-4 text-sm text-gray-400">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-400 rounded-full"></span> Free to start
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-blue-400 rounded-full"></span> AI-powered
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-purple-400 rounded-full"></span> Instant results
-            </span>
-          </div>
-        </div>
+          <div className="flex justify-center md:justify-end w-full md:w-[105%] relative">
+            {/* Blue Glow */}
+            <div className="absolute inset-0 flex justify-center items-center">
+              <div className="w-[90%] h-[90%] bg-blue-500 rounded-full blur-3xl opacity-50 animate-glow"></div>
+            </div>
 
-        <div className="relative">
-          <div className="absolute inset-0 bg-blue-600 opacity-20 rounded-3xl blur-3xl animate-pulse"></div>
-          <img
-            src={heroImage}
-            alt="AI Brain Book"
-            className="relative z-10 w-full rounded-3xl shadow-lg"
-          />
+            {/* Image */}
+            <img
+              src={heroImage}
+              alt="AI Brain Book"
+              className="relative rounded-2xl shadow-lg w-full h-full object-cover z-10"
+            />
+          </div>
+
+
+
+
         </div>
       </section>
 
       {/* Features Section */}
       <section className="bg-[#0f172a] py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold text-center mb-10">
-            Powerful Features for <span className="text-blue-400">Smart Learning</span>
+        <div className="max-w-7xl mx-auto px-6 text-center">
+
+          {/* Heading */}
+          <h2 className="text-4xl font-extrabold text-white mb-4">
+            Powerful Features for <span className="text-blue-400">Smarter Learning</span>
           </h2>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
+            Everything you need to enhance your academic performance, powered by cutting-edge AI technology.
+          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center">
-            <Link to="/notes" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full h-64 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer">
-  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
-    <Upload className="w-6 h-6 text-white" />
-  </div>
-  <h3 className="text-lg font-semibold mb-2">Upload Notes</h3>
-  <p className="text-sm text-gray-400">
-    Simply upload your study materials, lecture notes, or textbooks. Our AI processes any format instantly.
-  </p>
-</Link>
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-<Link to="/mindmap" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full h-64 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer">
-  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
-    <Brain className="w-6 h-6 text-white" />
-  </div>
-  <h3 className="text-lg font-semibold mb-2">AI Mindmaps</h3>
-  <p className="text-sm text-gray-400">
-    Generate interactive mindmaps from your content to visualize concepts and connections.
-  </p>
-</Link>
+            {/* Feature Card Component */}
+            {[
+              {
+                link: "/notes",
+                icon: <Upload className="w-7 h-7 text-white" />,
+                title: "Upload Notes",
+                desc: "Simply upload your study materials, lecture notes, or textbooks. Our AI processes any format instantly."
+              },
+              {
+                link: "/mindmap",
+                icon: <Brain className="w-7 h-7 text-white" />,
+                title: "AI Mindmaps",
+                desc: "Generate interactive mindmaps from your content to visualize concepts and connections."
+              },
+              {
+                link: "/summary",
+                icon: <FileText className="w-7 h-7 text-white" />,
+                title: "Smart Summaries",
+                desc: "Get concise, intelligent summaries that capture the key points and essential information."
+              },
+              {
+                link: "/quizzes",
+                icon: <ClipboardCheck className="w-7 h-7 text-white" />,
+                title: "Practice Quizzes",
+                desc: "Test your knowledge with AI-generated quizzes tailored to your study materials."
+              },
+              {
+                link: "/courses",
+                icon: <BookOpen className="w-7 h-7 text-white" />,
+                title: "Courses",
+                desc: "Access structured courses with chapters and interactive content for comprehensive learning."
+              },
+              {
+                link: "/test/subjects",
+                icon: <Target className="w-7 h-7 text-white" />,
+                title: "Tests",
+                desc: "Take comprehensive tests across multiple subjects with detailed performance analysis."
+              }
+            ].map((feature, i) => (
+              <Link
+                key={i}
+                to={feature.link}
+                className="flex flex-col justify-center items-center bg-[#0f172a] border border-[#334155] rounded-2xl p-8 text-center 
+                     transition-transform duration-300 hover:scale-105 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20 h-full"
+              >
+                <div className="w-14 h-14 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-white">{feature.title}</h3>
+                <p className="text-base text-gray-400">{feature.desc}</p>
+              </Link>
+            ))}
 
-<Link to="/summary" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full h-64 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer">
-  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
-    <FileText className="w-6 h-6 text-white" />
-  </div>
-  <h3 className="text-lg font-semibold mb-2">Smart Summaries</h3>
-  <p className="text-sm text-gray-400">
-    Get concise, intelligent summaries that capture the key points and essential information.
-  </p>
-</Link>
-
-<Link to="/quizzes" className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full h-64 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer">
-  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-4">
-    <ClipboardCheck className="w-6 h-6 text-white" />
-  </div>
-  <h3 className="text-lg font-semibold mb-2">Practice Quizzes</h3>
-  <p className="text-sm text-gray-400">
-    Test your knowledge with AI-generated quizzes tailored to your study materials.
-  </p>
-</Link>
-
-<Link
-  to="/courses"
-  className="col-span-full bg-[#1e293b] border border-[#334155] rounded-xl p-6 w-full sm:w-[40%] h-64 mt-6 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_2px_10px_#3b82f6] cursor-pointer text-center mx-auto"
->
-  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-5 mx-auto">
-    <BookOpen className="w-6 h-6 text-white" />
-  </div>
-  <h3 className="text-lg font-semibold text-white mb-2">Courses</h3>
-  <p className="text-sm text-gray-400 leading-snug ">
-    Explore structured learning paths with topic-wise chapters,  
-    <br /> interactive flashcards, and quick revision tools.
-    <br /> Perfect for deep understanding and exam prep.
-  </p>
-</Link>
-
-
-          </div>
-
-          {/* Optional: Tutorial Hint */}
-          <div className="text-center mt-12">
-            <div className="inline-flex items-center space-x-2 text-sm text-primary bg-primary/10 px-4 py-2 rounded-full">
-              <span>💡 Need help getting started? Check out our quick tutorial</span>
-            </div>
           </div>
         </div>
       </section>
 
+
+
+
       {/* Testimonials */}
       <section className="bg-[#0f172a] py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold text-center mb-12">
-            Success Stories from{" "}
-            <span className="text-blue-400">Real Students</span>
-          </h2>
+        <div className="max-w-7xl mx-auto px-6 text-center">
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {["Sarah Chen", "Marcus Rodriguez", "Emily Johnson"].map((name, i) => {
-              const roles = ["Medical Student", "Engineering Student", "Psychology Major"];
-              const feedbacks = [
-                "EduMorph transformed my study routine. The AI summaries helped me understand complex medical concepts faster than ever before.",
-                "The mindmap feature is incredible! It helped me visualize complex engineering systems and improved my problem-solving skills.",
-                "Practice quizzes generated from my notes saved me hours of study time. My grades improved significantly this semester!",
-              ];
-              return (
-                <div key={i} className="bg-[#1e293b] border border-[#334155] rounded-xl p-6 space-y-4">
-                  <p className="text-sm text-gray-300 italic">&ldquo;{feedbacks[i]}&rdquo;</p>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-white">
-                      {name.split(" ").map((n) => n[0]).join("")}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold">{name}</p>
-                      <p className="text-xs text-gray-400">{roles[i]}</p>
-                    </div>
-                  </div>
+          {/* Heading */}
+          <h2 className="text-4xl font-extrabold text-white mb-4">
+            Success Stories from <span className="text-blue-400">EduMorph</span>
+
+          </h2>
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-12">
+            Discover how EduMorph is helping students achieve their academic goals and excel in their studies.
+          </p>
+
+          {/* Testimonial Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            {/* Card 1 */}
+            <div className="bg-[#0f172a] border border-[#334155] rounded-lg p-6 text-left">
+              <div className="flex items-center mb-4">
+                {Array(5).fill(0).map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-blue-400 fill-blue-400" />
+                ))}
+              </div>
+              <p className="text-gray-300 mb-6">
+                "EduMorph transformed my study routine. The AI summaries helped me understand complex medical concepts faster than ever before."
+              </p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold mr-3">
+                  SC
                 </div>
-              );
-            })}
+                <div>
+                  <h4 className="font-semibold text-white">Sarah Chen</h4>
+                  <p className="text-gray-400 text-sm">Medical Student</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="bg-[#0f172a] border border-[#334155] rounded-lg p-6 text-left">
+              <div className="flex items-center mb-4">
+                {Array(5).fill(0).map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-blue-400 fill-blue-400" />
+                ))}
+              </div>
+              <p className="text-gray-300 mb-6">
+                "The mindmap feature is incredible! It helped me visualize complex engineering systems and improved my problem-solving skills."
+              </p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold mr-3">
+                  MR
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">Marcus Rodriguez</h4>
+                  <p className="text-gray-400 text-sm">Engineering Student</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="bg-[#0f172a] border border-[#334155] rounded-lg p-6 text-left">
+              <div className="flex items-center mb-4">
+                {Array(5).fill(0).map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-blue-400 fill-blue-400" />
+                ))}
+              </div>
+              <p className="text-gray-300 mb-6">
+                "Practice quizzes generated from my notes saved me hours of study time. My grades improved significantly this semester!"
+              </p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold mr-3">
+                  EJ
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">Emily Johnson</h4>
+                  <p className="text-gray-400 text-sm">Psychology Major</p>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          {/* Stats */}
-          <div className="mt-10 text-center text-gray-400 text-sm">
-            Join thousands of students already using EduMorph
-            <div className="flex justify-center gap-6 mt-2 text-xs">
-              <span>✅ 10,000+ active users</span>
-              <span>⭐ 4.9/5 rating</span>
-              <span>🎓 50+ universities</span>
+          {/* Stats at bottom */}
+          <div className="mt-12 flex flex-wrap justify-center gap-8 text-gray-400 text-sm">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+              10,000+ active users
+            </div>
+            <div className="flex items-center gap-2">
+              ⭐ 4.9/5 rating
+            </div>
+            <div className="flex items-center gap-2">
+              ✅ 98% recommend
             </div>
           </div>
+
         </div>
       </section>
 
