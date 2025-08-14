@@ -26,6 +26,8 @@ import ChapterDetail from "./pages/ChapterDetail";
 import PrivateRoute from './utils/PrivateRoute';
 import RedirectIfLoggedIn from './utils/RedirectIfLoggedIn';
 import OnboardingRoute from './utils/OnboardingRoute';
+import TestSubjects from "./pages/TestSubjects";
+import TestChapters from "./pages/TestChapters";
 import AITest from './pages/AITest';
 import Game from './pages/Gaming';
 
@@ -52,7 +54,7 @@ function App() {
         <Route path="/onboarding" element={<PrivateRoute><Onboarding /></PrivateRoute>} />
         <Route path="/courses" element={<PrivateRoute><Courses /></PrivateRoute>} />
         <Route path="/teacher" element={<PrivateRoute><TeacherPanel /></PrivateRoute>} />
-         <Route path="/Game" element={<PrivateRoute><Game/></PrivateRoute>} />
+        <Route path="/game" element={<PrivateRoute><Game /></PrivateRoute>} />
 
         {/* Subject & Chapter routes */}
         <Route path="/subjects/:class/:board" element={<PrivateRoute><Subjects /></PrivateRoute>} />
@@ -61,10 +63,10 @@ function App() {
         <Route path="/test/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><TestPage /></PrivateRoute>} />
         <Route path="/match/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><FlashcardMatchGame /></PrivateRoute>} />
 
-        {/* ✅ FIXED: Correct path for Chapter Detail page */}
+        {/* Chapter detail */}
         <Route path="/chapter/:subjectId/:chapterId" element={<PrivateRoute><ChapterDetail /></PrivateRoute>} />
 
-        {/* ✅ Optional fallback for missing class/board params */}
+        {/* Optional fallback */}
         <Route path="/subjects" element={
           <div style={{ textAlign: 'center', marginTop: '100px' }}>
             <h2>Missing Class/Board Params</h2>
@@ -74,6 +76,8 @@ function App() {
 
         <Route path="/congratulations" element={<Congratulations />} />
         <Route path="/aitest" element={<PrivateRoute><AITest /></PrivateRoute>} />
+        <Route path="/aitest/subjects" element={<TestSubjects />} /> {/* ✅ Moved inside Routes */}
+        <Route path="/aitest/chapters" element={<TestChapters />} />
       </Routes>
     </Router>
   );

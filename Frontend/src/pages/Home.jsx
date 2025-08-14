@@ -88,7 +88,7 @@ export default function Home() {
 
           {/* Heading */}
           <h2 className="text-4xl font-extrabold text-white mb-4">
-            Powerful Features for <span className="text-blue-400">Smarter Learning</span>
+            Powerful Features for <span className="text-blue-400">Smart Learning</span>
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
             Everything you need to enhance your academic performance, powered by cutting-edge AI technology.
@@ -130,7 +130,7 @@ export default function Home() {
                 desc: "Access structured courses with chapters and interactive content for comprehensive learning."
               },
               {
-                link: "/test/subjects",
+                link: "/aitest",
                 icon: <Target className="w-7 h-7 text-white" />,
                 title: "Tests",
                 desc: "Take comprehensive tests across multiple subjects with detailed performance analysis."

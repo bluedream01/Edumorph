@@ -197,11 +197,10 @@ const OnboardingForm = () => {
                   <button
                     key={subj.name}
                     onClick={() => toggleSubject(subj.name)}
-                    className={`rounded-xl flex flex-col items-center gap-3 px-6 py-5 text-sm font-medium transition-all duration-300 ${
-                      selectedSubjects.includes(subj.name)
+                    className={`rounded-xl flex flex-col items-center gap-3 px-6 py-5 text-sm font-medium transition-all duration-300 ${selectedSubjects.includes(subj.name)
                         ? "bg-blue-500 text-white shadow-blue-500/30 border border-blue-500"
                         : "bg-[#1C2942] border border-transparent text-white hover:border-blue-400"
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#0D162A] text-blue-400 shadow-inner">
                       {subj.icon}
@@ -219,11 +218,10 @@ const OnboardingForm = () => {
                   nextStep();
                 }}
                 disabled={!selectedSubjects.length}
-                className={`mt-10 px-10 py-3 font-medium rounded-lg ${
-                  !selectedSubjects.length
+                className={`mt-10 px-10 py-3 font-medium rounded-lg ${!selectedSubjects.length
                     ? "bg-gray-600 cursor-not-allowed"
                     : "bg-blue-500 hover:bg-blue-600 text-white"
-                }`}
+                  }`}
               >
                 Next
               </Button>
@@ -242,6 +240,13 @@ const OnboardingForm = () => {
                 ...prev,
                 [currentSubject]: level,
               }));
+              <Button
+                onClick={handleSubmit}
+                className="px-10 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+              >
+                Submit Test
+              </Button>
+
               setTimeout(() => {
                 if (diagnosticStepIndex + 1 < selectedSubjects.length) {
                   setDiagnosticStepIndex((prev) => prev + 1);
