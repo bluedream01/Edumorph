@@ -28,6 +28,7 @@ import RedirectIfLoggedIn from './utils/RedirectIfLoggedIn';
 import OnboardingRoute from './utils/OnboardingRoute';
 import TestSubjects from "./pages/TestSubjects";
 import TestChapters from "./pages/TestChapters";
+import TestMarks from "./pages/TestMarks";
 import AITest from './pages/AITest';
 import Game from './pages/Gaming';
 
@@ -78,6 +79,7 @@ function App() {
         <Route path="/aitest" element={<PrivateRoute><AITest /></PrivateRoute>} />
         <Route path="/aitest/subjects" element={<TestSubjects />} /> {/* ✅ Moved inside Routes */}
         <Route path="/aitest/chapters" element={<TestChapters />} />
+        <Route path="/aitest/marks" element={<TestMarks />} />
       </Routes>
     </Router>
   );

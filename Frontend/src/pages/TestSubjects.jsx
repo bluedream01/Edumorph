@@ -99,7 +99,7 @@ const TestSubjects = () => {
       return;
     }
     navigate(
-      `/test/marks?subjects=${selectedSubjects.join(",")}&chapters=${selectedChapters.join(",")}`
+      `/aitest/marks?subjects=${selectedSubjects.join(",")}&chapters=${selectedChapters.join(",")}`
     );
   };
 
@@ -139,15 +139,14 @@ const TestSubjects = () => {
 
         {/* Subjects */}
         <div className="space-y-4 mb-8">
-          {mergedSubjects.map((subject) => (
+          {mergedSubjects.map(subject => (
             <Card key={subject.id} className="overflow-hidden">
               <CardContent className="p-0">
                 <div
-                  className={`flex items-center justify-between p-6 cursor-pointer transition-all duration-200 hover:bg-accent/50 ${
-                    selectedSubjects.includes(subject.id)
+                  className={`flex items-center justify-between p-6 cursor-pointer transition-all duration-200 hover:bg-accent/50 ${selectedSubjects.includes(subject.id)
                       ? "bg-primary/5 border-l-4 border-l-primary"
                       : ""
-                  }`}
+                    }`}
                   onClick={() => handleSubjectToggle(subject.id)}
                 >
                   <div className="flex items-center gap-4">
@@ -178,18 +177,13 @@ const TestSubjects = () => {
                         {
                           selectedChapters.filter(chapterId => {
                             const chapters = subjectChapters[subject.id] || [];
-                            return chapters.some(
-                              chapter => chapter.id === chapterId
-                            );
+                            return chapters.some(chapter => chapter.id === chapterId);
                           }).length
                         }
                         )
                         <ChevronDown
-                          className={`w-4 h-4 transition-transform ${
-                            openSubjects.includes(subject.id)
-                              ? "rotate-180"
-                              : ""
-                          }`}
+                          className={`w-4 h-4 transition-transform ${openSubjects.includes(subject.id) ? "rotate-180" : ""
+                            }`}
                         />
                       </Button>
                     )}
@@ -208,34 +202,25 @@ const TestSubjects = () => {
                           Select Chapters:
                         </h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                          {(subjectChapters[subject.id] || []).map(
-                            (chapter) => (
-                              <div
-                                key={chapter.id}
-                                className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-200 hover:bg-accent ${
-                                  selectedChapters.includes(chapter.id)
-                                    ? "bg-primary/10 border border-primary/20"
-                                    : "bg-background"
+                          {(subjectChapters[subject.id] || []).map(chapter => (
+                            <div
+                              key={chapter.id}
+                              className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-200 hover:bg-accent ${selectedChapters.includes(chapter.id)
+                                  ? "bg-primary/10 border border-primary/20"
+                                  : "bg-background"
                                 }`}
-                                onClick={() => handleChapterToggle(chapter.id)}
-                              >
-                                <Checkbox
-                                  checked={selectedChapters.includes(
-                                    chapter.id
-                                  )}
-                                  className="pointer-events-none"
-                                />
-                                <div className="flex-1">
-                                  <div className="text-sm font-medium">
-                                    {chapter.title}
-                                  </div>
-                                  <div className="text-xs text-muted-foreground">
-                                    {chapter.flashcards.length} questions
-                                  </div>
-                                </div>
+                              onClick={() => handleChapterToggle(chapter.id)}
+                            >
+                              <Checkbox
+                                checked={selectedChapters.includes(chapter.id)}
+                                className="pointer-events-none"
+                              />
+                              <div className="flex-1">
+                                <div className="text-sm font-medium">{chapter.title}</div>
+                                <div className="text-xs text-muted-foreground">{chapter.flashcards.length} questions</div>
                               </div>
-                            )
-                          )}
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </CollapsibleContent>
@@ -249,20 +234,19 @@ const TestSubjects = () => {
         {/* Selection Count */}
         <div className="text-center mb-6">
           <p className="text-muted-foreground">
-            {selectedSubjects.length} subject
-            {selectedSubjects.length !== 1 ? "s" : ""} and{" "}
-            {selectedChapters.length} chapter
-            {selectedChapters.length !== 1 ? "s" : ""} selected
+            {selectedSubjects.length} subject{selectedSubjects.length !== 1 ? "s" : ""} and{" "}
+            {selectedChapters.length} chapter{selectedChapters.length !== 1 ? "s" : ""} selected
           </p>
         </div>
 
         {/* Proceed Button */}
         <div className="flex justify-center">
           <Button
-            onClick={handleProceed}
-            disabled={
-              selectedSubjects.length === 0 || selectedChapters.length === 0
-            }
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent any parent click handlers from interfering
+              handleProceed();
+            }}
+            disabled={selectedSubjects.length === 0 || selectedChapters.length === 0}
             className="flex items-center gap-2 px-8"
             size="lg"
           >
@@ -270,6 +254,7 @@ const TestSubjects = () => {
             <ArrowRight className="w-5 h-5" />
           </Button>
         </div>
+
       </div>
     </div>
   );

@@ -130,7 +130,7 @@ export default function Home() {
                 desc: "Access structured courses with chapters and interactive content for comprehensive learning."
               },
               {
-                link: "/aitest",
+                link: "/aitest/subjects",
                 icon: <Target className="w-7 h-7 text-white" />,
                 title: "Tests",
                 desc: "Take comprehensive tests across multiple subjects with detailed performance analysis."
