@@ -117,7 +117,7 @@ export default function SubjectDiagnosticTest({ subject, onLevelDetermined }) {
           className={`w-full mt-6 py-3 rounded-lg font-semibold text-lg transition-all duration-300
             ${Object.keys(answers).length !== questions.length
               ? "bg-gray-600 cursor-not-allowed"
-              : "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg"
+              : "bg-blue-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg"
             }`}
         >
           Submit Test

@@ -90,12 +90,12 @@ const Subjects = () => {
               <Link
                 key={subject.id}
                 to={`/chapters/${selectedClass}/${selectedBoard}/${subject.id}`}
-                className="group relative rounded-2xl p-6 border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-2"
+                className="group relative rounded-2xl p-5 h-55 border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-2"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Icon Badge */}
                 <div
-                  className={`w-20 h-20 mb-6 rounded-full bg-gradient-to-br ${subjectIcon.color} flex items-center justify-center text-white text-3xl mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                  className={`w-15 h-15 mb-6 mt-4 rounded-full bg-gradient-to-br ${subjectIcon.color} flex items-center justify-center text-white text-3xl mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300`}
                 >
                   {subjectIcon.icon}
                 </div>
