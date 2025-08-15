@@ -29,6 +29,8 @@ import OnboardingRoute from './utils/OnboardingRoute';
 import TestSubjects from "./pages/TestSubjects";
 import TestChapters from "./pages/TestChapters";
 import TestMarks from "./pages/TestMarks";
+import TestStart from "./pages/TestStart";
+import TestResults from "./pages/TestResults";
 import AITest from './pages/AITest';
 import Game from './pages/Gaming';
 
@@ -80,6 +82,8 @@ function App() {
         <Route path="/aitest/subjects" element={<TestSubjects />} /> {/* ✅ Moved inside Routes */}
         <Route path="/aitest/chapters" element={<TestChapters />} />
         <Route path="/aitest/marks" element={<TestMarks />} />
+        <Route path="/aitest/start" element={<TestStart />} />
+        <Route path="/aitest/results" element={<TestResults />} />
       </Routes>
     </Router>
   );

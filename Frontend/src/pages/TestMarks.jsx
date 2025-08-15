@@ -26,24 +26,9 @@ const TestMarks = () => {
   }, [subjectsParam, chaptersParam, selectedSubjectIds.length, navigate]);
 
   const marksOptions = [
-    {
-      marks: "20",
-      time: "30",
-      description: "Quick Assessment",
-      questions: "20 questions",
-    },
-    {
-      marks: "50",
-      time: "60",
-      description: "Standard Test",
-      questions: "50 questions",
-    },
-    {
-      marks: "80",
-      time: "90",
-      description: "Comprehensive Exam",
-      questions: "80 questions",
-    },
+    { marks: "20", time: "30", description: "Quick Assessment", questions: "20 questions" },
+    { marks: "50", time: "60", description: "Standard Test", questions: "50 questions" },
+    { marks: "80", time: "90", description: "Comprehensive Exam", questions: "80 questions" },
   ];
 
   const handleStartTest = () => {
@@ -55,7 +40,7 @@ const TestMarks = () => {
       marks: selectedMarks,
     });
 
-    navigate(`/test/start?${params.toString()}`);
+    navigate(`/aitest/start?${params.toString()}`);
   };
 
   if (selectedSubjects.length === 0) return null;
