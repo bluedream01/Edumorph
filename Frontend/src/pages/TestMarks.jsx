@@ -2,10 +2,25 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
-import { RadioGroup, RadioGroupItem } from "./components/ui/radio-group";
-import { Label } from "./components/ui/label";
-import { ArrowLeft, ArrowRight, Clock, Target } from "lucide-react";
+import { RadioGroup } from "./components/ui/radio-group";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Clock,
+  Target,
+  BookOpen,
+  FlaskConical,
+  Calculator,
+  Globe,
+} from "lucide-react";
 import { testSubjects } from "./data/testData";
+
+const iconMap = {
+  math: <Calculator className="w-4 h-4 text-primary" />,
+  science: <FlaskConical className="w-4 h-4 text-primary" />,
+  english: <BookOpen className="w-4 h-4 text-primary" />,
+  geography: <Globe className="w-4 h-4 text-primary" />,
+};
 
 const TestMarks = () => {
   const navigate = useNavigate();
@@ -26,20 +41,33 @@ const TestMarks = () => {
   }, [subjectsParam, chaptersParam, selectedSubjectIds.length, navigate]);
 
   const marksOptions = [
-    { marks: "20", time: "30", description: "Quick Assessment", questions: "20 questions" },
-    { marks: "50", time: "60", description: "Standard Test", questions: "50 questions" },
-    { marks: "80", time: "90", description: "Comprehensive Exam", questions: "80 questions" },
+    {
+      marks: "20",
+      time: "30",
+      description: "Quick Assessment",
+      questions: "20 questions",
+    },
+    {
+      marks: "50",
+      time: "60",
+      description: "Standard Test",
+      questions: "50 questions",
+    },
+    {
+      marks: "80",
+      time: "90",
+      description: "Comprehensive Exam",
+      questions: "80 questions",
+    },
   ];
 
   const handleStartTest = () => {
     if (!selectedMarks) return;
-
     const params = new URLSearchParams({
       subjects: subjectsParam,
       chapters: chaptersParam,
       marks: selectedMarks,
     });
-
     navigate(`/aitest/start?${params.toString()}`);
   };
 
@@ -48,28 +76,29 @@ const TestMarks = () => {
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="container mx-auto max-w-4xl">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        {/* Header Row */}
+        <div className="flex items-center justify-between mb-10">
           <Button
             variant="outline"
             onClick={() =>
-              navigate("/test/chapters?" + searchParams.toString())
+              navigate("/aitest/subjects?" + searchParams.toString())
             }
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 border border-white/50 text-white px-4 py-2 rounded-lg hover:bg-white/10 transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Chapters
+            Back
           </Button>
 
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold text-white text-center flex-1">
             Select Test Configuration
           </h1>
 
-          <div></div>
+          {/* Spacer for perfect centering */}
+          <div className="w-[90px]" />
         </div>
 
         {/* Selected Subjects */}
-        <Card className="mb-8">
+        <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Target className="w-5 h-5" />
@@ -83,7 +112,7 @@ const TestMarks = () => {
                   key={subject.id}
                   className="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
                 >
-                  <span>{subject.icon}</span>
+                  {iconMap[subject.id] || <span>{subject.icon}</span>}
                   <span>{subject.name}</span>
                 </div>
               ))}
@@ -92,7 +121,7 @@ const TestMarks = () => {
         </Card>
 
         {/* Marks Selection */}
-        <Card className="mb-8">
+        <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="w-5 h-5" />
@@ -101,33 +130,40 @@ const TestMarks = () => {
           </CardHeader>
           <CardContent>
             <RadioGroup value={selectedMarks} onValueChange={setSelectedMarks}>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {marksOptions.map((option) => (
-                  <div key={option.marks} className="relative">
-                    <RadioGroupItem
+                  <label
+                    key={option.marks}
+                    htmlFor={`marks-${option.marks}`}
+                    className={`relative flex flex-col items-center justify-center p-6 rounded-lg cursor-pointer transition-all duration-300 ease-in-out
+                      ${
+                        selectedMarks === option.marks
+                          ? "border-2 border-blue-500 bg-blue-500/10 shadow-lg"
+                          : "border border-[#1f2e4d] hover:shadow-md"
+                      }`}
+                  >
+                    <input
+                      type="radio"
+                      id={`marks-${option.marks}`}
                       value={option.marks}
-                      id={option.marks}
-                      className="peer sr-only"
+                      checked={selectedMarks === option.marks}
+                      onChange={() => setSelectedMarks(option.marks)}
+                      className="hidden"
                     />
-                    <Label
-                      htmlFor={option.marks}
-                      className="flex flex-col items-center justify-center p-6 bg-card border-2 border-border rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/5 hover:bg-card/80 transition-all duration-300"
-                    >
-                      <div className="text-3xl font-bold text-primary mb-2">
-                        {option.marks}
-                      </div>
-                      <div className="text-lg font-semibold mb-1">
-                        {option.description}
-                      </div>
-                      <div className="text-sm text-muted-foreground mb-2">
-                        {option.questions}
-                      </div>
-                      <div className="flex items-center gap-1 text-sm text-primary">
-                        <Clock className="w-4 h-4" />
-                        {option.time} minutes
-                      </div>
-                    </Label>
-                  </div>
+                    <div className="text-3xl font-semibold text-blue-500 mb-2">
+                      {option.marks}
+                    </div>
+                    <div className="text-base font-semibold text-white mb-1">
+                      {option.description}
+                    </div>
+                    <div className="text-sm text-gray-400 mb-2">
+                      {option.questions}
+                    </div>
+                    <div className="flex items-center gap-1 text-sm text-blue-400">
+                      <Clock className="w-4 h-4" />
+                      {option.time} minutes
+                    </div>
+                  </label>
                 ))}
               </div>
             </RadioGroup>
@@ -135,7 +171,7 @@ const TestMarks = () => {
         </Card>
 
         {/* Test Guidelines */}
-        <Card className="mb-8">
+        <Card className="mb-6">
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold mb-3">Test Guidelines</h3>
             <ul className="space-y-2 text-muted-foreground">
@@ -153,7 +189,7 @@ const TestMarks = () => {
           <Button
             onClick={handleStartTest}
             disabled={!selectedMarks}
-            className="flex items-center gap-2 px-8 py-3 text-lg"
+            className="flex items-center gap-2 px-8 py-3 text-lg font-normal rounded-lg bg-gradient-to-r from-blue-400 to-blue-300 text-black hover:from-blue-600 hover:to-blue-500 transition-all"
             size="lg"
           >
             Start Test
