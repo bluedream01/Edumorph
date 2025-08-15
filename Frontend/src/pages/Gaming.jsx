@@ -1,45 +1,61 @@
 import React, { useState, useEffect, useRef } from "react";
 import spaceBg from "../assets/space.jpg";
+import allQuestions from "./data/questions.js";
+
+const bubbleColors = [
+  "radial-gradient(circle, #4facfe, #00f2fe)",
+  "radial-gradient(circle, #43e97b, #38f9d7)",
+  "radial-gradient(circle, #ff9966, #ff5e62)",
+  "radial-gradient(circle, #a18cd1, #fbc2eb)",
+  "radial-gradient(circle, #f7971e, #ffd200)"
+];
+
+// ✅ helper function to get N random questions
+const getRandomQuestions = (count) => {
+  const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+};
 
 const Gaming = () => {
+  const [questionPacks, setQuestionPacks] = useState([]);
   const [bubbles, setBubbles] = useState([]);
   const [bullet, setBullet] = useState(null);
   const [rocketX, setRocketX] = useState(400);
   const [attemptsLeft, setAttemptsLeft] = useState(5);
+  const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState("");
   const [borderColor, setBorderColor] = useState("");
+  const [currentQIndex, setCurrentQIndex] = useState(0);
   const gameBoxRef = useRef(null);
 
-  const questionPack = {
-    question: "What is the capital of France?",
-    correctAnswer: "Paris",
-    options: ["London", "Berlin", "Rome", "Madrid", "Lisbon", "Vienna", "Prague", "Paris"],
-  };
+  // Load random questions at start
+  useEffect(() => {
+    setQuestionPacks(getRandomQuestions(5)); // ✅ pick 5 random questions
+  }, []);
 
- const bubbleColors = [
-  "radial-gradient(circle, #4facfe, #00f2fe)",  // Sky Blue
-  "radial-gradient(circle, #43e97b, #38f9d7)",  // Green-Teal
-  "radial-gradient(circle, #ff9966, #ff5e62)",  // Orange-Red
-  "radial-gradient(circle, #a18cd1, #fbc2eb)",  // Purple-Pink
-  "radial-gradient(circle, #f7971e, #ffd200)",  // Gold
-];
-
-
-  const generateBubbles = () => {
-    const shuffled = [...questionPack.options].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 8);
-    const bubbleData = selected.map((opt, index) => ({
-      id: index,
+  const generateBubbles = (questionObj) => {
+    if (!questionObj) return;
+    const shuffledOptions = [...questionObj.options].sort(() => Math.random() - 0.5);
+    const bubbleData = shuffledOptions.map((opt, index) => ({
+      id: Date.now() + index,
       x: Math.random() * 700,
       y: Math.random() * 250 + 80,
       text: opt,
       color: bubbleColors[Math.floor(Math.random() * bubbleColors.length)],
-      floatDir: Math.random() > 0.5 ? 1 : -1,
+      floatDir: Math.random() > 0.5 ? 1 : -1
     }));
     setBubbles(bubbleData);
   };
 
+  // Generate bubbles on question change
+  useEffect(() => {
+    if (questionPacks.length && currentQIndex < questionPacks.length) {
+      generateBubbles(questionPacks[currentQIndex]);
+    }
+  }, [currentQIndex, questionPacks]);
+
+  // Track mouse movement
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!gameBoxRef.current) return;
@@ -52,12 +68,15 @@ const Gaming = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  const fireBullet = () => {
+    setBullet({ x: rocketX + 20, y: 620, speed: 15 });
+  };
+
+  // Shooting controls
   useEffect(() => {
     const handleShoot = (e) => {
       if ((e.type === "keydown" && e.code === "Space") || e.type === "click") {
-        if (!bullet && !gameOver) {
-          fireBullet();
-        }
+        if (!bullet && !gameOver) fireBullet();
       }
     };
     window.addEventListener("keydown", handleShoot);
@@ -68,6 +87,7 @@ const Gaming = () => {
     };
   }, [bullet, gameOver, rocketX]);
 
+  // Floating bubbles animation
   useEffect(() => {
     const interval = setInterval(() => {
       setBubbles((prev) =>
@@ -81,10 +101,7 @@ const Gaming = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const fireBullet = () => {
-    setBullet({ x: rocketX + 20, y: 620, speed: 15 });
-  };
-
+  // Bullet movement + hit detection
   useEffect(() => {
     if (!bullet) return;
     const interval = setInterval(() => {
@@ -101,43 +118,63 @@ const Gaming = () => {
         );
 
         if (hitBubble) {
-          if (hitBubble.text === questionPack.correctAnswer) {
+          const correctAnswer = questionPacks[currentQIndex]?.correctAnswer;
+
+          if (hitBubble.text === correctAnswer) {
             setBorderColor("border-green-500 shadow-[0_0_20px_#22c55e]");
-            setMessage("🎉 You Win!");
-            setGameOver(true);
+            setTimeout(() => setBorderColor(""), 500);
+
+            setScore((prevScore) => {
+              const newScore = prevScore + 2;
+              if (currentQIndex < questionPacks.length - 1) {
+                setCurrentQIndex((prev) => prev + 1);
+              } else {
+                setMessage(`🎉 You Finished! Score: ${newScore}`);
+                setGameOver(true);
+              }
+              return newScore;
+            });
+
           } else {
             setBorderColor("border-red-500 shadow-[0_0_20px_#ef4444]");
             setTimeout(() => setBorderColor(""), 500);
-            const newAttempts = attemptsLeft - 1;
-            setAttemptsLeft(newAttempts);
-            if (newAttempts <= 0) {
-              setMessage("💀 Game Over!");
-              setGameOver(true);
-            }
+
+            setScore((prevScore) => {
+              const newScore = Math.max(prevScore - 1, 0);
+              setAttemptsLeft((prevAttempts) => {
+                const newAttempts = prevAttempts - 1;
+                if (newAttempts <= 0) {
+                  setMessage(`💀 Game Over! Final Score: ${newScore}`);
+                  setGameOver(true);
+                }
+                return newAttempts;
+              });
+              return newScore;
+            });
           }
-          setBubbles((prev) => prev.filter((b) => b.id !== hitBubble.id));
-          return null;
+
+          return null; // remove bullet after hit
         }
+
+
 
         if (newY <= 0) return null;
         return { ...prev, y: newY };
       });
     }, 16);
     return () => clearInterval(interval);
-  }, [bullet, bubbles, attemptsLeft]);
+  }, [bullet, bubbles, currentQIndex, score, questionPacks]);
 
   const replayGame = () => {
     setAttemptsLeft(5);
+    setScore(0);
     setGameOver(false);
     setMessage("");
     setBullet(null);
     setBorderColor("");
-    generateBubbles();
+    setCurrentQIndex(0);
+    setQuestionPacks(getRandomQuestions(5)); // ✅ reload new set
   };
-
-  useEffect(() => {
-    generateBubbles();
-  }, []);
 
   return (
     <div className="w-full flex justify-center items-center py-8">
@@ -146,7 +183,7 @@ const Gaming = () => {
         className={`relative border-4 rounded-lg shadow-lg overflow-hidden transition-all duration-300 ${borderColor}`}
         style={{
           backgroundImage: `url(${spaceBg})`,
-          backgroundSize: "cover", // Fill completely
+          backgroundSize: "cover",
           backgroundPosition: "center",
           width: "900px",
           height: "700px",
@@ -158,7 +195,7 @@ const Gaming = () => {
             <div>
               <div className="text-sm text-gray-300">Question</div>
               <div className="text-xl md:text-2xl font-semibold text-white mt-1">
-                {questionPack.question}
+                {questionPacks[currentQIndex]?.question}
               </div>
             </div>
             <div className="text-right">
@@ -168,7 +205,7 @@ const Gaming = () => {
           </div>
         </div>
 
-        {/* Win/Fail Popup */}
+        {/* Game Over Popup */}
         {gameOver && (
           <div className="absolute inset-0 flex justify-center items-center backdrop-blur-sm z-50">
             <div className="bg-[#1e293b]/90 border border-white/10 rounded-lg px-8 py-6 shadow-2xl text-center w-96">
@@ -184,29 +221,25 @@ const Gaming = () => {
         )}
 
         {/* Bubbles */}
-{bubbles.map((bubble) => (
-  <div
-    key={bubble.id}
-    className="absolute w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-sm border border-white shadow-lg"
-    style={{
-      background: bubble.color,
-      top: bubble.y,
-      left: bubble.x,
-    }}
-  >
-    {bubble.text}
-  </div>
-))}
-
+        {bubbles.map((bubble) => (
+          <div
+            key={bubble.id}
+            className="absolute w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-sm border border-white shadow-lg"
+            style={{
+              background: bubble.color,
+              top: bubble.y,
+              left: bubble.x,
+            }}
+          >
+            {bubble.text}
+          </div>
+        ))}
 
         {/* Bullet */}
         {bullet && (
           <div
             className="absolute w-2 h-6 bg-yellow-400 rounded-full shadow-lg"
-            style={{
-              top: bullet.y,
-              left: bullet.x,
-            }}
+            style={{ top: bullet.y, left: bullet.x }}
           ></div>
         )}
 
