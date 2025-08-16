@@ -18,13 +18,16 @@ import { Clock, Send, AlertTriangle } from "lucide-react";
 import { useToast } from "../hooks/use-toast";
 import { testQuestions } from "./data/testData";
 
+const TOTAL_QUESTIONS = 10;
+const MARKS_PER_QUESTION = 2;
+const TOTAL_MARKS = TOTAL_QUESTIONS * MARKS_PER_QUESTION;
+
 const TestStart = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { toast } = useToast();
 
   const subjectsParam = searchParams.get("subjects");
-  const marksParam = searchParams.get("marks");
 
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
@@ -32,18 +35,14 @@ const TestStart = () => {
   const [showSubmitDialog, setShowSubmitDialog] = useState(false);
   const [testStartTime] = useState(Date.now());
 
+  // Load Questions ONCE
   useEffect(() => {
-    if (!subjectsParam || !marksParam) {
+    if (!subjectsParam) {
       navigate("/aitest/subjects");
       return;
     }
 
-    const payload = {
-      subjects: subjectsParam.split(","),
-      maxMarks: parseInt(marksParam),
-    };
-
-    // Filter questions by subjects
+    const payload = { subjects: subjectsParam.split(",") };
     let filteredQuestions = testQuestions.filter(q =>
       payload.subjects.includes(q.subject)
     );
@@ -58,30 +57,28 @@ const TestStart = () => {
       return;
     }
 
-    // Hardcode number of questions for 20 marks = 10 questions
-    let requiredQuestions = [];
-    if (payload.maxMarks === 20) {
-      // Shuffle first
-      filteredQuestions = [...filteredQuestions].sort(() => Math.random() - 0.5);
-      while (requiredQuestions.length < 10) {
-        requiredQuestions = requiredQuestions.concat(filteredQuestions);
-      }
-      requiredQuestions = requiredQuestions.slice(0, 10);
-    } else {
-      // For other marks, keep as before
-      filteredQuestions = [...filteredQuestions].sort(() => Math.random() - 0.5);
-      requiredQuestions = filteredQuestions.slice(0, payload.maxMarks);
+    // Shuffle
+    filteredQuestions = [...filteredQuestions].sort(() => Math.random() - 0.5);
+
+    // Ensure enough questions
+    while (filteredQuestions.length < TOTAL_QUESTIONS) {
+      filteredQuestions = filteredQuestions.concat(filteredQuestions);
     }
 
-    setQuestions(requiredQuestions);
+    // Stable IDs
+    const selectedQuestions = filteredQuestions
+      .slice(0, TOTAL_QUESTIONS)
+      .map((q, index) => ({
+        ...q,
+        marks: MARKS_PER_QUESTION,
+        uid: `${q.subject}_${index}` // ✅ stable ID
+      }));
 
-    // Timer
-    const timeInMinutes = payload.maxMarks === 20 ? 30 : payload.maxMarks === 50 ? 60 : 90;
-    setTimeLeft(timeInMinutes * 60);
+    setQuestions(selectedQuestions);
+    setTimeLeft(30 * 60); // 30 mins
+  }, [subjectsParam, navigate, toast]);
 
-  }, [subjectsParam, marksParam, navigate, toast]);
-
-  // Timer countdown
+  // Timer
   useEffect(() => {
     if (timeLeft === null || timeLeft <= 0) return;
 
@@ -99,48 +96,58 @@ const TestStart = () => {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  // Auto-save answers
+  // Save answers
   useEffect(() => {
-    const saveAnswers = () => localStorage.setItem("testAnswers", JSON.stringify(answers));
-    const timeoutId = setTimeout(saveAnswers, 1000);
-    return () => clearTimeout(timeoutId);
+    localStorage.setItem("testAnswers", JSON.stringify(answers));
   }, [answers]);
 
-  const handleAnswerChange = (questionId, answer) => {
-    setAnswers(prev => ({ ...prev, [questionId]: answer.trim() }));
+  const handleAnswerChange = (uid, answer) => {
+    setAnswers(prev => ({
+      ...prev,
+      [uid]: answer
+    }));
   };
+
+  // ✅ Normalization function for comparison
+  const normalize = str =>
+    str ? str.trim().toLowerCase().replace(/\s+/g, " ") : "";
 
   const calculateResult = useCallback(() => {
     let score = 0;
     questions.forEach(q => {
-      const userAnswer = answers[q.id]?.toLowerCase().trim() || "";
-      const correctAnswer = q.answer?.toLowerCase().trim() || "";
-      if (userAnswer === correctAnswer) score += q.marks;
+      const userAnswer = normalize(answers[q.uid]);
+      const correctAnswer = normalize(q.answer);
+      if (userAnswer === correctAnswer) {
+        score += q.marks; // ✅ Adds 2 per correct
+      }
     });
 
-    const totalMarks = questions.reduce((sum, q) => sum + q.marks, 0);
-    const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0;
+    const percentage = Math.round((score / TOTAL_MARKS) * 100);
     const timeTaken = Math.round((Date.now() - testStartTime) / 1000);
     const subjects = [...new Set(questions.map(q => q.subject))];
 
-    return { score, totalMarks, percentage, subjects, timeTaken, answers };
+    return { score, totalMarks: TOTAL_MARKS, percentage, subjects, timeTaken, answers };
   }, [questions, answers, testStartTime]);
 
   const handleSubmitTest = () => {
     const result = calculateResult();
     localStorage.removeItem("testAnswers");
-
     navigate("/aitest/results", { state: { result, questions } });
   };
 
   const formatTime = seconds => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+      .toString()
+      .padStart(2, "0")}`;
   };
 
-  const answeredQuestions = Object.keys(answers).filter(id => answers[parseInt(id)]?.trim()).length;
-  const progressPercentage = questions.length > 0 ? (answeredQuestions / questions.length) * 100 : 0;
+  const answeredQuestions = Object.keys(answers).filter(id => answers[id]?.trim()).length;
+  const progressPercentage =
+    questions.length > 0
+      ? (answeredQuestions / questions.length) * 100
+      : 0;
 
   if (questions.length === 0 || timeLeft === null) {
     return (
@@ -155,41 +162,57 @@ const TestStart = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* HEADER */}
       <div className="sticky top-0 bg-background/95 backdrop-blur-sm border-b border-border z-10">
-        <div className="container mx-auto max-w-6xl p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <h1 className="text-2xl font-bold">Test in Progress</h1>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>{answeredQuestions}/{questions.length} answered</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className={`flex items-center gap-2 px-3 py-2 rounded-lg ${timeLeft < 300 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"}`}>
-                <Clock className="w-4 h-4" />
-                <span className="font-mono text-lg">{formatTime(timeLeft)}</span>
-              </div>
-              <Button onClick={() => setShowSubmitDialog(true)} className="flex items-center gap-2">
-                <Send className="w-4 h-4" />
-                Submit Test
-              </Button>
+        <div className="container mx-auto max-w-6xl px-6 py-4 grid grid-cols-3 items-center">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-semibold text-foreground">
+              Test in Progress
+            </h1>
+            <span className="text-sm text-muted-foreground">
+              {answeredQuestions}/{questions.length} answered
+            </span>
+          </div>
+
+          <div className="flex justify-center">
+            <div
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-xl font-semibold shadow-sm ${
+                timeLeft < 300
+                  ? "bg-destructive/10 text-destructive"
+                  : "bg-primary/10 text-primary"
+              }`}
+            >
+              <Clock className="w-5 h-5" />
+              <span>{formatTime(timeLeft)}</span>
             </div>
           </div>
-          <div className="mt-4">
-            <Progress value={progressPercentage} className="h-2" />
+
+          <div className="flex justify-end">
+            <Button
+              onClick={() => setShowSubmitDialog(true)}
+              className="flex items-center gap-2 font-medium"
+            >
+              <Send className="w-4 h-4" />
+              Submit Test
+            </Button>
           </div>
+        </div>
+
+        <div className="container mx-auto max-w-6xl px-6 pb-2">
+          <Progress value={progressPercentage} className="h-2" />
         </div>
       </div>
 
+      {/* QUESTIONS */}
       <div className="container mx-auto max-w-6xl p-4">
         <div className="grid gap-6">
           {questions.map((q, idx) => (
-            <Card key={`${q.id}-${idx}`} className="relative">
+            <Card key={q.uid} className="relative">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center justify-between">
                   <span className="text-lg">Question {idx + 1}</span>
                   <span className="text-sm font-normal text-muted-foreground">
-                    {q.marks} mark{q.marks > 1 ? "s" : ""}
+                    {q.marks} marks
                   </span>
                 </CardTitle>
               </CardHeader>
@@ -199,14 +222,15 @@ const TestStart = () => {
                   <div className="flex items-center gap-4">
                     <span className="text-muted-foreground">Answer:</span>
                     <Input
-                      value={answers[q.id] || ""}
-                      onChange={e => handleAnswerChange(q.id, e.target.value)}
+                      value={answers[q.uid] || ""}
+                      onChange={e => handleAnswerChange(q.uid, e.target.value)}
                       placeholder="Type your answer here..."
                       className="flex-1 text-lg"
                     />
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    Subject: {q.subject.charAt(0).toUpperCase() + q.subject.slice(1)}
+                    Subject:{" "}
+                    {q.subject.charAt(0).toUpperCase() + q.subject.slice(1)}
                   </div>
                 </div>
               </CardContent>
@@ -215,25 +239,43 @@ const TestStart = () => {
         </div>
       </div>
 
+      {/* SUBMIT CONFIRMATION */}
       <AlertDialog open={showSubmitDialog} onOpenChange={setShowSubmitDialog}>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-[#1a1a1a] border border-gray-700 text-white max-w-md rounded-xl p-6">
           <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-orange-500" />
+            <AlertDialogTitle className="flex items-center gap-3 text-lg font-semibold">
+              <AlertTriangle className="w-6 h-6 text-blue-400" />
               Submit Test?
             </AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to submit your test? You have answered {answeredQuestions} out of {questions.length} questions.
-              {answeredQuestions < questions.length && (
-                <span className="block mt-2 text-orange-600">
-                  Warning: Unanswered questions will be marked incorrect.
-                </span>
-              )}
+            <AlertDialogDescription className="text-gray-300 mt-2">
+              Are you sure you want to submit your test? You have answered{" "}
+              <span className="font-medium text-white">
+                {answeredQuestions}
+              </span>{" "}
+              out of{" "}
+              <span className="font-medium text-white">
+                {questions.length}
+              </span>{" "}
+              questions.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Continue Test</AlertDialogCancel>
-            <AlertDialogAction onClick={handleSubmitTest}>Submit Test</AlertDialogAction>
+
+          {answeredQuestions < questions.length && (
+            <div className="bg-blue-500/10 border border-blue-500 text-blue-400 text-sm px-3 py-2 rounded mt-4">
+              Warning: Unanswered questions will be marked incorrect.
+            </div>
+          )}
+
+          <AlertDialogFooter className="mt-6 flex justify-end gap-3">
+            <AlertDialogCancel className="px-4 py-2 rounded-lg border border-gray-500 hover:bg-gray-700 transition">
+              Continue Test
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleSubmitTest}
+              className="px-4 py-2 rounded-lg bg-blue-500 text-black hover:bg-blue-400 transition"
+            >
+              Submit Test
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
