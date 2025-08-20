@@ -184,7 +184,7 @@ const TestResults = () => {
           {/* View Answers */}
           <Button
             onClick={() =>
-              navigate("/test/view-answers", { state: { result, questions } })
+              navigate("/aitest/answers", { state: { result, questions } })
             }
             className="flex items-center gap-2 p-6 h-auto flex-col bg-blue-500 text-white border border-blue-500 hover:scale-105 transition-transform duration-300"
           >
