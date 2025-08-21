@@ -9,6 +9,9 @@ import {
   FaUser,
 } from "react-icons/fa";
 import DefaultProfile from "../assets/user.jpg";
+import Mindmap1 from "../assets/mind1.jpg"
+import Mindmap2 from "../assets/mind2.jpeg"
+import Mindmap3 from "../assets/mind3.png"
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -117,7 +120,7 @@ export default function Profile() {
           username: profileData.name,
           email: profileData.email,
           firstName: profileData.firstName,
-          lastName:profileData.lastName,
+          lastName: profileData.lastName,
         }),
       });
 
@@ -271,9 +274,8 @@ export default function Profile() {
                     </div>
                     <div className="h-2 w-full bg-gray-700 rounded-full overflow-hidden">
                       <div
-                        className={`h-full bg-blue-500 transition-all duration-500 ${
-                          getBadge(profileData.xp).color
-                        }`}
+                        className={`h-full bg-blue-500 transition-all duration-500 ${getBadge(profileData.xp).color
+                          }`}
                         style={{ width: `${progress}%` }}
                       />
                     </div>
@@ -298,7 +300,7 @@ export default function Profile() {
               </div>
             </>
           ) : (
-            
+
             <div className="mt-4 flex flex-col gap-2">
               <input
                 className="bg-[#2c3e5a] text-white p-2 rounded"
@@ -352,11 +354,10 @@ export default function Profile() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`w-full py-2 rounded-md text-sm transition ${
-                activeTab === tab
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-[#2b3c55] text-gray-300"
-              }`}
+              className={`w-full py-2 rounded-md text-sm transition ${activeTab === tab
+                ? "bg-blue-500 text-white"
+                : "hover:bg-[#2b3c55] text-gray-300"
+                }`}
             >
               {tab}
             </button>
@@ -387,13 +388,12 @@ export default function Profile() {
                         </h4>
                         <span
                           className={`inline-block px-3 py-1 text-xs font-medium rounded-full
-            ${
-              level === "Beginner"
-                ? "bg-green-700 text-green-200"
-                : level === "Intermediate"
-                ? "bg-yellow-700 text-yellow-200"
-                : "bg-purple-700 text-purple-200"
-            }`}
+            ${level === "Beginner"
+                              ? "bg-green-700 text-green-200"
+                              : level === "Intermediate"
+                                ? "bg-yellow-700 text-yellow-200"
+                                : "bg-purple-700 text-purple-200"
+                            }`}
                         >
                           {level}
                         </span>
@@ -403,59 +403,96 @@ export default function Profile() {
                 </div>
               )}
             </div>
-            {/* Quizzes */}
-            <div className="bg-[#152238] p-6 rounded-xl shadow-md">
-              <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
-                <FaClipboardList /> Attempted Quizzes
-              </h3>
-              <div className="space-y-4 text-sm">
-                <div className="flex justify-between items-center border-b border-[#2b3d59] pb-2">
-                  <div>
-                    <p className="text-white">History of Science</p>
-                    <p className="text-gray-400 text-xs">85%</p>
-                  </div>
-                  <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">
-                    Completed
-                  </span>
-                </div>
-                <div className="flex justify-between items-center border-b border-[#2b3d59] pb-2">
-                  <div>
-                    <p className="text-white">Introduction to Psychology</p>
-                    <p className="text-gray-400 text-xs">70%</p>
-                  </div>
-                  <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">
-                    Completed
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="text-white">Advanced Mathematics</p>
-                  </div>
-                  <span className="bg-yellow-500 text-xs text-white px-3 py-1 rounded-full">
-                    In Progress
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Notes */}
-            <div className="bg-[#152238] p-6 rounded-xl shadow-md">
-              <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
-                <FaFileAlt /> Notes Shared
-              </h3>
-              <div className="space-y-4 text-sm text-white">
-                <p className="border-b border-[#2b3d59] pb-2">
-                  Theories of Relativity
-                </p>
-                <p className="border-b border-[#2b3d59] pb-2">
-                  Cognitive Behavioral Therapy
-                </p>
-                <p>Calculus Fundamentals</p>
-              </div>
-            </div>
-            {/* Learning Levels */}
           </div>
         )}
+
+        {activeTab === "Mindmaps" && (
+          <div className="mt-6 bg-[#152238] p-6 rounded-xl shadow-md">
+            <h3 className="text-lg font-semibold text-[#9db4d2] mb-4">
+              🧠 Your Mindmaps
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-[#1f2d40] p-4 rounded-lg shadow hover:shadow-lg transition">
+                <img
+                  src={Mindmap1}
+                  alt="Mindmap 1"
+                  className="w-full h-48 object-cover rounded-md"
+                />
+                <p className="text-gray-300 mt-2 text-sm">Mindmap Topic 1</p>
+              </div>
+              <div className="bg-[#1f2d40] p-4 rounded-lg shadow hover:shadow-lg transition">
+                <img
+                  src={Mindmap2}
+                  alt="Mindmap 2"
+                  className="w-full h-48 object-cover rounded-md"
+                />
+                <p className="text-gray-300 mt-2 text-sm">Mindmap Topic 2</p>
+              </div>
+              <div className="bg-[#1f2d40] p-4 rounded-lg shadow hover:shadow-lg transition">
+                <img
+                  src={Mindmap3}
+                  alt="Mindmap 3"
+                  className="w-full h-48 object-cover rounded-md"
+                />
+                <p className="text-gray-300 mt-2 text-sm">Mindmap Topic 3</p>
+              </div>
+            </div>
+          </div>
+        )}
+        {activeTab === "Quizzes" && (
+          <div className="mt-6 bg-[#152238] p-6 rounded-xl shadow-md">
+            <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
+              <FaClipboardList /> Attempted Quizzes
+            </h3>
+            <div className="space-y-4 text-sm">
+              <div className="flex justify-between items-center border-b border-[#2b3d59] pb-2">
+                <div>
+                  <p className="text-white">History of Science</p>
+                  <p className="text-gray-400 text-xs">85%</p>
+                </div>
+                <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">
+                  Completed
+                </span>
+              </div>
+              <div className="flex justify-between items-center border-b border-[#2b3d59] pb-2">
+                <div>
+                  <p className="text-white">Introduction to Psychology</p>
+                  <p className="text-gray-400 text-xs">70%</p>
+                </div>
+                <span className="bg-green-600 text-xs text-white px-3 py-1 rounded-full">
+                  Completed
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="text-white">Advanced Mathematics</p>
+                </div>
+                <span className="bg-yellow-500 text-xs text-white px-3 py-1 rounded-full">
+                  In Progress
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+        {activeTab === "Notes" && (
+          <div className="mt-6 bg-[#152238] p-6 rounded-xl shadow-md">
+            <h3 className="text-lg font-semibold flex items-center gap-2 text-[#9db4d2] mb-4">
+              <FaFileAlt /> Notes Shared
+            </h3>
+            <div className="space-y-4 text-sm text-white">
+              <p className="border-b border-[#2b3d59] pb-2">
+                Theories of Relativity
+              </p>
+              <p className="border-b border-[#2b3d59] pb-2">
+                Cognitive Behavioral Therapy
+              </p>
+              <p>Calculus Fundamentals</p>
+            </div>
+          </div>
+        )}
+
+
+
         {activeTab === "Badges" && (
           <div className="mt-6 bg-[#152238] p-6 rounded-xl shadow-md text-center">
             <h3 className="text-xl font-bold text-[#9db4d2] mb-6 flex items-center justify-center gap-2">
@@ -477,6 +514,7 @@ export default function Profile() {
             </div>
           </div>
         )}
+
       </section>
     </div>
   );
