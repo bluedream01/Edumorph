@@ -129,139 +129,139 @@ const TestSubjects = () => {
     );
   };
 
-  return (
-    <div className="min-h-screen bg-background relative">
+return (
+  <div className="min-h-screen bg-background relative">
+    <div className="container mx-auto max-w-5xl pt-6 px-4">
       {/* Back Button */}
-      <div className="absolute top-4 left-4">
+      <div className="mb-6">
         <Button
           variant="outline"
           onClick={() => navigate("/")}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 ml-2"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Button>
       </div>
 
-      <div className="container mx-auto max-w-5xl pt-20 px-4">
-        {/* Header */}
-        <h1 className="text-3xl font-bold text-center mb-6">
-          Select Test Subjects & Chapters
-        </h1>
+      {/* Header */}
+      <h1 className="text-3xl font-bold text-center mb-6">
+        Select Test Subjects & Chapters
+      </h1>
 
-        {/* Instructions */}
-        <Card className="mb-8 bg-[#111827] text-white">
-          <CardContent className="p-6">
-            <h2 className="text-xl font-semibold mb-3">Instructions</h2>
-            <ul className="space-y-2 text-gray-300">
-              <li>• Select subjects by clicking on them</li>
-              <li>• Choose specific chapters for each selected subject</li>
-              <li>• Multiple selections allowed</li>
-              <li>• Must select at least one subject and chapter to proceed</li>
-            </ul>
-          </CardContent>
-        </Card>
+      {/* Instructions */}
+      <Card className="mb-8 bg-[#111827] text-white">
+        <CardContent className="p-6">
+          <h2 className="text-xl font-semibold mb-3">Instructions</h2>
+          <ul className="space-y-2 text-gray-300">
+            <li>• Select subjects by clicking on them</li>
+            <li>• Choose specific chapters for each selected subject</li>
+            <li>• Multiple selections allowed</li>
+            <li>• Must select at least one subject and chapter to proceed</li>
+          </ul>
+        </CardContent>
+      </Card>
 
-        {/* Subjects */}
-        <div className="space-y-4 mb-8">
-          {mergedSubjects.map((subject) => (
-            <Card
-              key={subject.id}
-              className={`overflow-hidden bg-[#111827] text-white cursor-pointer rounded-lg border ${
-                selectedSubjects.includes(subject.id)
-                  ? "border-white"
-                  : "border-gray-600 hover:border-gray-400"
-              } transition-all duration-200`}
-              onClick={() => handleSubjectToggle(subject.id)}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-center gap-4">
-                  <div
-                    className={`w-12 h-12 rounded-lg bg-gradient-to-br ${subject.color} flex items-center justify-center text-white`}
-                  >
-                    {subject.icon}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold">{subject.name}</h3>
-                    <p className="text-sm text-gray-300">
-                      Test your knowledge in {subject.name.toLowerCase()}
-                    </p>
-                  </div>
-                  <Checkbox
-                    checked={selectedSubjects.includes(subject.id)}
-                    className="pointer-events-none"
-                  />
+      {/* Subjects */}
+      <div className="space-y-4 mb-8">
+        {mergedSubjects.map((subject) => (
+          <Card
+            key={subject.id}
+            className={`overflow-hidden bg-[#111827] text-white cursor-pointer rounded-lg border ${
+              selectedSubjects.includes(subject.id)
+                ? "border-white"
+                : "border-gray-600 hover:border-gray-400"
+            } transition-all duration-200`}
+            onClick={() => handleSubjectToggle(subject.id)}
+          >
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4">
+                <div
+                  className={`w-12 h-12 rounded-lg bg-gradient-to-br ${subject.color} flex items-center justify-center text-white`}
+                >
+                  {subject.icon}
                 </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold">{subject.name}</h3>
+                  <p className="text-sm text-gray-300">
+                    Test your knowledge in {subject.name.toLowerCase()}
+                  </p>
+                </div>
+                <Checkbox
+                  checked={selectedSubjects.includes(subject.id)}
+                  className="pointer-events-none"
+                />
+              </div>
 
-                {/* Chapters */}
-                {selectedSubjects.includes(subject.id) && (
-                  <div className="mt-4 space-y-3">
-                    {(subjectChapters[subject.id] || []).map((chapter) => (
-                      <div
-                        key={chapter.id}
-                        className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all duration-200 cursor-pointer ${
-                          selectedChapters.includes(chapter.id)
-                            ? "bg-[#142C44] border-white"
-                            : "bg-[#1F2937] border-gray-600 hover:border-gray-400"
-                        }`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleChapterToggle(chapter.id);
-                        }}
-                      >
-                        <div className="flex items-center gap-3">
-                          <Checkbox
-                            checked={selectedChapters.includes(chapter.id)}
-                            className="pointer-events-none"
-                          />
-                          <div>
-                            <div className="text-sm font-medium">
-                              {chapter.title}
-                            </div>
-                            <div className="text-xs text-gray-300">
-                              {chapter.flashcards.length} questions
-                            </div>
+              {/* Chapters */}
+              {selectedSubjects.includes(subject.id) && (
+                <div className="mt-4 space-y-3">
+                  {(subjectChapters[subject.id] || []).map((chapter) => (
+                    <div
+                      key={chapter.id}
+                      className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all duration-200 cursor-pointer ${
+                        selectedChapters.includes(chapter.id)
+                          ? "bg-[#142C44] border-white"
+                          : "bg-[#1F2937] border-gray-600 hover:border-gray-400"
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleChapterToggle(chapter.id);
+                      }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Checkbox
+                          checked={selectedChapters.includes(chapter.id)}
+                          className="pointer-events-none"
+                        />
+                        <div>
+                          <div className="text-sm font-medium">
+                            {chapter.title}
+                          </div>
+                          <div className="text-xs text-gray-300">
+                            {chapter.flashcards.length} questions
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
 
-        {/* Selection Count */}
-        <div className="text-center mb-6">
-          <p className="text-gray-300">
-            {selectedSubjects.length} subject
-            {selectedSubjects.length !== 1 ? "s" : ""} and{" "}
-            {selectedChapters.length} chapter
-            {selectedChapters.length !== 1 ? "s" : ""} selected
-          </p>
-        </div>
+      {/* Selection Count */}
+      <div className="text-center mb-6">
+        <p className="text-gray-300">
+          {selectedSubjects.length} subject
+          {selectedSubjects.length !== 1 ? "s" : ""} and{" "}
+          {selectedChapters.length} chapter
+          {selectedChapters.length !== 1 ? "s" : ""} selected
+        </p>
+      </div>
 
-        {/* Proceed Button */}
-        <div className="flex justify-center mb-10">
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleProceed();
-            }}
-            disabled={
-              selectedSubjects.length === 0 || selectedChapters.length === 0
-            }
-            className="flex items-center gap-2 px-8 py-3 rounded-lg bg-gradient-to-r from-[#4F9DFE] to-[#3C82F6] text-black font-medium shadow-md hover:opacity-90 transition"
-            size="lg"
-          >
-            Proceed to Marks Selection
-            <ArrowRight className="w-5 h-5" />
-          </Button>
-        </div>
+      {/* Proceed Button */}
+      <div className="flex justify-center mb-10">
+        <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleProceed();
+          }}
+          disabled={
+            selectedSubjects.length === 0 || selectedChapters.length === 0
+          }
+          className="flex items-center gap-2 px-8 py-3 rounded-lg bg-gradient-to-r from-[#4F9DFE] to-[#3C82F6] text-black font-medium shadow-md hover:opacity-90 transition"
+          size="lg"
+        >
+          Proceed to Marks Selection
+          <ArrowRight className="w-5 h-5" />
+        </Button>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default TestSubjects;

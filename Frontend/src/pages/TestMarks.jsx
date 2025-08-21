@@ -9,17 +9,40 @@ import {
   Clock,
   Target,
   BookOpen,
-  FlaskConical,
-  Calculator,
-  Globe,
 } from "lucide-react";
 import { testSubjects } from "./data/testData";
 
+// React Icons
+import { PiMathOperationsBold } from "react-icons/pi";
+import { GiMaterialsScience } from "react-icons/gi";
+import { FaFlask, FaDna, FaHistory, FaGlobeAsia } from "react-icons/fa";
+
+// 🔹 Subject Icon Map (same as TestSubjects)
 const iconMap = {
-  math: <Calculator className="w-4 h-4 text-primary" />,
-  science: <FlaskConical className="w-4 h-4 text-primary" />,
-  english: <BookOpen className="w-4 h-4 text-primary" />,
-  geography: <Globe className="w-4 h-4 text-primary" />,
+  Mathematics: {
+    icon: <PiMathOperationsBold className="w-5 h-5" />,
+    color: "from-blue-500 to-cyan-400",
+  },
+  Physics: {
+    icon: <GiMaterialsScience className="w-5 h-5" />,
+    color: "from-purple-500 to-indigo-400",
+  },
+  Chemistry: {
+    icon: <FaFlask className="w-5 h-5" />,
+    color: "from-pink-500 to-red-400",
+  },
+  Biology: {
+    icon: <FaDna className="w-5 h-5" />,
+    color: "from-purple-500 to-pink-400",
+  },
+  History: {
+    icon: <FaHistory className="w-5 h-5" />,
+    color: "from-yellow-500 to-orange-400",
+  },
+  Geography: {
+    icon: <FaGlobeAsia className="w-5 h-5" />,
+    color: "from-teal-500 to-green-400",
+  },
 };
 
 const TestMarks = () => {
@@ -41,24 +64,9 @@ const TestMarks = () => {
   }, [subjectsParam, chaptersParam, selectedSubjectIds.length, navigate]);
 
   const marksOptions = [
-    {
-      marks: "20",
-      time: "30",
-      description: "Quick Assessment",
-      questions: "20 questions",
-    },
-    {
-      marks: "50",
-      time: "60",
-      description: "Standard Test",
-      questions: "50 questions",
-    },
-    {
-      marks: "80",
-      time: "90",
-      description: "Comprehensive Exam",
-      questions: "80 questions",
-    },
+    { marks: "20", time: "30", description: "Quick Assessment", questions: "20 questions" },
+    { marks: "50", time: "60", description: "Standard Test", questions: "50 questions" },
+    { marks: "80", time: "90", description: "Comprehensive Exam", questions: "80 questions" },
   ];
 
   const handleStartTest = () => {
@@ -76,25 +84,11 @@ const TestMarks = () => {
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="container mx-auto max-w-4xl">
-        {/* Header Row */}
-        <div className="flex items-center justify-between mb-10">
-          <Button
-            variant="outline"
-            onClick={() =>
-              navigate("/aitest/subjects?" + searchParams.toString())
-            }
-            className="flex items-center gap-2 border border-white/50 text-white px-4 py-2 rounded-lg hover:bg-white/10 transition"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </Button>
-
-          <h1 className="text-3xl font-bold text-white text-center flex-1">
+        {/* Header */}
+        <div className="flex items-center justify-center mb-10">
+          <h1 className="text-3xl font-bold text-white text-center">
             Select Test Configuration
           </h1>
-
-          {/* Spacer for perfect centering */}
-          <div className="w-[90px]" />
         </div>
 
         {/* Selected Subjects */}
@@ -106,16 +100,22 @@ const TestMarks = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {selectedSubjects.map((subject) => (
-                <div
-                  key={subject.id}
-                  className="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
-                >
-                  {iconMap[subject.id] || <span>{subject.icon}</span>}
-                  <span>{subject.name}</span>
-                </div>
-              ))}
+            <div className="flex flex-wrap gap-3">
+              {selectedSubjects.map((subject) => {
+                const subjectIconData = iconMap[subject.name] || {
+                  icon: <BookOpen className="w-4 h-4" />,
+                  color: "from-gray-500 to-gray-300",
+                };
+                return (
+                  <div
+                    key={subject.id}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm text-white bg-gradient-to-r ${subjectIconData.color}`}
+                  >
+                    {subjectIconData.icon}
+                    <span>{subject.name}</span>
+                  </div>
+                );
+              })}
             </div>
           </CardContent>
         </Card>
@@ -135,7 +135,7 @@ const TestMarks = () => {
                   <label
                     key={option.marks}
                     htmlFor={`marks-${option.marks}`}
-                    className={`relative flex flex-col items-center justify-center p-6 rounded-lg cursor-pointer transition-all duration-300 ease-in-out
+                    className={`relative flex flex-col items-center justify-center p-6 rounded-lg cursor-pointer transition-all duration-300
                       ${
                         selectedMarks === option.marks
                           ? "border-2 border-blue-500 bg-blue-500/10 shadow-lg"
@@ -184,12 +184,21 @@ const TestMarks = () => {
           </CardContent>
         </Card>
 
-        {/* Start Test Button */}
-        <div className="flex justify-center">
+        {/* Action Buttons */}
+        <div className="flex flex-col md:flex-row justify-center gap-6 mb-6">
+          <Button
+            onClick={() => navigate("/aitest/subjects?" + searchParams.toString())}
+            className="flex items-center justify-center gap-2 min-w-[180px] px-6 py-3 text-lg font-normal rounded-lg bg-gradient-to-r from-blue-400 to-blue-300 text-black hover:from-blue-600 hover:to-blue-500 transition-all"
+            size="lg"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Back
+          </Button>
+
           <Button
             onClick={handleStartTest}
             disabled={!selectedMarks}
-            className="flex items-center gap-2 px-8 py-3 text-lg font-normal rounded-lg bg-gradient-to-r from-blue-400 to-blue-300 text-black hover:from-blue-600 hover:to-blue-500 transition-all"
+            className="flex items-center justify-center gap-2 min-w-[180px] px-6 py-3 text-lg font-normal rounded-lg bg-gradient-to-r from-blue-400 to-blue-300 text-black hover:from-blue-600 hover:to-blue-500 transition-all"
             size="lg"
           >
             Start Test
