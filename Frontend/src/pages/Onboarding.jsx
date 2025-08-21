@@ -117,7 +117,8 @@ const OnboardingForm = () => {
               Let's Customize Your Learning Experience
             </h2>
             <p className="text-gray-400 mb-8 text-sm max-w-md mx-auto">
-              Answer a few quick questions to help us shape the platform around your goals.
+              Answer a few quick questions to help us shape the platform around
+              your goals.
             </p>
             <Button
               onClick={nextStep}
@@ -191,16 +192,19 @@ const OnboardingForm = () => {
               <h2 className="text-3xl font-semibold text-white mb-2">
                 Which Subjects Do You Need Help With?
               </h2>
-              <p className="text-sm text-gray-400 mb-8">Select all that apply</p>
+              <p className="text-sm text-gray-400 mb-8">
+                Select all that apply
+              </p>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {subjects.map((subj) => (
                   <button
                     key={subj.name}
                     onClick={() => toggleSubject(subj.name)}
-                    className={`rounded-xl flex flex-col items-center gap-3 px-6 py-5 text-sm font-medium transition-all duration-300 ${selectedSubjects.includes(subj.name)
+                    className={`rounded-xl flex flex-col items-center gap-3 px-6 py-5 text-sm font-medium transition-all duration-300 ${
+                      selectedSubjects.includes(subj.name)
                         ? "bg-blue-500 text-white shadow-blue-500/30 border border-blue-500"
                         : "bg-[#1C2942] border border-transparent text-white hover:border-blue-400"
-                      }`}
+                    }`}
                   >
                     <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#0D162A] text-blue-400 shadow-inner">
                       {subj.icon}
@@ -218,10 +222,11 @@ const OnboardingForm = () => {
                   nextStep();
                 }}
                 disabled={!selectedSubjects.length}
-                className={`mt-10 px-10 py-3 font-medium rounded-lg ${!selectedSubjects.length
+                className={`mt-10 px-10 py-3 font-medium rounded-lg ${
+                  !selectedSubjects.length
                     ? "bg-gray-600 cursor-not-allowed"
                     : "bg-blue-500 hover:bg-blue-600 text-white"
-                  }`}
+                }`}
               >
                 Next
               </Button>
@@ -240,12 +245,6 @@ const OnboardingForm = () => {
                 ...prev,
                 [currentSubject]: level,
               }));
-              <Button
-                onClick={handleSubmit}
-                className="px-10 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
-              >
-                Submit Test
-              </Button>
 
               setTimeout(() => {
                 if (diagnosticStepIndex + 1 < selectedSubjects.length) {
@@ -257,7 +256,6 @@ const OnboardingForm = () => {
             }}
           />
         )}
-
         {/* Step 5: Completion */}
         {step === 5 && (
           <motion.div
@@ -271,7 +269,8 @@ const OnboardingForm = () => {
                 All Set!
               </h2>
               <p className="text-gray-300 text-sm mb-8">
-                You’ve successfully completed onboarding. Let’s begin your journey!
+                You’ve successfully completed onboarding. Let’s begin your
+                journey!
               </p>
               <Button
                 className="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
