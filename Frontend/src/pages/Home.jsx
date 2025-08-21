@@ -38,7 +38,7 @@ export default function Home() {
 
             <div className="flex items-center gap-4 mb-6">
               <a
-                href="#dashboard"
+                href="/profile"
                 className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-lg font-medium transition"
               >
                 Go to Dashboard

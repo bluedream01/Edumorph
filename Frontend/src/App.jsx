@@ -33,6 +33,7 @@ import TestStart from "./pages/TestStart";
 import TestResults from "./pages/TestResults";
 import TestAnswers from "./pages/TestAnswers";
 import AITest from './pages/AITest';
+import TestStudyPlan from "./pages/TestStudyPlan";
 import Game from './pages/Gaming';
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
         <Route path="/aitest/start" element={<TestStart />} />
         <Route path="/aitest/results" element={<TestResults />} />
          <Route path="/aitest/answers" element={<TestAnswers />} />
+         <Route path="/aitest/study-plan" element={<TestStudyPlan />} />
       </Routes>
     </Router>
   );

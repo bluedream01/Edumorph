@@ -194,7 +194,7 @@ const TestResults = () => {
 
           {/* Study Plan */}
           <Button
-            onClick={() => navigate("/test/study-plan", { state: { result } })}
+            onClick={() => navigate("/aitest/study-plan", { state: { result } })}
             className="flex items-center gap-2 p-6 h-auto flex-col border border-white text-white hover:scale-105 transition-transform duration-300"
           >
             <Target className="w-6 h-6" />

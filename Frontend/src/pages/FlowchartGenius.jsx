@@ -8,7 +8,7 @@ const FlowchartGenius = () => {
   const [markdown, setMarkdown] = useState("");
   const [loading, setLoading] = useState(false);
   const [generated, setGenerated] = useState(false);
-  const [XpMessage, setXpMessage] = useState(false);
+  const [XpMessage, setXpMessage] = useState(""); // ✅ fixed type mismatch
 
   const handleChooseFile = () => {
     fileInputRef.current.click();
@@ -25,18 +25,16 @@ const FlowchartGenius = () => {
     setLoading(true);
     const formData = new FormData();
     formData.append("file", selectedFile);
-     const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch("/SummaryCall/mindmap", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${token}`, // 👈 Add token here
-      },
-    }
-  
-  );
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ token added
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -47,6 +45,7 @@ const FlowchartGenius = () => {
       const raw = data.markdown || data.diagram || "";
       const cleaned = raw.replace(/```markdown\s*([\s\S]*?)\s*```/, "$1").trim();
       setMarkdown(cleaned);
+
       setXpMessage("✅ 10 XP earned!");
       setTimeout(() => setXpMessage(""), 4000);
     } catch (error) {
@@ -90,8 +89,8 @@ const FlowchartGenius = () => {
       </div>
 
       {/* Upload Section */}
-      <section className="mt-12 w-full px-4 max-w-2xl mx-auto">
-        <div className="border-2 border-dashed border-gray-600 rounded-lg p-8 bg-[#1e293b] text-center">
+      <section className="mt-12 w-full px-4 max-w-4xl mx-auto"> {/* ✅ bigger container */}
+        <div className="border-2 border-dashed border-gray-600 rounded-lg p-12 bg-[#1e293b] text-center h-[400px] flex flex-col justify-center">
           <input
             ref={fileInputRef}
             type="file"
@@ -102,13 +101,13 @@ const FlowchartGenius = () => {
 
           {!selectedFile ? (
             <div>
-              <div className="w-18 h-18 bg-blue-600/20 rounded-full mx-auto flex items-center justify-center">
-                <Upload className="w-6 h-6 text-blue-500" />
+              <div className="w-20 h-20 bg-blue-600/20 rounded-full mx-auto flex items-center justify-center">
+                <Upload className="w-8 h-8 text-blue-500" />
               </div>
               <h2 className="text-lg font-semibold mt-4">Upload PDF</h2>
               <p className="text-gray-400 text-sm">Drag and drop your file or click below</p>
               <button
-                className="mt-5 px-5 py-2 bg-transparent border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-md transition"
+                className="mt-5 px-6 py-2 bg-transparent border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-md transition"
                 onClick={handleChooseFile}
               >
                 Choose File
@@ -116,7 +115,7 @@ const FlowchartGenius = () => {
             </div>
           ) : (
             <div>
-              <div className="w-14 h-14 bg-green-600/20 rounded-full mx-auto flex items-center justify-center">
+              <div className="w-16 h-16 bg-green-600/20 rounded-full mx-auto flex items-center justify-center">
                 <FileText className="w-8 h-8 text-green-500" />
               </div>
               <h2 className="text-md font-semibold mt-4 text-green-400">File Selected</h2>
@@ -158,7 +157,7 @@ const FlowchartGenius = () => {
       {generated && (
         <div className="flex justify-center mt-12">
           <div
-            className={`w-[900px] max-w-7xl h-[600px] p-6 rounded-xl shadow-lg border border-gray-700 relative transition-colors duration-500 ${
+            className={`w-full max-w-6xl h-[70vh] p-6 rounded-xl shadow-lg border border-gray-700 relative transition-colors duration-500 ${
               markdown ? "bg-white" : "bg-[#1e293b]"
             }`}
           >
