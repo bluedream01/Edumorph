@@ -3,18 +3,48 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "./components/ui/button";
 import { Card, CardContent } from "./components/ui/card";
 import { Checkbox } from "./components/ui/checkbox";
-import { Collapsible, CollapsibleContent } from "./components/ui/collapsible";
-import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { testSubjects } from "./data/testData";
 import { getCourseData } from "./data/courseData";
 import { useToast } from "../hooks/use-toast";
+
+import { PiMathOperationsBold } from "react-icons/pi";
+import { GiMaterialsScience } from "react-icons/gi";
+import { FaFlask, FaDna, FaHistory, FaGlobeAsia } from "react-icons/fa";
+
+// Icon map
+const iconMap = {
+  Mathematics: {
+    icon: <PiMathOperationsBold className="w-8 h-8" />,
+    color: "from-blue-500 to-cyan-400",
+  },
+  Physics: {
+    icon: <GiMaterialsScience className="w-8 h-8" />,
+    color: "from-purple-500 to-indigo-400",
+  },
+  Chemistry: {
+    icon: <FaFlask className="w-8 h-8" />,
+    color: "from-pink-500 to-red-400",
+  },
+  Biology: {
+    icon: <FaDna className="w-8 h-8" />,
+    color: "from-purple-500 to-pink-400",
+  },
+  History: {
+    icon: <FaHistory className="w-8 h-8" />,
+    color: "from-yellow-500 to-orange-400",
+  },
+  Geography: {
+    icon: <FaGlobeAsia className="w-8 h-8" />,
+    color: "from-teal-500 to-green-400",
+  },
+};
 
 const TestSubjects = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [selectedChapters, setSelectedChapters] = useState([]);
-  const [openSubjects, setOpenSubjects] = useState([]);
   const [subjectChapters, setSubjectChapters] = useState({});
   const [mergedSubjects, setMergedSubjects] = useState([]);
 
@@ -24,20 +54,27 @@ const TestSubjects = () => {
       const chaptersMap = {};
       const merged = [];
 
-      testSubjects.forEach(subject => {
+      testSubjects.forEach((subject) => {
         const subjectData = courseData.subjects.find(
-          s => s.id.split("-")[0] === subject.id
+          (s) => s.id.split("-")[0] === subject.id
         );
         if (subjectData) {
-          chaptersMap[subject.id] = subjectData.chapters.map(chap => ({
+          chaptersMap[subject.id] = subjectData.chapters.map((chap) => ({
             id: chap.id,
             title: chap.title,
-            flashcards: chap.flashcards || []
+            flashcards: chap.flashcards || [],
           }));
+
+          const subjectIconData = iconMap[subjectData.name] || {
+            icon: null,
+            color: "from-gray-400 to-gray-200",
+          };
 
           merged.push({
             ...subject,
-            name: subjectData.name || subject.name
+            name: subjectData.name || subject.name,
+            icon: subjectIconData.icon,
+            color: subjectIconData.color,
           });
         }
       });
@@ -50,34 +87,23 @@ const TestSubjects = () => {
   const handleSubjectToggle = (subjectId) => {
     const isSelected = selectedSubjects.includes(subjectId);
     if (isSelected) {
-      setSelectedSubjects(prev => prev.filter(id => id !== subjectId));
-      setSelectedChapters(prev =>
-        prev.filter(chapterId => {
+      setSelectedSubjects((prev) => prev.filter((id) => id !== subjectId));
+      setSelectedChapters((prev) =>
+        prev.filter((chapterId) => {
           const chapters = subjectChapters[subjectId] || [];
-          return !chapters.some(chapter => chapter.id === chapterId);
+          return !chapters.some((chapter) => chapter.id === chapterId);
         })
       );
-      setOpenSubjects(prev => prev.filter(id => id !== subjectId));
     } else {
-      setSelectedSubjects(prev => [...prev, subjectId]);
-      setOpenSubjects(prev => [...prev, subjectId]);
+      setSelectedSubjects((prev) => [...prev, subjectId]);
     }
   };
 
   const handleChapterToggle = (chapterId) => {
-    setSelectedChapters(prev =>
+    setSelectedChapters((prev) =>
       prev.includes(chapterId)
-        ? prev.filter(id => id !== chapterId)
+        ? prev.filter((id) => id !== chapterId)
         : [...prev, chapterId]
-    );
-  };
-
-  const handleSubjectDropdownToggle = (subjectId) => {
-    if (!selectedSubjects.includes(subjectId)) return;
-    setOpenSubjects(prev =>
-      prev.includes(subjectId)
-        ? prev.filter(id => id !== subjectId)
-        : [...prev, subjectId]
     );
   };
 
@@ -104,127 +130,102 @@ const TestSubjects = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="container mx-auto max-w-4xl">
+    <div className="min-h-screen bg-background relative">
+      {/* Back Button */}
+      <div className="absolute top-4 left-4">
+        <Button
+          variant="outline"
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Home
+        </Button>
+      </div>
+
+      <div className="container mx-auto max-w-5xl pt-20 px-4">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <Button
-            variant="outline"
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Button>
-
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
-            Select Test Subjects & Chapters
-          </h1>
-
-          <div></div>
-        </div>
+        <h1 className="text-3xl font-bold text-center mb-6">
+          Select Test Subjects & Chapters
+        </h1>
 
         {/* Instructions */}
-        <Card className="mb-8">
+        <Card className="mb-8 bg-[#111827] text-white">
           <CardContent className="p-6">
             <h2 className="text-xl font-semibold mb-3">Instructions</h2>
-            <ul className="space-y-2 text-muted-foreground">
+            <ul className="space-y-2 text-gray-300">
               <li>• Select subjects by clicking on them</li>
-              <li>• Choose specific chapters from the dropdown for each selected subject</li>
-              <li>• You can select multiple subjects and chapters</li>
-              <li>• Make sure to select at least one subject and chapter to proceed</li>
+              <li>• Choose specific chapters for each selected subject</li>
+              <li>• Multiple selections allowed</li>
+              <li>• Must select at least one subject and chapter to proceed</li>
             </ul>
           </CardContent>
         </Card>
 
         {/* Subjects */}
         <div className="space-y-4 mb-8">
-          {mergedSubjects.map(subject => (
-            <Card key={subject.id} className="overflow-hidden">
-              <CardContent className="p-0">
-                <div
-                  className={`flex items-center justify-between p-6 cursor-pointer transition-all duration-200 hover:bg-accent/50 ${selectedSubjects.includes(subject.id)
-                      ? "bg-primary/5 border-l-4 border-l-primary"
-                      : ""
-                    }`}
-                  onClick={() => handleSubjectToggle(subject.id)}
-                >
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`w-12 h-12 rounded-lg bg-gradient-to-br ${subject.color} flex items-center justify-center text-2xl`}
-                    >
-                      {subject.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold">{subject.name}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Test your knowledge in {subject.name.toLowerCase()}
-                      </p>
-                    </div>
+          {mergedSubjects.map((subject) => (
+            <Card
+              key={subject.id}
+              className={`overflow-hidden bg-[#111827] text-white cursor-pointer rounded-lg border ${
+                selectedSubjects.includes(subject.id)
+                  ? "border-white"
+                  : "border-gray-600 hover:border-gray-400"
+              } transition-all duration-200`}
+              onClick={() => handleSubjectToggle(subject.id)}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <div
+                    className={`w-12 h-12 rounded-lg bg-gradient-to-br ${subject.color} flex items-center justify-center text-white`}
+                  >
+                    {subject.icon}
                   </div>
-                  <div className="flex items-center gap-3">
-                    {selectedSubjects.includes(subject.id) && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleSubjectDropdownToggle(subject.id);
-                        }}
-                        className="flex items-center gap-2"
-                      >
-                        Chapters (
-                        {
-                          selectedChapters.filter(chapterId => {
-                            const chapters = subjectChapters[subject.id] || [];
-                            return chapters.some(chapter => chapter.id === chapterId);
-                          }).length
-                        }
-                        )
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform ${openSubjects.includes(subject.id) ? "rotate-180" : ""
-                            }`}
-                        />
-                      </Button>
-                    )}
-                    <Checkbox
-                      checked={selectedSubjects.includes(subject.id)}
-                      className="pointer-events-none"
-                    />
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold">{subject.name}</h3>
+                    <p className="text-sm text-gray-300">
+                      Test your knowledge in {subject.name.toLowerCase()}
+                    </p>
                   </div>
+                  <Checkbox
+                    checked={selectedSubjects.includes(subject.id)}
+                    className="pointer-events-none"
+                  />
                 </div>
 
+                {/* Chapters */}
                 {selectedSubjects.includes(subject.id) && (
-                  <Collapsible open={openSubjects.includes(subject.id)}>
-                    <CollapsibleContent>
-                      <div className="border-t bg-muted/20 p-4">
-                        <h4 className="text-sm font-medium mb-3 text-muted-foreground">
-                          Select Chapters:
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                          {(subjectChapters[subject.id] || []).map(chapter => (
-                            <div
-                              key={chapter.id}
-                              className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-200 hover:bg-accent ${selectedChapters.includes(chapter.id)
-                                  ? "bg-primary/10 border border-primary/20"
-                                  : "bg-background"
-                                }`}
-                              onClick={() => handleChapterToggle(chapter.id)}
-                            >
-                              <Checkbox
-                                checked={selectedChapters.includes(chapter.id)}
-                                className="pointer-events-none"
-                              />
-                              <div className="flex-1">
-                                <div className="text-sm font-medium">{chapter.title}</div>
-                                <div className="text-xs text-muted-foreground">{chapter.flashcards.length} questions</div>
-                              </div>
+                  <div className="mt-4 space-y-3">
+                    {(subjectChapters[subject.id] || []).map((chapter) => (
+                      <div
+                        key={chapter.id}
+                        className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all duration-200 cursor-pointer ${
+                          selectedChapters.includes(chapter.id)
+                            ? "bg-[#142C44] border-white"
+                            : "bg-[#1F2937] border-gray-600 hover:border-gray-400"
+                        }`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleChapterToggle(chapter.id);
+                        }}
+                      >
+                        <div className="flex items-center gap-3">
+                          <Checkbox
+                            checked={selectedChapters.includes(chapter.id)}
+                            className="pointer-events-none"
+                          />
+                          <div>
+                            <div className="text-sm font-medium">
+                              {chapter.title}
                             </div>
-                          ))}
+                            <div className="text-xs text-gray-300">
+                              {chapter.flashcards.length} questions
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </CollapsibleContent>
-                  </Collapsible>
+                    ))}
+                  </div>
                 )}
               </CardContent>
             </Card>
@@ -233,28 +234,31 @@ const TestSubjects = () => {
 
         {/* Selection Count */}
         <div className="text-center mb-6">
-          <p className="text-muted-foreground">
-            {selectedSubjects.length} subject{selectedSubjects.length !== 1 ? "s" : ""} and{" "}
-            {selectedChapters.length} chapter{selectedChapters.length !== 1 ? "s" : ""} selected
+          <p className="text-gray-300">
+            {selectedSubjects.length} subject
+            {selectedSubjects.length !== 1 ? "s" : ""} and{" "}
+            {selectedChapters.length} chapter
+            {selectedChapters.length !== 1 ? "s" : ""} selected
           </p>
         </div>
 
         {/* Proceed Button */}
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-10">
           <Button
             onClick={(e) => {
-              e.stopPropagation(); // Prevent any parent click handlers from interfering
+              e.stopPropagation();
               handleProceed();
             }}
-            disabled={selectedSubjects.length === 0 || selectedChapters.length === 0}
-            className="flex items-center gap-2 px-8"
+            disabled={
+              selectedSubjects.length === 0 || selectedChapters.length === 0
+            }
+            className="flex items-center gap-2 px-8 py-3 rounded-lg bg-gradient-to-r from-[#4F9DFE] to-[#3C82F6] text-black font-medium shadow-md hover:opacity-90 transition"
             size="lg"
           >
             Proceed to Marks Selection
             <ArrowRight className="w-5 h-5" />
           </Button>
         </div>
-
       </div>
     </div>
   );
