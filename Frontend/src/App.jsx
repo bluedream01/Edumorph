@@ -59,7 +59,7 @@ function App() {
         <Route path="/onboarding" element={<PrivateRoute><Onboarding /></PrivateRoute>} />
         <Route path="/courses" element={<PrivateRoute><Courses /></PrivateRoute>} />
         <Route path="/teacher" element={<PrivateRoute><TeacherPanel /></PrivateRoute>} />
-        <Route path="/game" element={<PrivateRoute><Game /></PrivateRoute>} />
+        
 
         {/* Subject & Chapter routes */}
         <Route path="/subjects/:class/:board" element={<PrivateRoute><Subjects /></PrivateRoute>} />
@@ -67,6 +67,7 @@ function App() {
         <Route path="/flashcards/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><Flashcards /></PrivateRoute>} />
         <Route path="/test/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><TestPage /></PrivateRoute>} />
         <Route path="/match/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><FlashcardMatchGame /></PrivateRoute>} />
+        <Route path="/game/:class/:board/:subjectId/:chapterId" element={<PrivateRoute><Game /></PrivateRoute>} />
 
         {/* Chapter detail */}
         <Route path="/chapter/:subjectId/:chapterId" element={<PrivateRoute><ChapterDetail /></PrivateRoute>} />

@@ -155,6 +155,16 @@ const ChapterDetail = () => {
                                 Play Match Game
                             </Button>
                         </Link>
+                        <Link to={`/game/10/ICSE/${subjectId}/${chapterId}`}>
+                            <Button
+                                variant="outline"
+                                size="lg"
+                                className="w-full sm:w-auto px-8 py-6 text-lg border border-blue-500 bg-transparent text-white hover:bg-blue-300 hover:text-white transition-all duration-300"
+                            >
+                                <GamepadIcon className="w-5 h-5 mr-2" />
+                                Play Blast Game
+                            </Button>
+                        </Link>
                     </div>
 
                     {/* Video section */}
