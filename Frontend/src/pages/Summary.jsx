@@ -178,14 +178,14 @@ export default function Summary() {
                       Translate to...
                     </option>
                     <option value="Hindi">Hindi</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="French">French</option>
-                    <option value="German">German</option>
+                    <option value="Spanish">Kannada</option>
+                    <option value="French">Telugu</option>
+                    <option value="German">Gujrathi</option>
                     <option value="Tamil">Tamil</option>
                     <option value="Bengali">Bengali</option>
                     <option value="Marathi">Marathi</option>
-                    <option value="Japanese">Japanese</option>
-                    <option value="Mandarin">Mandarin</option>
+                    <option value="Japanese">Assamese</option>
+                    
                   </select>
 
                   <button

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
@@ -277,10 +278,10 @@ const TestStudyPlan = () => {
                         <div className="flex items-center gap-2">
                           <span
                             className={`text-sm font-semibold ${topic.percentage < 50
-                                ? "text-red-400"
-                                : topic.percentage < 75
-                                  ? "text-yellow-400"
-                                  : "text-green-400"
+                              ? "text-red-400"
+                              : topic.percentage < 75
+                                ? "text-yellow-400"
+                                : "text-green-400"
                               }`}
                           >
                             {topic.percentage}%
@@ -288,12 +289,12 @@ const TestStudyPlan = () => {
 
                           <span
                             className={`text-xs px-2 py-0.5 rounded-full font-medium ${topic.status === "excellent"
-                                ? "bg-blue-500/20 text-blue-400"
-                                : topic.status === "strong"
-                                  ? "bg-green-500/20 text-green-400"
-                                  : topic.status === "weak"
-                                    ? "bg-yellow-500/20 text-yellow-400"
-                                    : "bg-red-500/20 text-red-400"
+                              ? "bg-blue-500/20 text-blue-400"
+                              : topic.status === "strong"
+                                ? "bg-green-500/20 text-green-400"
+                                : topic.status === "weak"
+                                  ? "bg-yellow-500/20 text-yellow-400"
+                                  : "bg-red-500/20 text-red-400"
                               }`}
                           >
                             {topic.status}
@@ -305,10 +306,10 @@ const TestStudyPlan = () => {
                       <div className="w-full bg-slate-800 rounded-full h-2 border border-blue-900">
                         <div
                           className={`h-2 rounded-full ${topic.percentage < 50
-                              ? "bg-red-500"
-                              : topic.percentage < 75
-                                ? "bg-yellow-500"
-                                : "bg-green-500"
+                            ? "bg-red-500"
+                            : topic.percentage < 75
+                              ? "bg-yellow-500"
+                              : "bg-green-500"
                             }`}
                           style={{ width: `${topic.percentage}%` }}
                         />
@@ -461,42 +462,152 @@ const TestStudyPlan = () => {
           {/* Study Schedule Tab */}
           <TabsContent value="schedule" className="space-y-6">
             {/* Calendar View Toggle */}
-            <Card>
+            <Card className="bg-[#1e2941] text-white border border-blue-900 rounded-2xl shadow-lg">
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <CardTitle>Study Calendar</CardTitle>
+                  <CardTitle className="text-lg">Study Calendar</CardTitle>
                   <div className="flex gap-2">
                     <Button
-                      variant={calendarView === "weekly" ? "default" : "outline"}
                       size="sm"
                       onClick={() => setCalendarView("weekly")}
+                      className={`px-4 py-2 rounded-lg font-medium transition ${calendarView === "weekly"
+                          ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md"
+                          : "border border-blue-700 text-white hover:bg-blue-900"
+                        }`}
                     >
                       Weekly
                     </Button>
                     <Button
-                      variant={calendarView === "monthly" ? "default" : "outline"}
                       size="sm"
                       onClick={() => setCalendarView("monthly")}
+                      className={`px-4 py-2 rounded-lg font-medium transition ${calendarView === "monthly"
+                          ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md"
+                          : "border border-blue-700 text-white hover:bg-blue-900"
+                        }`}
                     >
                       Monthly
                     </Button>
                   </div>
+
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Custom Calendar */}
                   <div>
-                    <Calendar
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={(date) => date && setSelectedDate(date)}
-                      className="rounded-md border"
-                    />
+                    {(() => {
+                      const today = new Date();
+                      const [month, setMonth] = React.useState(today.getMonth());
+                      const [year, setYear] = React.useState(today.getFullYear());
+
+                      const firstDayOfMonth = new Date(year, month, 1);
+                      const lastDayOfMonth = new Date(year, month + 1, 0);
+                      const daysInMonth = lastDayOfMonth.getDate();
+
+                      const startDay = firstDayOfMonth.getDay(); // 0=Sunday
+                      const weeks = [];
+                      let currentDay = 1 - startDay;
+
+                      while (currentDay <= daysInMonth) {
+                        const week = [];
+                        for (let i = 0; i < 7; i++) {
+                          if (currentDay > 0 && currentDay <= daysInMonth) {
+                            week.push(currentDay);
+                          } else {
+                            week.push(null);
+                          }
+                          currentDay++;
+                        }
+                        weeks.push(week);
+                      }
+
+                      // Weekly view → show only current week
+                      const currentWeekIndex = weeks.findIndex((week) =>
+                        week.includes(today.getDate())
+                      );
+                      const visibleWeeks =
+                        calendarView === "monthly" ? [weeks[currentWeekIndex]] : weeks;
+
+                      return (
+                        <div className="rounded-xl border border-blue-900 bg-[#1e2941] text-white shadow-lg w-full max-w-md mx-auto p-4">
+                          {/* Header */}
+                          <div className="flex justify-between items-center mb-4">
+                            <button
+                              onClick={() => setMonth((prev) => (prev === 0 ? 11 : prev - 1))}
+                              className="p-2 hover:bg-blue-900 rounded-lg"
+                            >
+                              ‹
+                            </button>
+                            <h2 className="text-lg font-semibold">
+                              {new Date(year, month).toLocaleString("default", {
+                                month: "long",
+                                year: "numeric",
+                              })}
+                            </h2>
+                            <button
+                              onClick={() => setMonth((prev) => (prev === 11 ? 0 : prev + 1))}
+                              className="p-2 hover:bg-blue-900 rounded-lg"
+                            >
+                              ›
+                            </button>
+                          </div>
+
+                          {/* Weekdays */}
+                          <div className="grid grid-cols-7 text-center text-slate-400 font-medium text-sm mb-2">
+                            {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+                              <div key={day}>{day}</div>
+                            ))}
+                          </div>
+
+                          {/* Dates */}
+                          {/* Dates */}
+                          <div className="space-y-1">
+                            {visibleWeeks.map((week, wi) => (
+                              <div key={wi} className="grid grid-cols-7 gap-1">
+                                {week.map((day, di) => {
+                                  const isToday =
+                                    day === today.getDate() &&
+                                    month === today.getMonth() &&
+                                    year === today.getFullYear();
+
+                                  const isSunday = di === 0;
+                                  const isSaturday = di === 6;
+
+                                  return (
+                                    <div
+                                      key={di}
+                                      className={`w-8 h-8 flex items-center justify-center rounded-md text-sm transition ${day
+                                        ? isToday
+                                          ? "bg-blue-600 text-white shadow-md"
+                                          : isSunday
+                                            ? "text-red-400 hover:bg-blue-900"
+                                            : isSaturday
+                                              ? "text-blue-400 hover:bg-blue-900"
+                                              : "hover:bg-blue-900 text-slate-200"
+                                        : "text-slate-500 opacity-50"
+                                        }`}
+                                    >
+                                      {day || ""}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ))}
+                          </div>
+
+                        </div>
+                      );
+                    })()}
                   </div>
+
+                  {/* Today's Tasks */}
                   <div className="space-y-4">
-                    <h4 className="font-semibold">Today's Tasks</h4>
+                    <h4 className="font-semibold text-slate-200">Today's Tasks</h4>
                     {dailyTasks.map((task) => (
-                      <Card key={task.id} className="border-l-4 border-l-primary">
+                      <Card
+                        key={task.id}
+                        className="bg-[#1e2941] border border-blue-900 rounded-xl text-white"
+                      >
                         <CardContent className="p-4">
                           <div className="flex items-start justify-between mb-2">
                             <div className="flex items-center gap-2">
@@ -505,12 +616,14 @@ const TestStudyPlan = () => {
                                 onCheckedChange={() => toggleTaskCompletion(task.id)}
                               />
                               <div>
-                                <h5 className="font-medium">{task.subject} - {task.topic}</h5>
+                                <h5 className="font-medium text-slate-200">
+                                  {task.subject} - {task.topic}
+                                </h5>
                                 <div className="flex items-center gap-2 mt-1">
                                   <Badge className={getDifficultyBadge(task.difficulty)}>
                                     {task.difficulty}
                                   </Badge>
-                                  <span className="text-sm text-muted-foreground flex items-center gap-1">
+                                  <span className="text-sm text-slate-400 flex items-center gap-1">
                                     <Clock className="w-3 h-3" />
                                     {task.estimatedTime}
                                   </span>
@@ -522,15 +635,21 @@ const TestStudyPlan = () => {
                               size="sm"
                               onClick={() => toggleTaskExpansion(task.id)}
                             >
-                              {expandedTasks[task.id] ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                              {expandedTasks[task.id] ? (
+                                <ChevronDown className="w-4 h-4" />
+                              ) : (
+                                <ChevronRight className="w-4 h-4" />
+                              )}
                             </Button>
                           </div>
 
                           {expandedTasks[task.id] && (
-                            <div className="mt-4 space-y-3 border-t pt-3">
+                            <div className="mt-4 space-y-3 border-t border-blue-900 pt-3">
                               <div>
-                                <h6 className="font-medium text-sm mb-1">Key Concepts:</h6>
-                                <ul className="text-sm text-muted-foreground space-y-1">
+                                <h6 className="font-medium text-sm mb-1 text-slate-200">
+                                  Key Concepts:
+                                </h6>
+                                <ul className="text-sm text-slate-400 space-y-1">
                                   {task.keyPoints.map((point, idx) => (
                                     <li key={idx}>• {point}</li>
                                   ))}
@@ -538,7 +657,9 @@ const TestStudyPlan = () => {
                               </div>
 
                               <div>
-                                <h6 className="font-medium text-sm mb-2">Study Resources:</h6>
+                                <h6 className="font-medium text-sm mb-2 text-slate-200">
+                                  Study Resources:
+                                </h6>
                                 <div className="grid grid-cols-1 gap-2">
                                   <Button variant="outline" size="sm" className="justify-start">
                                     <FileText className="w-4 h-4 mr-2" />
@@ -556,10 +677,14 @@ const TestStudyPlan = () => {
                               </div>
 
                               <div className="flex items-center justify-between text-sm">
-                                <span className="text-muted-foreground">AI Confidence Rating:</span>
+                                <span className="text-slate-400">
+                                  AI Confidence Rating:
+                                </span>
                                 <div className="flex items-center gap-2">
                                   <Progress value={task.confidence} className="w-20 h-2" />
-                                  <span className="font-medium">{task.confidence}%</span>
+                                  <span className="font-medium text-slate-200">
+                                    {task.confidence}%
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -574,49 +699,49 @@ const TestStudyPlan = () => {
 
             {/* Daily/Weekly Schedule Recommendations */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
+              <Card className="bg-[#1e2941] text-white border border-blue-900 rounded-2xl shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-lg">Daily Schedule</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950 rounded-lg">
-                    <div className="text-sm font-medium">30 min</div>
-                    <div className="text-sm">Review yesterday's mistakes</div>
+                  <div className="flex items-center gap-3 p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                    <div className="text-sm font-medium text-slate-200">30 min</div>
+                    <div className="text-sm text-slate-300">Review yesterday's mistakes</div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-orange-50 dark:bg-orange-950 rounded-lg">
-                    <div className="text-sm font-medium">45 min</div>
-                    <div className="text-sm">Focus on weakest topic (Calculus)</div>
+                  <div className="flex items-center gap-3 p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                    <div className="text-sm font-medium text-slate-200">45 min</div>
+                    <div className="text-sm text-slate-300">Focus on weakest topic (Calculus)</div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
-                    <div className="text-sm font-medium">15 min</div>
-                    <div className="text-sm">Practice structured answer writing</div>
+                  <div className="flex items-center gap-3 p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                    <div className="text-sm font-medium text-slate-200">15 min</div>
+                    <div className="text-sm text-slate-300">Practice structured answer writing</div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-[#1e2941] text-white border border-blue-900 rounded-2xl shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-lg">Weekly Schedule</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-950 rounded-lg">
-                    <Trophy className="w-4 h-4" />
-                    <div className="text-sm">1 full mock test</div>
+                  <div className="flex items-center gap-3 p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                    <Trophy className="w-4 h-4 text-yellow-400" />
+                    <div className="text-sm text-slate-300">1 full mock test</div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
-                    <Users className="w-4 h-4" />
-                    <div className="text-sm">Peer/teacher feedback session</div>
+                  <div className="flex items-center gap-3 p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                    <Users className="w-4 h-4 text-blue-400" />
+                    <div className="text-sm text-slate-300">Peer/teacher feedback session</div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-purple-50 dark:bg-purple-950 rounded-lg">
-                    <PenTool className="w-4 h-4" />
-                    <div className="text-sm">Diagram & definition revision</div>
+                  <div className="flex items-center gap-3 p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                    <PenTool className="w-4 h-4 text-purple-400" />
+                    <div className="text-sm text-slate-300">Diagram & definition revision</div>
                   </div>
                 </CardContent>
               </Card>
             </div>
 
             {/* AI Recommendations */}
-            <Card>
+            <Card className="bg-[#1e2941] text-white border border-blue-900 rounded-2xl shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Lightbulb className="w-5 h-5 text-yellow-500" />
@@ -624,34 +749,41 @@ const TestStudyPlan = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="p-4 bg-yellow-50 dark:bg-yellow-950 rounded-lg border-l-4 border-yellow-500">
-                  <div className="font-medium text-yellow-800 dark:text-yellow-200 mb-1">Focus Alert</div>
-                  <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                <div className="p-4 bg-[#1e2941] border border-blue-900 rounded-lg">
+                  <div className="font-medium text-yellow-300 mb-1">Focus Alert</div>
+                  <p className="text-sm text-slate-300">
                     Spend more time on Calculus – you've consistently scored below 50% in this topic
                   </p>
                 </div>
 
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="study-techniques">
-                    <AccordionTrigger>Topic-Specific Study Techniques</AccordionTrigger>
+                    <AccordionTrigger className="text-slate-200">
+                      Topic-Specific Study Techniques
+                    </AccordionTrigger>
                     <AccordionContent className="space-y-2">
-                      <div className="p-3 border rounded">
-                        <h5 className="font-medium">For Calculus:</h5>
-                        <p className="text-sm text-muted-foreground">Practice step-by-step differentiation, use visual aids for understanding limits</p>
+                      <div className="p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                        <h5 className="font-medium text-slate-200">For Calculus:</h5>
+                        <p className="text-sm text-slate-300">
+                          Practice step-by-step differentiation, use visual aids for understanding limits
+                        </p>
                       </div>
-                      <div className="p-3 border rounded">
-                        <h5 className="font-medium">For Problem Solving:</h5>
-                        <p className="text-sm text-muted-foreground">Write clear problem-solving steps: Given → Find → Solution → Check</p>
+                      <div className="p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                        <h5 className="font-medium text-slate-200">For Problem Solving:</h5>
+                        <p className="text-sm text-slate-300">
+                          Write clear problem-solving steps: Given → Find → Solution → Check
+                        </p>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
 
                   <AccordionItem value="break-reminders">
-                    <AccordionTrigger>Break & Reminder Cycles</AccordionTrigger>
+                    <AccordionTrigger className="text-slate-200">
+                      Break & Reminder Cycles
+                    </AccordionTrigger>
                     <AccordionContent>
-                      <p className="text-sm text-muted-foreground">
-                        Study for 45 minutes, then take a 15-minute break. After 3 cycles, take a 30-minute break.
-                        Review notes every 2 hours to reinforce learning.
+                      <p className="text-sm text-slate-300">
+                        Study for 45 minutes, then take a 15-minute break. After 3 cycles, take a 30-minute break. Review notes every 2 hours to reinforce learning.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
@@ -660,38 +792,53 @@ const TestStudyPlan = () => {
             </Card>
           </TabsContent>
 
+
+
+
           {/* Progress Tracking Tab */}
           <TabsContent value="progress" className="space-y-6">
             {/* Streak and Achievements */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
+              <Card className="bg-[#1e2941] text-white border border-blue-900 rounded-2xl shadow-lg">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Flame className="w-5 h-5 text-orange-500" />
+                    <Flame className="w-5 h-5 text-orange-400" />
                     Study Streak
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="text-center">
-                  <div className="text-4xl font-bold text-orange-500 mb-2">{streak}</div>
-                  <p className="text-sm text-muted-foreground">
+                  <div className="text-4xl font-bold text-orange-400 mb-2">{streak}</div>
+                  <p className="text-sm text-slate-300">
                     You've studied {streak} days in a row! 🔥
                   </p>
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-[#1e2941] text-white border border-blue-900 rounded-2xl shadow-lg">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Award className="w-5 h-5 text-yellow-500" />
+                    <Award className="w-5 h-5 text-yellow-400" />
                     Achievements
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
                     {achievements.map((achievement, index) => (
-                      <div key={index} className={`p-3 rounded-lg text-center ${achievement.earned ? 'bg-green-50 dark:bg-green-950' : 'bg-gray-50 dark:bg-gray-950'}`}>
-                        <achievement.icon className={`w-6 h-6 mx-auto mb-1 ${achievement.earned ? 'text-green-600' : 'text-gray-400'}`} />
-                        <div className={`text-xs ${achievement.earned ? 'text-green-700 dark:text-green-300' : 'text-gray-500'}`}>
+                      <div
+                        key={index}
+                        className={`p-3 rounded-lg text-center border border-blue-900 ${achievement.earned ? "bg-green-900/30" : "bg-gray-800/50"
+                          }`}
+                      >
+                        <achievement.icon
+                          className={`w-6 h-6 mx-auto mb-1 ${achievement.earned ? "text-green-400" : "text-gray-500"
+                            }`}
+                        />
+                        <div
+                          className={`text-xs ${achievement.earned
+                            ? "text-green-300"
+                            : "text-gray-400"
+                            }`}
+                        >
                           {achievement.name}
                         </div>
                       </div>
@@ -702,39 +849,51 @@ const TestStudyPlan = () => {
             </div>
 
             {/* Progress Charts */}
-            <Card>
+            <Card className="bg-[#1e2941] text-white border border-blue-900 rounded-2xl shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5" />
+                  <BarChart3 className="w-5 h-5 text-cyan-400" />
                   Progress Overview
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
+                  {/* Mastered Topics Progress Bar */}
                   <div>
-                    <h4 className="font-medium mb-3">Mastered vs Pending Topics</h4>
+                    <h4 className="font-medium mb-3 text-slate-200">
+                      Mastered vs Pending Topics
+                    </h4>
                     <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
+                      <div className="flex justify-between text-sm text-slate-300">
                         <span>Mastered Topics</span>
                         <span>2/6 (33%)</span>
                       </div>
-                      <Progress value={33} className="h-2" />
+                      <Progress value={33} className="h-2 bg-gray-700 [&>div]:bg-blue-500" />
                     </div>
                   </div>
 
+                  {/* Weekly Progress */}
                   <div>
-                    <h4 className="font-medium mb-3">Weekly Progress</h4>
-                    <div className="grid grid-cols-7 gap-2">
-                      {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
-                        <div key={day} className="text-center">
-                          <div className="text-xs text-muted-foreground mb-1">{day}</div>
-                          <div className={`w-8 h-8 rounded-full mx-auto flex items-center justify-center text-xs ${index < 4 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' :
-                            'bg-gray-100 text-gray-500 dark:bg-gray-800'
-                            }`}>
-                            {index < 4 ? '✓' : '–'}
+                    <h4 className="font-medium mb-3 text-slate-200">
+                      Weekly Progress
+                    </h4>
+                    <div className="grid grid-cols-7 gap-4">
+                      {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                        (day, index) => (
+                          <div key={day} className="text-center">
+                            <div className="text-xs text-slate-400 mb-1">{day}</div>
+                            <div
+                              className={`w-10 h-10 rounded-full mx-auto flex items-center justify-center text-base font-bold
+                      ${index < 4
+                                  ? "bg-green-100 text-green-600"
+                                  : "bg-white text-slate-500"
+                                }`}
+                            >
+                              {index < 4 ? "✓" : "–"}
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
@@ -742,38 +901,48 @@ const TestStudyPlan = () => {
             </Card>
 
             {/* Checkpoints */}
-            <Card>
+            <Card className="bg-[#1e2941] text-white border border-blue-900 rounded-2xl shadow-lg">
               <CardHeader>
                 <CardTitle>Progress Checkpoints</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center gap-3 p-3 border rounded-lg">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
+                <div className="flex items-center gap-3 p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                  <CheckCircle className="w-5 h-5 text-green-400" />
                   <div>
-                    <div className="font-medium">Week 1 Checkpoint</div>
-                    <div className="text-sm text-muted-foreground">Short re-test on Calculus basics</div>
+                    <div className="font-medium text-slate-200">Week 1 Checkpoint</div>
+                    <div className="text-sm text-slate-400">
+                      Short re-test on Calculus basics
+                    </div>
                   </div>
                   <Button size="sm" variant="outline" className="ml-auto">
                     Take Test
                   </Button>
                 </div>
 
-                <div className="flex items-center gap-3 p-3 border rounded-lg">
-                  <Timer className="w-5 h-5 text-blue-500" />
+                <div className="flex items-center gap-3 p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                  <Timer className="w-5 h-5 text-blue-400" />
                   <div>
-                    <div className="font-medium">Self-Assessment Checklist</div>
-                    <div className="text-sm text-muted-foreground">Review understanding of key concepts</div>
+                    <div className="font-medium text-slate-200">
+                      Self-Assessment Checklist
+                    </div>
+                    <div className="text-sm text-slate-400">
+                      Review understanding of key concepts
+                    </div>
                   </div>
                   <Button size="sm" variant="outline" className="ml-auto">
                     Open Checklist
                   </Button>
                 </div>
 
-                <div className="flex items-center gap-3 p-3 border rounded-lg">
-                  <MessageSquare className="w-5 h-5 text-purple-500" />
+                <div className="flex items-center gap-3 p-3 border border-blue-900 rounded-lg bg-[#1e2941]">
+                  <MessageSquare className="w-5 h-5 text-purple-400" />
                   <div>
-                    <div className="font-medium">Mentor Review (Week 2)</div>
-                    <div className="text-sm text-muted-foreground">Schedule feedback session</div>
+                    <div className="font-medium text-slate-200">
+                      Mentor Review (Week 2)
+                    </div>
+                    <div className="text-sm text-slate-400">
+                      Schedule feedback session
+                    </div>
                   </div>
                   <Button size="sm" variant="outline" className="ml-auto">
                     Schedule
@@ -783,21 +952,28 @@ const TestStudyPlan = () => {
             </Card>
 
             {/* Motivational Note */}
-            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950">
+            <Card className="bg-gradient-to-r from-blue-900 to-purple-900 border border-blue-900 rounded-2xl shadow-lg">
               <CardContent className="p-6 text-center">
-                <Star className="w-8 h-8 mx-auto mb-3 text-yellow-500" />
-                <h3 className="text-lg font-semibold mb-2">You're Making Great Progress!</h3>
-                <p className="text-muted-foreground mb-4">
-                  Your structured approach to problem-solving is a real strength. With focused practice on calculus concepts,
-                  you're well-positioned to improve significantly.
+                <Star className="w-8 h-8 mx-auto mb-3 text-yellow-400" />
+                <h3 className="text-lg font-semibold mb-2 text-slate-100">
+                  You're Making Great Progress!
+                </h3>
+                <p className="text-slate-300 mb-4">
+                  Your structured approach to problem-solving is a real strength.
+                  With focused practice on calculus concepts, you're
+                  well-positioned to improve significantly.
                 </p>
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full">
-                  <Target className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-medium">Goal: Achieve 82% in your next test (+10%)</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#1e2941] border border-blue-900 rounded-full">
+                  <Target className="w-4 h-4 text-green-400" />
+                  <span className="text-sm font-medium text-slate-200">
+                    Goal: Achieve 82% in your next test (+10%)
+                  </span>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
+
+
         </Tabs>
 
         {/* Bottom Controls */}

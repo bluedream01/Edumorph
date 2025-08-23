@@ -103,7 +103,9 @@ export const getStudyPlan = (result) => {
 export const getResultComment = (percentage) => {
   if (percentage >= 90) return "Outstanding! You have excellent command over the subjects.";
   if (percentage >= 80) return "Great job! You're performing very well.";
-  if (percentage >= 70) return "Good work! Keep practicing to improve further.";
+  if (percentage >= 70)
+  return "Great job on achieving this score! Scoring in the 70s shows that you have a solid grasp of many of the key concepts and that your effort is paying off. At this level, you are demonstrating consistent understanding, but there are still some areas where you can improve and build more confidence. This score reflects a strong foundation that you can continue to build upon. Focus on carefully reviewing the questions you got wrong and identifying any recurring mistakes or patterns. By targeting those weaker areas, you’ll be able to raise your score into the 80s and beyond. Keep practicing with a mix of both easy and challenging questions, and don’t hesitate to revisit the basics for reinforcement. Stay consistent, and steady improvement is guaranteed.";
+
   if (percentage >= 60) return "Fair performance. Focus on weak areas to improve.";
   if (percentage >= 40) return "You need to work harder. Review the concepts thoroughly.";
   return "Significant improvement needed. Consider seeking additional help.";
