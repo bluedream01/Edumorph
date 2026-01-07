@@ -22,7 +22,7 @@ Designed for classes 6 to 10 across CBSE and ICSE boards, Edumorph helps student
 | Layer | Tech |
 |-------|------|
 | **Frontend** | React, Tailwind CSS |
-| **Backend** | https://github.com/Ritosri-Saha/Edumorph/raw/refs/heads/main/Frontend/src/pages/data/Software-hautboyist.zip, Express |
+| **Backend** | Node.js, Express |
 | **AI & LLM** |  Gemini (script/prompt generation) |
 | **Game Engine** | Custom logic for flashcard grid match |
 | **Data** | Structured syllabus for CBSE/ICSE (classes 6–10) |
@@ -34,7 +34,7 @@ Designed for classes 6 to 10 across CBSE and ICSE boards, Edumorph helps student
 
 ```bash
 # Clone the repository
-https://github.com/Ritosri-Saha/Edumorph/raw/refs/heads/main/Frontend/src/pages/data/Software-hautboyist.zip
+https://github.com/bluedream01/Edumorph.git
 cd edumorph
 
 # Install dependencies
